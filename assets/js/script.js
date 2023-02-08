@@ -1,10 +1,12 @@
 console.log("reload");
 
-// 
+
 // var start=document.getElementById("homepage");
 // setTimeout(() => {
 //     start.style.display="none";
 //   }, 3000)
+
+
 var category=document.getElementsByClassName("category");
 var nbCategoryTotal=category.length;
 var categorySelected=0;
@@ -13,11 +15,12 @@ var nbItemInCategory=itemInCategory.length;
 var itemSelected=0;
 var toggleSetting=false
 // var test=category[0].getElementsByClassName("item")[0].classList.add("itemSelect");
-
+category[0].focus();
+category[categorySelected].scrollLeft=0;
 itemInCategory[itemSelected].style.border=" 5px solid white";
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
 
-onkeyup = function(evt){
+onkeydown = function(evt){
     switch(evt.keyCode){
         case 37: // left
             if(itemSelected-1>=0){
@@ -40,6 +43,8 @@ onkeyup = function(evt){
                 nbItemInCategory=itemInCategory.length;
                 itemSelected=0;
                 itemInCategory[itemSelected].style.border=" 5px solid white";
+                category[categorySelected].focus();
+                category[categorySelected].scrollLeft=0;
             }
             
             break;
@@ -62,6 +67,8 @@ onkeyup = function(evt){
                         nbItemInCategory=itemInCategory.length;
                         itemSelected=0;
                         itemInCategory[itemSelected].style.border=" 5px solid white";
+                        category[categorySelected].focus();
+                        category[categorySelected].scrollLeft=0;
                     }   
             break;
         case 13:

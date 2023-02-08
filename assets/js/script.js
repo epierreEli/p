@@ -14,10 +14,8 @@ var itemSelected=0;
 var toggleSetting=false
 // var test=category[0].getElementsByClassName("item")[0].classList.add("itemSelect");
 
-console.log('test');
-console.log();
 itemInCategory[itemSelected].style.border=" 5px solid white";
-console.log("category = "+categorySelected+"; item ="+itemSelected);
+// console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
 
 onkeyup = function(evt){
     switch(evt.keyCode){
@@ -39,6 +37,7 @@ onkeyup = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 categorySelected--;
                 itemInCategory=category[categorySelected].getElementsByClassName("item");
+                nbItemInCategory=itemInCategory.length;
                 itemSelected=0;
                 itemInCategory[itemSelected].style.border=" 5px solid white";
             }
@@ -60,6 +59,7 @@ onkeyup = function(evt){
                         itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                         categorySelected++;
                         itemInCategory=category[categorySelected].getElementsByClassName("item");
+                        nbItemInCategory=itemInCategory.length;
                         itemSelected=0;
                         itemInCategory[itemSelected].style.border=" 5px solid white";
                     }   
@@ -69,5 +69,5 @@ onkeyup = function(evt){
         case 8:
             break;
     };
-    console.log("category = "+categorySelected+"; item ="+itemSelected);
+    // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
 }    

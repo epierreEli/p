@@ -1,6 +1,5 @@
 console.log("reload");
 
-
 // var start=document.getElementById("homepage");
 // setTimeout(() => {
 //     start.style.display="none";
@@ -16,9 +15,38 @@ city.innerHTML=cityTag;
 
 // Météo
 
-var weather=document.getElementById("weather");
+var temp=document.getElementById("weather");
+var iconWeather=document.getElementById("iconWeather");
+var icon=["http://openweathermap.org/img/wn/01d@2x.png",
+          "http://openweathermap.org/img/wn/02d@2x.png",
+          "http://openweathermap.org/img/wn/03d@2x.png",
+          "http://openweathermap.org/img/wn/04d@2x.png",
+          "http://openweathermap.org/img/wn/09d@2x.png",
+          "http://openweathermap.org/img/wn/10d@2x.png",
+          "http://openweathermap.org/img/wn/11d@2x.png",
+          "http://openweathermap.org/img/wn/13d@2x.png",
+          "http://openweathermap.org/img/wn/50d@2x.png"
+        ]
+function getWeather() {
+    var url = "https://api.openweathermap.org/data/2.5/weather?q="+cityTag+",fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric"
 
-
+    $.get(url, callBackGetSuccess).done(function() {
+        console.log( "second success" );
+      })
+      .fail(function() {
+        console.log( "error" );
+      })
+      .always(function() {
+        console.log( "finished" );
+      });
+}
+var callBackGetSuccess = function(data) {
+    var dataTemp=data.main.temp.toFixed(1);
+    temp.innerHTML =dataTemp+" °C";
+    console.log("weather : "+data.weather[0].main);
+    iconWeather.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
+}
+getWeather();
 
 
 // Heure + Date
@@ -49,19 +77,17 @@ var nbItemInCategory=itemInCategory.length;
 var itemSelected=0;
 var toggleSetting=false
 var categoryWidth=getComputedStyle(category[categorySelected]).width;
-// var maxwidth=category[categorySelected].scrollLeftMax;
-// console.log(maxwidth);
-// var test=category[0].getElementsByClassName("item")[0].classList.add("itemSelect");
+var scrollLenght=$(".category").eq(0).find(".item").eq(1).position().left.toFixed(0);
+var scrollMax=category[0].scrollLeftMax;
+var scrollAt=0;
+
 category[0].focus();
 console.log(document.activeElement);
 console.log("width = "+categoryWidth);
-console.log("scroll = "+category[categorySelected].scrollLeft)
+console.log("Scroll Max = "+category[categorySelected].scrollLeftMax);
+console.log("scroll = "+scrollLenght);
 category[categorySelected].scrollLeft=0;
-console.log(itemInCategory[0]);
-itemInCategory[0].classList.add("itemSelect");
-console.log(itemInCategory[0].style);
-// itemInCategory[itemSelected].classList.add("itemSelect");
-// itemInCategory[itemSelected].style.border=" 5px solid white";
+itemInCategory[itemSelected].style.border=" 5px solid white";
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
 
 onkeydown = function(evt){
@@ -71,7 +97,10 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 itemSelected--;
                 itemInCategory[itemSelected].style.border=" 5px solid white";
-                category[categorySelected].scrollLeft-=142;
+                scrollAt-=scrollLenght;
+                if (scrollAt<scrollMax){
+                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
+                }
             }
             break;
         case 38: // up
@@ -91,15 +120,17 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid white";
                 category[categorySelected].focus();
                 category[categorySelected].scrollLeft=0;
+                scrollAt=0;
+                scrollMax=category[categorySelected].scrollLeftMax;
             }
-            
             break;
         case 39: // right
             if(itemSelected+1<nbItemInCategory && toggleSetting==false){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 itemSelected++;
                 itemInCategory[itemSelected].style.border=" 5px solid white";
-                category[categorySelected].scrollLeft+=142;
+                scrollAt+=scrollLenght;               
+                $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
             }
             break;
         case 40: // down
@@ -116,6 +147,8 @@ onkeydown = function(evt){
                         itemInCategory[itemSelected].style.border=" 5px solid white";
                         category[categorySelected].focus();
                         category[categorySelected].scrollLeft=0;
+                        scrollAt=0;
+                        scrollMax=category[categorySelected].scrollLeftMax;
                     }   
             break;
         case 13:
@@ -123,7 +156,12 @@ onkeydown = function(evt){
         case 8:
             break;
     };
-    console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
-    console.log(document.activeElement);
-    console.log("Scroll left = "+category[categorySelected].scrollLeft);
+    // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
+    console.log("scrollAt="+scrollAt+"; scrollMax="+scrollMax);
+    // console.log(item);
+    // console.log(document.activeElement);
+    // if (!toggleSetting){
+    //     console.log("Scroll left = "+category[categorySelected].scrollLeft);
+    // }
+    
 }    

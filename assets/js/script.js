@@ -17,16 +17,16 @@ city.innerHTML=cityTag;
 
 var temp=document.getElementById("weather");
 var iconWeather=document.getElementById("iconWeather");
-var icon=["http://openweathermap.org/img/wn/01d@2x.png",
-          "http://openweathermap.org/img/wn/02d@2x.png",
-          "http://openweathermap.org/img/wn/03d@2x.png",
-          "http://openweathermap.org/img/wn/04d@2x.png",
-          "http://openweathermap.org/img/wn/09d@2x.png",
-          "http://openweathermap.org/img/wn/10d@2x.png",
-          "http://openweathermap.org/img/wn/11d@2x.png",
-          "http://openweathermap.org/img/wn/13d@2x.png",
-          "http://openweathermap.org/img/wn/50d@2x.png"
-        ]
+// var icon=["http://openweathermap.org/img/wn/01d@2x.png",
+//           "http://openweathermap.org/img/wn/02d@2x.png",
+//           "http://openweathermap.org/img/wn/03d@2x.png",
+//           "http://openweathermap.org/img/wn/04d@2x.png",
+//           "http://openweathermap.org/img/wn/09d@2x.png",
+//           "http://openweathermap.org/img/wn/10d@2x.png",
+//           "http://openweathermap.org/img/wn/11d@2x.png",
+//           "http://openweathermap.org/img/wn/13d@2x.png",
+//           "http://openweathermap.org/img/wn/50d@2x.png"
+//         ]
 function getWeather() {
     var url = "https://api.openweathermap.org/data/2.5/weather?q="+cityTag+",fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric"
 
@@ -43,10 +43,11 @@ function getWeather() {
 var callBackGetSuccess = function(data) {
     var dataTemp=data.main.temp.toFixed(1);
     temp.innerHTML =dataTemp+" °C";
-    console.log("weather : "+data.weather[0].main);
+    console.log("City : "+data.name+"; weather : "+data.weather[0].main);
     iconWeather.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
 }
 getWeather();
+setInterval(getWeather,3600000);
 
 
 // Heure + Date
@@ -77,14 +78,14 @@ var nbItemInCategory=itemInCategory.length;
 var itemSelected=0;
 var toggleSetting=false
 var categoryWidth=getComputedStyle(category[categorySelected]).width;
-var scrollLenght=$(".category").eq(0).find(".item").eq(1).position().left.toFixed(0);
-var scrollMax=category[0].scrollLeftMax;
+var scrollLenght=$(".category").eq(0).find(".item").eq(1).position().left;
+var scrollMax=category[0].scrollWidth-category[0].clientWidth;
 var scrollAt=0;
 
 category[0].focus();
 console.log(document.activeElement);
 console.log("width = "+categoryWidth);
-console.log("Scroll Max = "+category[categorySelected].scrollLeftMax);
+console.log("Scroll Max = "+scrollMax);
 console.log("scroll = "+scrollLenght);
 category[categorySelected].scrollLeft=0;
 itemInCategory[itemSelected].style.border=" 5px solid white";
@@ -121,7 +122,7 @@ onkeydown = function(evt){
                 category[categorySelected].focus();
                 category[categorySelected].scrollLeft=0;
                 scrollAt=0;
-                scrollMax=category[categorySelected].scrollLeftMax;
+                scrollMax=category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
             }
             break;
         case 39: // right
@@ -148,7 +149,7 @@ onkeydown = function(evt){
                         category[categorySelected].focus();
                         category[categorySelected].scrollLeft=0;
                         scrollAt=0;
-                        scrollMax=category[categorySelected].scrollLeftMax;
+                        scrollMax=category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
                     }   
             break;
         case 13:
@@ -159,7 +160,7 @@ onkeydown = function(evt){
     // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
     console.log("scrollAt="+scrollAt+"; scrollMax="+scrollMax);
     // console.log(item);
-    // console.log(document.activeElement);
+    console.log(document.activeElement);
     // if (!toggleSetting){
     //     console.log("Scroll left = "+category[categorySelected].scrollLeft);
     // }

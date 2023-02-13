@@ -3,7 +3,8 @@
     padding:0;
 }
 body{
-    height: 100%;
+    overflow: hidden;
+    height: 100vh;
     background-color: lightgrey;
     /* background-image: linear-gradient(to bottom, rgba(195,216,221,0.5), rgba(1,84,188,0.5)); */
 }
@@ -11,14 +12,17 @@ body{
 /* --------- */
 
 header{
+    /* position: sticky;
+    top:0; */
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     border: 2px solid black;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
+    z-index: 2;
+    padding: 10px 15px 10px 15px ;
 }
-
 header #location{
     display: flex;
     flex-direction: column;
@@ -30,6 +34,9 @@ header #location div{
 }
 header #location img{
     height: 30px;
+}
+header #logo{
+    height: 80px;
 }
 header #info{
     display:flex;
@@ -49,23 +56,35 @@ header #info img{
 
 /* ---------- */
 
+main{
+    height: 100vh;  
+    width: 100%;
+    /* border: 5px solid forestgreen; */
+    overflow-y: scroll;
+}
+
 main .container{
-    border: 5px solid rgb(47, 82, 143);
+    /* border: 5px dashed rgb(47, 82, 143); */
     /* background-color: rgb(68, 114, 196); */
     padding-left: 20px;
+    height: 250vh;
+        
 }
 main #mainTitle{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin: 30px;
 }
 main .category{
     display: flex;
     overflow-y: hidden;
     position: relative;
-    /* scrollbar-width: none; */ 
+    margin-right: 15px;
+    /* scrollbar-width: none;  */
 }
+
 /* .category::-webkit-scrollbar{
     display: none;
 } */
@@ -88,6 +107,9 @@ main .item span{
     width: 100%;
     text-align: center;
     color: white;
+}
+main .category .item:last-child{
+    margin-right: 0px;
 }
 main #itemSetting{
     display: flex;

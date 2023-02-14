@@ -61,6 +61,7 @@ setInterval(getWeather,3600000);
 var time = document.getElementById("time");
 var dateLocal=document.getElementById("date");
 var updateDate=true;
+var updateHeure=true;
 var options={ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 //function who update the time 
 function updateTime(){ 
@@ -69,7 +70,6 @@ function updateTime(){
     var minutes = date.getMinutes(); 
     var seconds = date.getSeconds(); 
     var largeurClient;
-    time.innerHTML = ((hours < 10) ? "0" : "") + hours + ((minutes < 10) ? ":0" : ":") + minutes + ((seconds < 10) ? ":0" : ":") + seconds; 
     if (updateDate){
         dateLocal.innerHTML=date.toLocaleDateString('fr-FR',options);
         updateDate=false;
@@ -81,15 +81,26 @@ function updateTime(){
             updateDate=true;
         }
     }
-    
+    if(updateHeure){
+        time.innerHTML = ((hours < 10) ? "0" : "") + hours + ((minutes < 10) ? ":0" : ":") + minutes;
+        updateHeure=false;
+    }
+    else{
+        if(seconds==59){
+            updateHeure=true;
+        }
+    }
 } 
 //each second call the function updateTime 
+updateTime();
 setInterval(updateTime, 1000);
 
 
 
 // Nav Spacial du bled  
 
+var body=document.getElementsByTagName("body")[0];
+body.focus();
 var category=document.getElementsByClassName("category");
 var nbCategoryTotal=category.length;
 var categorySelected=0;
@@ -98,31 +109,41 @@ var nbItemInCategory=itemInCategory.length;
 var itemSelected=0;
 var toggleSetting=false
 
+
 itemInCategory[itemSelected].style.border=" 5px solid white";
-var test=document.getElementsByClassName("container")[0];
-console.log(test);
-console.log("active element");
-console.log(document.activeElement);
+// console.log("active element");
+// console.log(document.activeElement);
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
 
-
+var main = document.getElementsByTagName("main")[0];
+main.scrollTop=0;
 category[0].scrollLeft=0;
 var categoryWidth=getComputedStyle(category[categorySelected]).width;
-var scrollLenght=$(".category").eq(0).find(".item").eq(1).position().left;
-// var scrollLenght=parseInt($('.item').eq(1).css("width"))+parseInt($('.item').eq(1).css("margin-right"));
-var scrollMax=category[0].scrollWidth-category[0].clientWidth;
+var scrollLeftLength=$(".category").eq(0).find(".item").eq(1).position().left;
+var scrollMaxGauche=category[0].scrollWidth-category[0].clientWidth;
 var scrollAt=0;
-console.log("width = "+categoryWidth);
-console.log("Scroll Max = "+scrollMax);
-console.log("scroll = "+scrollLenght);
-console.log("scrollAt = "+scrollAt);
-
-var body = document.getElementsByTagName("body");
-console.log(body[0]);
-console.log("height body.scrollHeight = "+body[0].scrollHeight+"; doby.clientHeight = "+body[0].clientHeight);
-var headerHeight=document.getElementById("header").offsetHeight;
-console.log("headerHeight = "+headerHeight);
-// $('main').css("top",headerHeight);
+// console.log("width = "+categoryWidth);
+// console.log("Scroll Max = "+scrollMaxGauche);
+// console.log("scroll = "+scrollLeftLength);
+// console.log("scrollAt = "+scrollAt);
+// console.log("main.scrollHeight = "+main.scrollHeight+"; main.clientHeight = "+main.clientHeight);
+var mainTitle=document.getElementById("mainTitle");
+var styleMainTitle=window.getComputedStyle(mainTitle);
+var hauteurMainTitle=mainTitle.offsetHeight+parseInt(styleMainTitle.marginTop)+parseInt(styleMainTitle.marginBottom);
+// console.log("height tot title = "+hauteurMainTitle);
+var categoryTitle=document.getElementsByTagName("h3")[0];
+var styleCategoryTitle=window.getComputedStyle(categoryTitle);  
+var hauteurCategoryTitle=categoryTitle.offsetHeight+parseInt(styleCategoryTitle.marginTop)+parseInt(styleCategoryTitle.marginBottom);
+// console.log(categoryTitle.offsetHeight/2)
+// console.log("height tot h2 = "+hauteurCategoryTitle);
+var styleCategory=window.getComputedStyle(category[0]);  
+var hauteurCategory=category[0].offsetHeight+parseInt(styleCategory.marginTop)+parseInt(styleCategory.marginBottom);
+// console.log("height tot cat = "+hauteurCategory);
+var scrollHautLength=hauteurCategoryTitle-parseInt(styleCategoryTitle.marginTop)+hauteurCategory;
+// console.log("height tot = "+scrollHautLength);
+// console.log(hauteurMainTitle+(hauteurCategoryTitle-10)/2+hauteurCategory);
+var scrollMaxHaut=main.scrollHeight-main.clientHeight;
+var scrollHaut=0;
 
 
 onkeydown = function(evt){
@@ -133,12 +154,12 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 itemSelected--;
                 itemInCategory[itemSelected].style.border=" 5px solid white";
-                scrollAt-=scrollLenght;
-                if (scrollAt<scrollMax){
+                scrollAt-=scrollLeftLength;
+                if (scrollAt<scrollMaxGauche){
                     $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
                 }
                 else{
-                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollMax},100);
+                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollMaxGauche},100);
                 }
             }
             break;
@@ -159,7 +180,15 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid white";
                 category[categorySelected].scrollLeft=0;
                 scrollAt=0;
-                scrollMax=category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
+                scrollMaxGauche=category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
+                if (categorySelected==0){
+                    scrollHaut=0;
+                    $("main").animate({'scrollTop':scrollHaut},100);
+                }
+                else {
+                    scrollHaut-=scrollHautLength;
+                    $("main").animate({'scrollTop':scrollHaut},100);
+                }
             }
             break;
         case 39: // right
@@ -167,7 +196,7 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 itemSelected++;
                 itemInCategory[itemSelected].style.border=" 5px solid white";
-                scrollAt+=scrollLenght;             
+                scrollAt+=scrollLeftLength;             
                 $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
             }
             break;
@@ -177,25 +206,34 @@ onkeydown = function(evt){
                 toggleSetting=false;
             }
             if (categorySelected+1<nbCategoryTotal){
-                    itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
-                    categorySelected++;
-                    itemInCategory=category[categorySelected].getElementsByClassName("item");
-                    nbItemInCategory=itemInCategory.length;
-                    itemSelected=0;
-                    itemInCategory[itemSelected].style.border=" 5px solid white";
-                    category[categorySelected].scrollLeft=0;
-                    scrollAt=0;
-                    scrollMax=category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
-                    $(".container").animate({'scrollTop':200},100);
+                itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
+                categorySelected++;
+                itemInCategory=category[categorySelected].getElementsByClassName("item");
+                nbItemInCategory=itemInCategory.length;
+                itemSelected=0;
+                itemInCategory[itemSelected].style.border=" 5px solid white";
+                category[categorySelected].scrollLeft=0;
+                scrollAt=0;
+                scrollMaxGauche=category[categorySelected].scrollWidth-category[categorySelected].clientWidth; 
+                if (categorySelected==1){
+                    scrollHaut=hauteurMainTitle+(hauteurCategoryTitle-parseInt(styleCategoryTitle.marginTop))/2+hauteurCategory;
+                    $("main").animate({'scrollTop':scrollHaut},100);
+                }
+                else if (categorySelected>=1){
+                    scrollHaut+=scrollHautLength;
+                    $("main").animate({'scrollTop':scrollHaut},100);
+                }
             }
+            
             break;
-        case 13:
+        case 13: // ok
             break;
-        case 8:
+        case 8: // retour (461=> tv // 8=>ordi)
             break;
     };
     // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
-    // console.log("scrollAt="+scrollAt+"; scrollMax="+scrollMax);
+    // console.log("scrollAt="+scrollAt+"; scrollMaxGauche="+scrollMaxGauche);
+    // console.log("scrollHaut="+scrollHaut+"; scrollMaxHaut="+scrollMaxHaut);
     // console.log(item);
     // console.log(document.activeElement);
 }    

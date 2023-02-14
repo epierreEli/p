@@ -25,7 +25,7 @@ header{
 header #location{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 header #location div{
     display: flex;
@@ -42,7 +42,7 @@ header #info{
     display:flex;
     flex-direction: column;
     text-align: end;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 header #info #infoHD{
     display: flex;

@@ -63,7 +63,6 @@ var dateLocal=document.getElementById("date");
 var updateDate=true;
 var updateHeure=true;
 var options={ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-//function who update the time 
 function updateTime(){ 
     var date = new Date(); 
     var hours = date.getHours(); 
@@ -91,7 +90,6 @@ function updateTime(){
         }
     }
 } 
-//each second call the function updateTime 
 updateTime();
 setInterval(updateTime, 1000);
 

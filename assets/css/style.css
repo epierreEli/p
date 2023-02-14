@@ -107,13 +107,17 @@ main .item{
     flex-shrink: 0;
     border: 5px solid rgb(174, 90, 33);
     background-color: rgb(237, 125, 49);
-    height: 100px;
-    width: 150px;
+    height: 150px;
+    width: 200px;
     margin-right: 15px;
 }
 main .item span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
+    height: 20%;
     text-align: center;
     color: white;
 }

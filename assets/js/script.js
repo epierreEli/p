@@ -1,5 +1,6 @@
 console.clear();
 console.log("reload");
+console.log();
 
 // var start=document.getElementById("homepage");
 // setTimeout(() => {
@@ -154,10 +155,10 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid white";
                 scrollAt-=scrollLeftLength;
                 if (scrollAt<scrollMaxGauche){
-                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
+                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},200);
                 }
                 else{
-                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollMaxGauche},100);
+                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollMaxGauche},200);
                 }
             }
             break;
@@ -181,11 +182,11 @@ onkeydown = function(evt){
                 scrollMaxGauche=category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
                 if (categorySelected==0){
                     scrollHaut=0;
-                    $("main").animate({'scrollTop':scrollHaut},100);
+                    $("main").animate({'scrollTop':scrollHaut},200);
                 }
                 else {
                     scrollHaut-=scrollHautLength;
-                    $("main").animate({'scrollTop':scrollHaut},100);
+                    $("main").animate({'scrollTop':scrollHaut},200);
                 }
             }
             break;
@@ -195,7 +196,7 @@ onkeydown = function(evt){
                 itemSelected++;
                 itemInCategory[itemSelected].style.border=" 5px solid white";
                 scrollAt+=scrollLeftLength;             
-                $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
+                $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},200);
             }
             break;
         case 40: // down
@@ -215,11 +216,11 @@ onkeydown = function(evt){
                 scrollMaxGauche=category[categorySelected].scrollWidth-category[categorySelected].clientWidth; 
                 if (categorySelected==1){
                     scrollHaut=hauteurMainTitle+(hauteurCategoryTitle-parseInt(styleCategoryTitle.marginTop))/2+hauteurCategory;
-                    $("main").animate({'scrollTop':scrollHaut},100);
+                    $("main").animate({'scrollTop':scrollHaut},200);
                 }
                 else if (categorySelected>=1){
                     scrollHaut+=scrollHautLength;
-                    $("main").animate({'scrollTop':scrollHaut},100);
+                    $("main").animate({'scrollTop':scrollHaut},200);
                 }
             }
             

@@ -99,6 +99,8 @@ var itemSelected=0;
 var toggleSetting=false
 
 itemInCategory[itemSelected].style.border=" 5px solid white";
+var test=document.getElementsByClassName("container")[0];
+console.log(test);
 console.log("active element");
 console.log(document.activeElement);
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
@@ -124,7 +126,7 @@ console.log("headerHeight = "+headerHeight);
 
 
 onkeydown = function(evt){
-
+    document.getElementById("title").innerHTML="evt.key = "+evt.key+"; evt.keyCode = "+evt.keyCode;
     switch(evt.keyCode){
         case 37: // left
             if(itemSelected-1>=0 && toggleSetting==false){
@@ -184,7 +186,7 @@ onkeydown = function(evt){
                     category[categorySelected].scrollLeft=0;
                     scrollAt=0;
                     scrollMax=category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
-                    $("body").animate({'scrollTop':headerHeight},100);
+                    $(".container").animate({'scrollTop':200},100);
             }
             break;
         case 13:

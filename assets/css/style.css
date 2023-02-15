@@ -88,6 +88,7 @@ main .category{
     position: relative;
     margin: 10px 15px 20px 0px;
     scrollbar-width: none;
+    filter: brightness(50%);
 }
 .category::-webkit-scrollbar{
     display: none;
@@ -129,6 +130,7 @@ main #itemSetting{
     height: auto;
     width: auto;
     align-items: center;
+    filter: brightness(50%);
 }
 main #itemSetting img{
     height: 30px;
@@ -152,4 +154,7 @@ main #homepage #homepageHello{
 
 .itemSelected{
     border: 5px solid white;
+}
+.categorySelected{
+    filter: brightness(100%);
 }

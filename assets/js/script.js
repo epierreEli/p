@@ -2,14 +2,12 @@ console.clear();
 console.log("reload");
 console.log();
 
-// var start=document.getElementById("homepage");
-// setTimeout(() => {
-//     start.style.display="none";
-//   }, 3000)
+var start=document.getElementById("homepage");
+setTimeout(() => {
+    start.style.display="none";
+  }, 3000)
 
-var clientTag= "Mr MAC Adam";
 var client=document.getElementById("client");
-client.innerHTML=clientTag;
 
 // var iconLangue=["https://cdn-icons-png.flaticon.com/512/330/330490.png", // fr
 //                 "https://cdn-icons-png.flaticon.com/512/330/330425.png", // en
@@ -20,9 +18,8 @@ client.innerHTML=clientTag;
 
 // Météo
 
-var cityTag="Toulon";
+
 var city=document.getElementById("city");
-city.innerHTML=cityTag;
 var temp=document.getElementById("weather");
 var iconWeather=document.getElementById("iconWeather");
 // var icon=["https://openweathermap.org/img/wn/01d@2x.png", // Clear sky
@@ -35,8 +32,8 @@ var iconWeather=document.getElementById("iconWeather");
 //           "https://openweathermap.org/img/wn/13d@2x.png", // Snow
 //           "https://openweathermap.org/img/wn/50d@2x.png"  // Mist
 //         ]
-function getWeather() {
-    var url = "https://api.openweathermap.org/data/2.5/weather?q="+cityTag+",fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric"
+function getWeather(cityTag) {
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityTag},fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric`;
     $.get(url, callBackGetSuccess).done(function() {
         // console.log( "second success" );
       })
@@ -51,9 +48,8 @@ var callBackGetSuccess = function(data) {
     var dataTemp=data.main.temp.toFixed(1);
     temp.innerHTML =dataTemp+" °C";
     // console.log("City : "+data.name+"; weather : "+data.weather[0].main);
-    iconWeather.setAttribute("src","https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
+    iconWeather.setAttribute("src",`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
 }
-getWeather();
 setInterval(getWeather,3600000);
 
 
@@ -233,3 +229,105 @@ onkeydown = function(evt){
     // console.log(item);
     // console.log(document.activeElement);
 }    
+
+
+// fetch("http://hospitality.ansetech.com:7001/api/codes_www").then((response) => 
+//     response.json()).then((data)=>{
+//         console.log("test api");
+//         console.log(data[0]);
+//     });
+
+
+async function loginIn(params){
+    const res = await fetch("http://hospitality.ansetech.com:7001/api/auth/local",
+        {
+            // mode:'no-cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json',
+                'User-Agent': 'Android Multipart HTTP Client 1.0',
+            },
+            body: JSON.stringify(
+                {
+                    "email": "chambre1@snow-chill2.com",
+                    "password": "abcd1234",
+                }
+            )
+        }
+    ).then((response) => response.json());
+    console.log(res.userId);
+    return res;
+}
+
+async function getUser(data) {
+    const res = await fetch(`http://hospitality.ansetech.com:7001/api/users/${data.userId}`,
+        {
+            headers:{
+                "User-Agent":"MyAgent",
+                "Authorization": "Bearer "+data.token,
+            }
+        }
+    ).then((response) => response.json());
+    // console.log(res.user[0]);
+    return res.user[0];
+}
+async function getHotel(data,user) {
+    const res = await fetch(`http://hospitality.ansetech.com:7001/api/hotels/${user.hotel_id}`,
+        {
+            headers:{
+                "User-Agent":"MyAgent",
+                "Authorization": "Bearer "+data.token,
+            }
+        }
+    ).then((response) => response.json());
+    // console.log(res.hotel[0]);
+    return res.hotel[0];
+}
+
+async function getPage(data, user){
+    const res = await fetch(`http://hospitality.ansetech.com:7001/api/pages/fr/${user.hotel_id}`,
+        {   
+            // mode:'no-cors',
+            headers:{
+                "User-Agent":"MyAgent",
+                "Authorization": "Bearer "+data.token,
+            }
+        }
+    ).then((response) => response.json());
+    // console.log(res)
+    return res;
+}
+
+function image(hotel){
+    console.log('Affiche')
+    image1.setAttribute('src',`http://hospitality.ansetech.com/host/${hotel.picturePath}`);
+    image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
+}
+
+async function getInfo(params) {
+    console.log("Tentative de connexion");
+    const data = await loginIn();     
+    console.log("Token: "+data.token);
+    console.log("getUser");
+    const user= await getUser(data);
+    client.innerHTML=user.clientName;
+    // console.log("nom : "+user.clientName);
+    console.log("getHotel");
+    const hotel=await getHotel(data, user);
+    // console.log("ville : "+hotel.city);
+    getWeather(hotel.city);
+    city.innerHTML=hotel.city;
+    console.log("getPages")
+    const page= await getPage(data, user);
+    console.log("nb category : "+page.length);
+    console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
+    console.log("item 1 : "+page[0].contents[0].title);
+    console.log("item 2 : "+page[0].contents[1].title);
+    console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
+    console.log("item 1 : "+page[1].contents[0].title);
+    console.log("item 2 : "+page[1].contents[1].title);   
+    // image(hotel);
+}
+
+getInfo();

@@ -111,7 +111,8 @@ var toggleSetting=false
 // Init Nav
 itemInCategory[0].style.border=" 5px solid white";
 // category[0].style.filter="brightness()";
-category[0].classList.add("categorySelected");
+// category[0].classList.add("categorySelected");
+$(".category").eq(0).css("-webkit-filter","brightness()");
 // console.log("active element");
 // console.log(document.activeElement);
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
@@ -167,18 +168,18 @@ onkeydown = function(evt){
         case 38: // up
             if(categorySelected==0){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
-                category[categorySelected].style.filter="brightness(50%)";
+                $(".category").eq(categorySelected).css("-webkit-filter","brightness(50%)");
                 document.getElementById("itemSetting").style.border=" 5px solid white";
-                document.getElementById("itemSetting").style.filter="brightness()"
+                $("#itemSetting").css("-webkit-filter","brightness()");
                 toggleSetting=true;
                 categorySelected=-1;
                 console.log("settings");
             }
             if (categorySelected-1>=0){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
-                category[categorySelected].style.filter="brightness(50%)";
+                $(".category").eq(categorySelected).css("-webkit-filter","brightness(50%)");
                 categorySelected--;
-                category[categorySelected].style.filter="brightness()";
+                $(".category").eq(categorySelected).css("-webkit-filter","brightness()");
                 itemInCategory=category[categorySelected].getElementsByClassName("item");
                 nbItemInCategory=itemInCategory.length;
                 itemSelected=0;
@@ -208,16 +209,16 @@ onkeydown = function(evt){
         case 40: // down
             if(toggleSetting==true){
                 document.getElementById("itemSetting").style.border=" 5px solid rgb(174,90,33)";
-                document.getElementById("itemSetting").style.filter="brightness(50%)"
+                $("#itemSetting").css("-webkit-filter","brightness(50%)");
                 toggleSetting=false;
             }
             if (categorySelected+1<nbCategoryTotal){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 if (categorySelected>=0){
-                    category[categorySelected].style.filter="brightness(50%)";
+                    $(".category").eq(categorySelected).css("-webkit-filter","brightness(50%)");
                 }
                 categorySelected++;
-                category[categorySelected].style.filter="brightness()";
+                $(".category").eq(categorySelected).css("-webkit-filter","brightness()");
                 itemInCategory=category[categorySelected].getElementsByClassName("item");
                 nbItemInCategory=itemInCategory.length;
                 itemSelected=0;

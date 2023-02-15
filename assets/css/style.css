@@ -16,9 +16,6 @@ body{
 .itemSelected{
     border: 5px solid white;
 }
-.categorySelected{
-    -webkit-filter:brightness(100%);
-}
 
 /* --------- */
 
@@ -97,7 +94,6 @@ main .category{
     position: relative;
     margin: 10px 15px 20px 0px;
     scrollbar-width: none;
-    /* filter: brightness(50%); */
     -webkit-filter:brightness(50%);
 }
 .category::-webkit-scrollbar{
@@ -140,7 +136,7 @@ main #itemSetting{
     height: auto;
     width: auto;
     align-items: center;
-    filter: brightness(50%);
+    -webkit-filter:brightness(50%);
 }
 main #itemSetting img{
     height: 30px;

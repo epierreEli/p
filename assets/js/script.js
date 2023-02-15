@@ -112,7 +112,7 @@ var toggleSetting=false
 itemInCategory[0].style.border=" 5px solid white";
 // category[0].style.filter="brightness()";
 // category[0].classList.add("categorySelected");
-$(".category").eq(0).css("-webkit-filter","brightness()");
+$(".category").eq(0).css("-webkit-filter","brightness(100%)");
 // console.log("active element");
 // console.log(document.activeElement);
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
@@ -170,7 +170,7 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 $(".category").eq(categorySelected).css("-webkit-filter","brightness(50%)");
                 document.getElementById("itemSetting").style.border=" 5px solid white";
-                $("#itemSetting").css("-webkit-filter","brightness()");
+                $("#itemSetting").css("-webkit-filter","brightness(100%)");
                 toggleSetting=true;
                 categorySelected=-1;
                 console.log("settings");
@@ -179,7 +179,7 @@ onkeydown = function(evt){
                 itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
                 $(".category").eq(categorySelected).css("-webkit-filter","brightness(50%)");
                 categorySelected--;
-                $(".category").eq(categorySelected).css("-webkit-filter","brightness()");
+                $(".category").eq(categorySelected).css("-webkit-filter","brightness(100%)");
                 itemInCategory=category[categorySelected].getElementsByClassName("item");
                 nbItemInCategory=itemInCategory.length;
                 itemSelected=0;
@@ -218,7 +218,7 @@ onkeydown = function(evt){
                     $(".category").eq(categorySelected).css("-webkit-filter","brightness(50%)");
                 }
                 categorySelected++;
-                $(".category").eq(categorySelected).css("-webkit-filter","brightness()");
+                $(".category").eq(categorySelected).css("-webkit-filter","brightness(100%   )");
                 itemInCategory=category[categorySelected].getElementsByClassName("item");
                 nbItemInCategory=itemInCategory.length;
                 itemSelected=0;

@@ -239,7 +239,7 @@ onkeydown = function(evt){
 
 
 async function loginIn(params){
-    const res = await fetch("https://hospitality.ansetech.com:7001/api/auth/local",
+    const res = await fetch("http://hospitality.ansetech.com:7001/api/auth/local",
         {
             // mode:'no-cors',
             method: 'POST',
@@ -261,7 +261,7 @@ async function loginIn(params){
 }
 
 async function getUser(data) {
-    const res = await fetch(`https://hospitality.ansetech.com:7001/api/users/${data.userId}`,
+    const res = await fetch(`http://hospitality.ansetech.com:7001/api/users/${data.userId}`,
         {
             headers:{
                 "User-Agent":"MyAgent",
@@ -273,7 +273,7 @@ async function getUser(data) {
     return res.user[0];
 }
 async function getHotel(data,user) {
-    const res = await fetch(`https://hospitality.ansetech.com:7001/api/hotels/${user.hotel_id}`,
+    const res = await fetch(`http://hospitality.ansetech.com:7001/api/hotels/${user.hotel_id}`,
         {
             headers:{
                 "User-Agent":"MyAgent",
@@ -286,7 +286,7 @@ async function getHotel(data,user) {
 }
 
 async function getPage(data, user){
-    const res = await fetch(`https://hospitality.ansetech.com:7001/api/pages/fr/${user.hotel_id}`,
+    const res = await fetch(`http://hospitality.ansetech.com:7001/api/pages/fr/${user.hotel_id}`,
         {   
             // mode:'no-cors',
             headers:{
@@ -301,8 +301,8 @@ async function getPage(data, user){
 
 function image(hotel){
     console.log('Affiche')
-    image1.setAttribute('src',`https://hospitality.ansetech.com/host/${hotel.picturePath}`);
-    image2.setAttribute('src',`https://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
+    image1.setAttribute('src',`http://hospitality.ansetech.com/host/${hotel.picturePath}`);
+    image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
 }
 
 async function getInfo(params) {

@@ -239,7 +239,7 @@ onkeydown = function(evt){
 
 
 async function loginIn(params){
-    const res = await fetch("http://hospitality.ansetech.com:7001/api/auth/local",
+    const res = await fetch("https://hospitality.ansetech.com:7001/api/auth/local",
         {
             // mode:'no-cors',
             method: 'POST',
@@ -256,12 +256,12 @@ async function loginIn(params){
             )
         }
     ).then((response) => response.json());
-    console.log(res.userId);
+    // console.log(res.userId);
     return res;
 }
 
 async function getUser(data) {
-    const res = await fetch(`http://hospitality.ansetech.com:7001/api/users/${data.userId}`,
+    const res = await fetch(`https://hospitality.ansetech.com:7001/api/users/${data.userId}`,
         {
             headers:{
                 "User-Agent":"MyAgent",
@@ -273,7 +273,7 @@ async function getUser(data) {
     return res.user[0];
 }
 async function getHotel(data,user) {
-    const res = await fetch(`http://hospitality.ansetech.com:7001/api/hotels/${user.hotel_id}`,
+    const res = await fetch(`https://hospitality.ansetech.com:7001/api/hotels/${user.hotel_id}`,
         {
             headers:{
                 "User-Agent":"MyAgent",
@@ -286,7 +286,7 @@ async function getHotel(data,user) {
 }
 
 async function getPage(data, user){
-    const res = await fetch(`http://hospitality.ansetech.com:7001/api/pages/fr/${user.hotel_id}`,
+    const res = await fetch(`https://hospitality.ansetech.com:7001/api/pages/fr/${user.hotel_id}`,
         {   
             // mode:'no-cors',
             headers:{
@@ -301,8 +301,8 @@ async function getPage(data, user){
 
 function image(hotel){
     console.log('Affiche')
-    image1.setAttribute('src',`http://hospitality.ansetech.com/host/${hotel.picturePath}`);
-    image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
+    image1.setAttribute('src',`https://hospitality.ansetech.com/host/${hotel.picturePath}`);
+    image2.setAttribute('src',`https://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
 }
 
 async function getInfo(params) {
@@ -312,21 +312,19 @@ async function getInfo(params) {
     console.log("getUser");
     const user= await getUser(data);
     client.innerHTML=user.clientName;
-    // console.log("nom : "+user.clientName);
     console.log("getHotel");
     const hotel=await getHotel(data, user);
-    // console.log("ville : "+hotel.city);
     getWeather(hotel.city);
     city.innerHTML=hotel.city;
-    console.log("getPages")
-    const page= await getPage(data, user);
-    console.log("nb category : "+page.length);
-    console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
-    console.log("item 1 : "+page[0].contents[0].title);
-    console.log("item 2 : "+page[0].contents[1].title);
-    console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
-    console.log("item 1 : "+page[1].contents[0].title);
-    console.log("item 2 : "+page[1].contents[1].title);   
+    console.log("getPages");
+    // const page= await getPage(data, user);
+    // console.log("nb category : "+page.length);
+    // console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
+    // console.log("item 1 : "+page[0].contents[0].title);
+    // console.log("item 2 : "+page[0].contents[1].title);
+    // console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
+    // console.log("item 1 : "+page[1].contents[0].title);
+    // console.log("item 2 : "+page[1].contents[1].title);   
     // image(hotel);
 }
 

@@ -11,6 +11,15 @@ body{
     background-size: cover;
 }
 
+/* -----classList---- */
+
+.itemSelected{
+    border: 5px solid white;
+}
+.categorySelected{
+    -webkit-filter:brightness(100%);
+}
+
 /* --------- */
 
 header{
@@ -61,11 +70,11 @@ main{
     width: 100%;
     /* border: 5px solid forestgreen; */
     overflow-y: scroll;
-    /* scrollbar-width: none; */
+    scrollbar-width: none;
 }
-/* main::-webkit-scrollbar {
+main::-webkit-scrollbar {
     display: none;
-  } */
+  }
 main h2, h3 {
     color: white;
 }
@@ -88,7 +97,8 @@ main .category{
     position: relative;
     margin: 10px 15px 20px 0px;
     scrollbar-width: none;
-    filter: brightness(50%);
+    /* filter: brightness(50%); */
+    -webkit-filter:brightness(50%);
 }
 .category::-webkit-scrollbar{
     display: none;
@@ -150,11 +160,3 @@ main #homepage #homepageHello{
     width: 40%;
 }
 
-/* -----classList---- */
-
-.itemSelected{
-    border: 5px solid white;
-}
-.categorySelected{
-    filter: brightness(100%);
-}

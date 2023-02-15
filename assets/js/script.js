@@ -110,7 +110,8 @@ var toggleSetting=false
 
 // Init Nav
 itemInCategory[0].style.border=" 5px solid white";
-category[0].style.filter="brightness()";
+// category[0].style.filter="brightness()";
+category[0].classList.add("categorySelected");
 // console.log("active element");
 // console.log(document.activeElement);
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);

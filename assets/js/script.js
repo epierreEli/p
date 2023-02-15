@@ -2,10 +2,10 @@ console.clear();
 console.log("reload");
 console.log();
 
-var start=document.getElementById("homepage");
-setTimeout(() => {
-    start.style.display="none";
-  }, 3000)
+// var start=document.getElementById("homepage");
+// setTimeout(() => {
+//     start.style.display="none";
+//   }, 3000)
 
 var client=document.getElementById("client");
 

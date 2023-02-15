@@ -83,9 +83,9 @@ main .container{
 }
 main #mainTitle{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
     margin: 30px;
 }
 main .category{
@@ -93,8 +93,8 @@ main .category{
     overflow-y: hidden;
     position: relative;
     margin: 10px 15px 20px 0px;
+    -webkit-filter:brightness(20%);
     scrollbar-width: none;
-    -webkit-filter:brightness(50%);
 }
 .category::-webkit-scrollbar{
     display: none;
@@ -131,15 +131,15 @@ main .item span{
 main .category .item:last-child{
     margin-right: 0px;
 }
-main #itemSetting{
+/* main #itemSetting{
     display: flex;
-    height: auto;
-    width: auto;
-    align-items: center;
-    -webkit-filter:brightness(50%);
-}
-main #itemSetting img{
-    height: 30px;
+    margin-top: 15px;
+    -webkit-filter:brightness(20%);
+} */
+main .image{
+    height: 50px;
+    width: 50px;
+    margin-right: 20px;
 }
 main #homepage{
     position: absolute  ;

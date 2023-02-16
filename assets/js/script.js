@@ -282,6 +282,7 @@ function loginInJQuery(params){
             console.log( "error" );
             res=response.responseJSON;
             console.log(res);
+            client.innerHTML=res;
         })  
         .always(function() {
             console.log( "finished" );

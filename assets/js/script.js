@@ -267,29 +267,50 @@ onkeydown = function(evt){
 //     return res;
 // }
 
-function loginInJQuery(params){
-    console.log("login jQuery")
-    var url=`https://hospitality.ansetech.com:7443/api/auth/local`;
-    var res;
-    $.post(url, { email: "chambre1@snow-chill2.com", password: "abcd1234" })
-        .done(function(response) {
-            console.log( "Logged In" );
-            res=response;  
+// function loginInJQuery(params){
+//     console.log("login jQuery")
+//     var url=`https://hospitality.ansetech.com:7443/api/auth/local`;
+//     var res;
+//     $.post(url, { email: "chambre1@snow-chill2.com", password: "abcd1234" })
+//         .done(function(response) {
+//             console.log( "Logged In" );
+//             res=response;  
+//             console.log(response);
+//             client.innerHTML=response.userId;
+//         })
+//         .fail(function(response) {
+//             console.log( "error" );
+//             res=response.responseJSON;
+//             console.log(res);
+//             client.innerHTML=res;
+//         })  
+//         .always(function() {
+//             console.log( "finished" );
+//             city.innerHTML= "Request Fini";
+//         });
+//     return res;
+// }
+
+function loginInXHR(params){
+    console.log("login XHR");
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", 
+             `https://hospitality.ansetech.com:7443/api/auth/local`,
+              true,
+            );
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState ==4 && xhr.status ==200) {
+            var response = JSON.parse(this.response);
             console.log(response);
             client.innerHTML=response.userId;
-        })
-        .fail(function(response) {
-            console.log( "error" );
-            res=response.responseJSON;
-            console.log(res);
-            client.innerHTML=res;
-        })  
-        .always(function() {
-            console.log( "finished" );
-            city.innerHTML= "Request Fini";
-        });
-    return res;
+            //Use this sessionId in all other calls
+            city.innerHTML="Request fini";
+        }
+    }
+    xhr.send('{"email":"chambre1@snow-chill2.com","password":"abcd1234"}');
 }
+
 
 // function getWeather() {
 //     console.log("citytag = "+cityTag+"; getWeather");
@@ -370,11 +391,13 @@ function affiche(user){
 function getInfo(params) {
     console.log("Tentative de connexion");
     // const data = await loginIn(); 
-    const dataJQuery = loginInJQuery();
+    // console.log("Token: "+data.token);
+    // const dataJQuery = loginInJQuery();
     // console.log("dataJQuery");
     // console.log(dataJQuery);
+    const dataXHR = loginInXHR();
     
-    // console.log("Token: "+data.token);
+    
     // console.log("getUser");
     // const user= await getUser(data); 
 

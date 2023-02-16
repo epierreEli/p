@@ -22,6 +22,7 @@ var client=document.getElementById("client");
 var city=document.getElementById("city");
 var temp=document.getElementById("weather");
 var iconWeather=document.getElementById("iconWeather");
+var cityTag;
 // var icon=["https://openweathermap.org/img/wn/01d@2x.png", // Clear sky
 //           "https://openweathermap.org/img/wn/02d@2x.png", // Few clouds 
 //           "https://openweathermap.org/img/wn/03d@2x.png", // Scattered clouds 
@@ -32,11 +33,15 @@ var iconWeather=document.getElementById("iconWeather");
 //           "https://openweathermap.org/img/wn/13d@2x.png", // Snow
 //           "https://openweathermap.org/img/wn/50d@2x.png"  // Mist
 //         ]
-function getWeather(cityTag) {
+function getWeather() {
+    // console.log("citytag = "+cityTag);
+    // console.log("getWeather");
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityTag},fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric`;
-    $.get(url, callBackGetSuccess).done(function() {
-        // console.log( "second success" );
-      })
+    $.get(url).done(function(data){
+        var dataTemp=data.main.temp.toFixed(1);
+        temp.innerHTML =dataTemp+" °C";
+        iconWeather.setAttribute("src",`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+    })
       .fail(function() {
         console.log( "error" );
       })
@@ -44,13 +49,6 @@ function getWeather(cityTag) {
          console.log( "update weather finished" );
       });
 }
-var callBackGetSuccess = function(data) {
-    var dataTemp=data.main.temp.toFixed(1);
-    temp.innerHTML =dataTemp+" °C";
-    // console.log("City : "+data.name+"; weather : "+data.weather[0].main);
-    iconWeather.setAttribute("src",`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
-}
-setInterval(getWeather,3600000);
 
 
 // Heure + Date
@@ -59,6 +57,7 @@ var time = document.getElementById("time");
 var dateLocal=document.getElementById("date");
 var updateDate=true;
 var updateHeure=true;
+var updateMeteo=false
 var options={ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 function updateTime(){ 
     var date = new Date(); 
@@ -66,6 +65,7 @@ function updateTime(){
     var minutes = date.getMinutes(); 
     var seconds = date.getSeconds(); 
     var largeurClient;
+    // console.log("updateHeure : "+updateHeure+"; updateMeteo : "+updateMeteo+"; updateDate : "+updateDate);
     if (updateDate){
         dateLocal.innerHTML=date.toLocaleDateString('fr-FR',options);
         updateDate=false;
@@ -84,6 +84,15 @@ function updateTime(){
     else{
         if(seconds==59){
             updateHeure=true;
+        }
+    }
+    if(updateMeteo){
+        getWeather();
+        updateMeteo=false;
+    }
+    else{
+        if(seconds==59){
+            updateMeteo=true;
         }
     }
 } 
@@ -239,7 +248,7 @@ onkeydown = function(evt){
 
 
 async function loginIn(params){
-    const res = await fetch("http://hospitality.ansetech.com:7001/api/auth/local",
+    const res = await fetch("https://hospitality.ansetech.com:7443/api/auth/local",
         {
             // mode:'no-cors',
             method: 'POST',
@@ -261,7 +270,7 @@ async function loginIn(params){
 }
 
 async function getUser(data) {
-    const res = await fetch(`http://hospitality.ansetech.com:7001/api/users/${data.userId}`,
+    const res = await fetch(`https://hospitality.ansetech.com:7443/api/users/${data.userId}`,
         {
             headers:{
                 "User-Agent":"MyAgent",
@@ -273,7 +282,7 @@ async function getUser(data) {
     return res.user[0];
 }
 async function getHotel(data,user) {
-    const res = await fetch(`http://hospitality.ansetech.com:7001/api/hotels/${user.hotel_id}`,
+    const res = await fetch(`https://hospitality.ansetech.com:7443/api/hotels/${user.hotel_id}`,
         {
             headers:{
                 "User-Agent":"MyAgent",
@@ -286,7 +295,7 @@ async function getHotel(data,user) {
 }
 
 async function getPage(data, user){
-    const res = await fetch(`http://hospitality.ansetech.com:7001/api/pages/fr/${user.hotel_id}`,
+    const res = await fetch(`https://hospitality.ansetech.com:7443/api/pages/fr/${user.hotel_id}`,
         {   
             // mode:'no-cors',
             headers:{
@@ -295,14 +304,29 @@ async function getPage(data, user){
             }
         }
     ).then((response) => response.json());
-    // console.log(res)
+    // console.log(res);
     return res;
 }
 
-function image(hotel){
-    console.log('Affiche')
-    image1.setAttribute('src',`http://hospitality.ansetech.com/host/${hotel.picturePath}`);
-    image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
+// function image(hotel){
+//     console.log('Affiche')
+//     image1.setAttribute('src',`http://hospitality.ansetech.com/host/${hotel.picturePath}`);
+//     image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
+// }
+
+function affiche(user,hotel,page){
+    // console.log("affichage");
+    client.innerHTML=user.clientName;
+    city.innerHTML=hotel.city;
+    cityTag=hotel.city
+    getWeather();
+    // console.log("nb category : "+page.length);
+    // console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
+    // console.log("item 1 : "+page[0].contents[0].title);
+    // console.log("item 2 : "+page[0].contents[1].title);
+    // console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
+    // console.log("item 1 : "+page[1].contents[0].title);
+    // console.log("item 2 : "+page[1].contents[1].title); 
 }
 
 async function getInfo(params) {
@@ -310,22 +334,14 @@ async function getInfo(params) {
     const data = await loginIn();     
     console.log("Token: "+data.token);
     console.log("getUser");
-    const user= await getUser(data);
-    client.innerHTML=user.clientName;
+    const user= await getUser(data); 
     console.log("getHotel");
     const hotel=await getHotel(data, user);
-    getWeather(hotel.city);
-    city.innerHTML=hotel.city;
-    console.log("getPages");
+    // console.log("getPages");
     // const page= await getPage(data, user);
-    // console.log("nb category : "+page.length);
-    // console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
-    // console.log("item 1 : "+page[0].contents[0].title);
-    // console.log("item 2 : "+page[0].contents[1].title);
-    // console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
-    // console.log("item 1 : "+page[1].contents[0].title);
-    // console.log("item 2 : "+page[1].contents[1].title);   
+    
     // image(hotel);
+    affiche(user, hotel, page);
 }
 
 getInfo();

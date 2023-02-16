@@ -33,8 +33,7 @@ var cityTag;
 //           "https://openweathermap.org/img/wn/50d@2x.png"  // Mist
 //         ]
 function getWeather() {
-    // console.log("citytag = "+cityTag);
-    // console.log("getWeather");
+    console.log("citytag = "+cityTag+"; getWeather");
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityTag},fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric`;
     $.get(url).done(function(data){
         var dataTemp=data.main.temp.toFixed(1);
@@ -246,66 +245,104 @@ onkeydown = function(evt){
 //     });
 
 
-async function loginIn(params){
-    const res = await fetch("https://hospitality.ansetech.com:7443/api/auth/local",
-        {
-            // mode:'no-cors',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                'Accept': 'application/json',
-                'User-Agent': 'Android Multipart HTTP Client 1.0',
-            },
-            body: JSON.stringify(
-                {
-                    "email": "chambre1@snow-chill2.com",
-                    "password": "abcd1234",
-                }
-            )
-        }
-    ).then((response) => response.json());
-    // console.log(res.userId);
+// async function loginIn(params){
+//     const res = await fetch("https://hospitality.ansetech.com:7443/api/auth/local",
+//         {
+//             // mode:'no-cors',
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json; charset=UTF-8',
+//                 'Accept': 'application/json',
+//                 'User-Agent': 'Android Multipart HTTP Client 1.0',
+//             },
+//             body: JSON.stringify(
+//                 {
+//                     "email": "chambre1@snow-chill2.com",
+//                     "password": "abcd1234",
+//                 }
+//             )
+//         }
+//     ).then((response) => response.json());
+//     console.log(res);
+//     return res;
+// }
+
+function loginInJQuery(params){
+    console.log("login jQuery")
+    var url=`https://hospitality.ansetech.com:7443/api/auth/local`;
+    var res;
+    $.post(url, { email: "chambre1@snow-chill2.com", password: "abcd1234" })
+        .done(function(response) {
+            console.log( "Logged In" );
+            res=response;  
+            console.log(response);
+            client.innerHTML=response.userId;
+        })
+        .fail(function(response) {
+            console.log( "error" );
+            res=response.responseJSON;
+            console.log(res);
+        })  
+        .always(function() {
+            console.log( "finished" );
+        });
     return res;
 }
 
-async function getUser(data) {
-    const res = await fetch(`https://hospitality.ansetech.com:7443/api/users/${data.userId}`,
-        {
-            headers:{
-                "User-Agent":"MyAgent",
-                "Authorization": "Bearer "+data.token,
-            }
-        }
-    ).then((response) => response.json());
-    // console.log(res.user[0]);
-    return res.user[0];
-}
-async function getHotel(data,user) {
-    const res = await fetch(`https://hospitality.ansetech.com:7443/api/hotels/${user.hotel_id}`,
-        {
-            headers:{
-                "User-Agent":"MyAgent",
-                "Authorization": "Bearer "+data.token,
-            }
-        }
-    ).then((response) => response.json());
-    // console.log(res.hotel[0]);
-    return res.hotel[0];
-}
+// function getWeather() {
+//     console.log("citytag = "+cityTag+"; getWeather");
+//     var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityTag},fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric`;
+//     $.get(url).done(function(data){
+//         var dataTemp=data.main.temp.toFixed(1);
+//         temp.innerHTML =dataTemp+" °C";
+//         iconWeather.setAttribute("src",`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+//     })
+//       .fail(function() {
+//         console.log( "error" );
+//       })
+//       .always(function() {
+//          console.log( "update weather finished" );
+//       });
+// }
 
-async function getPage(data, user){
-    const res = await fetch(`https://hospitality.ansetech.com:7443/api/pages/fr/${user.hotel_id}`,
-        {   
-            // mode:'no-cors',
-            headers:{
-                "User-Agent":"MyAgent",
-                "Authorization": "Bearer "+data.token,
-            }
-        }
-    ).then((response) => response.json());
-    // console.log(res);
-    return res;
-}
+// async function getUser(data) {
+//     const res = await fetch(`https://hospitality.ansetech.com:7443/api/users/${data.userId}`,
+//         {
+//             headers:{
+//                 "User-Agent":"MyAgent",
+//                 "Authorization": "Bearer "+data.token,
+//             }
+//         }
+//     ).then((response) => response.json());
+//     // console.log(res.user[0]);
+//     return res.user[0];
+// }
+// async function getHotel(data,user) {
+//     const res = await fetch(`https://hospitality.ansetech.com:7443/api/hotels/${user.hotel_id}`,
+//         {
+//             headers:{
+//                 "User-Agent":"MyAgent",
+//                 "Authorization": "Bearer "+data.token,
+//             }
+//         }
+//     ).then((response) => response.json());
+//     // console.log(res.hotel[0]);
+//     return res.hotel[0];
+// }
+
+// async function getPage(data, user){
+//     const res = await fetch(`https://hospitality.ansetech.com:7443/api/pages/fr/${user.hotel_id}`,
+//         {   
+//             // mode:'no-cors',
+//             headers:{
+//                 "User-Agent":"MyAgent",
+//                 "Authorization": "Bearer "+data.token,
+//             }
+//         }
+//     ).then((response) => response.json());
+//     // console.log(res);
+//     return res;
+// }
 
 // function image(hotel){
 //     console.log('Affiche')
@@ -318,7 +355,7 @@ function affiche(user){
     client.innerHTML=user.clientName;
     // city.innerHTML=hotel.city;
     // cityTag=hotel.city
-    // getWeather();
+    getWeather();
     // console.log("nb category : "+page.length);
     // console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
     // console.log("item 1 : "+page[0].contents[0].title);
@@ -328,19 +365,25 @@ function affiche(user){
     // console.log("item 2 : "+page[1].contents[1].title); 
 }
 
-async function getInfo(params) {
+function getInfo(params) {
     console.log("Tentative de connexion");
-    const data = await loginIn();     
-    console.log("Token: "+data.token);
-    console.log("getUser");
-    const user= await getUser(data); 
+    // const data = await loginIn(); 
+    const dataJQuery = loginInJQuery();
+    // console.log("dataJQuery");
+    // console.log(dataJQuery);
+    
+    // console.log("Token: "+data.token);
+    // console.log("getUser");
+    // const user= await getUser(data); 
+
+
     // console.log("getHotel");
     // const hotel=await getHotel(data, user);
     // console.log("getPages");
     // const page= await getPage(data, user);
     
     // image(hotel);
-    affiche(user);
+    // affiche(user);
 }
 
 getInfo();

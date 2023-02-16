@@ -337,8 +337,8 @@ async function getInfo(params) {
     const user= await getUser(data); 
     console.log("getHotel");
     const hotel=await getHotel(data, user);
-    // console.log("getPages");
-    // const page= await getPage(data, user);
+    console.log("getPages");
+    const page= await getPage(data, user);
     
     // image(hotel);
     affiche(user, hotel, page);

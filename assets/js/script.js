@@ -286,6 +286,7 @@ function loginInJQuery(params){
         })  
         .always(function() {
             console.log( "finished" );
+            city.innerHTML= "Request Fini";
         });
     return res;
 }

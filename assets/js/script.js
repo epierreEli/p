@@ -16,9 +16,8 @@ var client=document.getElementById("client");
 //                 "https://cdn-icons-png.flaticon.com/512/330/330557.png", // es
 //                ]
 
+
 // Météo
-
-
 var city=document.getElementById("city");
 var temp=document.getElementById("weather");
 var iconWeather=document.getElementById("iconWeather");
@@ -314,12 +313,12 @@ async function getPage(data, user){
 //     image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
 // }
 
-function affiche(user,hotel,page){
+function affiche(user){
     // console.log("affichage");
     client.innerHTML=user.clientName;
-    city.innerHTML=hotel.city;
-    cityTag=hotel.city
-    getWeather();
+    // city.innerHTML=hotel.city;
+    // cityTag=hotel.city
+    // getWeather();
     // console.log("nb category : "+page.length);
     // console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
     // console.log("item 1 : "+page[0].contents[0].title);
@@ -335,13 +334,13 @@ async function getInfo(params) {
     console.log("Token: "+data.token);
     console.log("getUser");
     const user= await getUser(data); 
-    console.log("getHotel");
-    const hotel=await getHotel(data, user);
-    console.log("getPages");
-    const page= await getPage(data, user);
+    // console.log("getHotel");
+    // const hotel=await getHotel(data, user);
+    // console.log("getPages");
+    // const page= await getPage(data, user);
     
     // image(hotel);
-    affiche(user, hotel, page);
+    affiche(user);
 }
 
 getInfo();

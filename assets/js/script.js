@@ -422,4 +422,4 @@ function getInfo(params) {
     // affiche(user);
 }
 
-getInfo();
+// getInfo();

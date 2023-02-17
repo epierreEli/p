@@ -399,7 +399,7 @@ function affiche(user){
     // console.log("item 2 : "+page[1].contents[1].title); 
 }
 
-async function getInfo(params) {
+function getInfo(params) {
     console.log("Tentative de connexion");
     // const data = await loginIn(); 
     // console.log("Token: "+data.token);

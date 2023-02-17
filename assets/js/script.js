@@ -268,39 +268,24 @@ onkeydown = function(evt){
 //     return res;
 // }
 
-// function loginInJQuery(params){
-//     console.log("login jQuery")
-//     var res=$.ajax({
-//             type:'POST',
-//             url:`https://hospitality.ansetech.com:7443/api/auth/local`,
-//             data:{email: "chambre1@snow-chill2.com", password: "abcd1234"},
-//             complete:function(response){
-//                 if (response.readyState===4){
-//                     console.log( "Logged In" );
-//                     // response=JSON.parse(this.response);  
-//                     console.log(response.responseJSON);
-//                     client.innerHTML=response.responseJSON.userId; 
-//                 }
-//             }
-//     });
-//         // .done(function(response) {
-//         //     console.log( "Logged In" );
-//         //     res=response;  
-//         //     console.log(response);
-//         //     // client.innerHTML=response.userId;
-//         // })
-//         // .fail(function(response) {
-//         //     console.log( "error" );
-//         //     res=response.responseJSON;
-//         //     console.log(res);
-//         //     // client.innerHTML=res;
-//         // })  
-//         // .always(function() {
-//         //     console.log( "finished" );
-//         //     // city.innerHTML= "Request Fini";
-//         // });
-//     return res;
-// }
+function loginInJQuery(params){
+    console.log("login jQuery")
+    var res=$.ajax({
+            type:'POST',
+            url:`https://hospitality.ansetech.com:7443/api/auth/local`,
+            data:{email: "chambre1@snow-chill2.com", password: "abcd1234"},
+            complete:function(response){
+                if (response.readyState===4){
+                    console.log( "Logged In" );
+                    // response=JSON.parse(this.response);  
+                    console.log(response.responseJSON);
+                    city.innerHTML="request POST fini";
+                    client.innerHTML=response.responseJSON.userId; 
+                }
+            }
+    });
+}
+loginInJQuery();
 
 // function loginInXHR(params){
 //     console.log("login XHR");

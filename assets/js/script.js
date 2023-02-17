@@ -274,9 +274,9 @@ function loginInJQuery(params){
             type:'POST',
             url:`https://hospitality.ansetech.com:7443/api/auth/local`,
             data:{email: "chambre1@snow-chill2.com", password: "abcd1234"},
-            async:false,
+            // async:false,
             complete:function(response){ 
-                if (response.readyState===4){
+                if (response.readyState==4){
                     console.log( "Logged In" ); 
                     console.log(response.responseJSON);
                     city.innerHTML="response";

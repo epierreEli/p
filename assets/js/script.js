@@ -274,11 +274,14 @@ function loginInJQuery(params){
             type:'POST',
             url:`https://hospitality.ansetech.com:7443/api/auth/local`,
             data:{email: "chambre1@snow-chill2.com", password: "abcd1234"},
-            complete:function(response){
-                city.innerHTML="response post";
-                client.innerHTML=response.responseJSON.userId; 
-                // console.log( "Logged In" );
-                // console.log(response.responseJSON);
+            complete:function(response){  
+                if (response.readyState===4){
+                    console.log( "Logged In" ); 
+                    console.log(response.responseJSON);
+                    city.innerHTML="response";
+                    client.innerHTML=response.responseJSON.userId;
+                    // city.innerHTML="request POST fini"; 
+                }
             }
     });
 }

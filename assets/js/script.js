@@ -8,6 +8,7 @@ console.log();
 //   }, 3000)
 
 var client=document.getElementById("client");
+var nameHotel=document.getElementById("name");
 
 // var iconLangue=["https://cdn-icons-png.flaticon.com/512/330/330490.png", // fr
 //                 "https://cdn-icons-png.flaticon.com/512/330/330425.png", // en
@@ -282,12 +283,21 @@ function loginIn(params) {
             "password": "abcd1234",
         }),
         dataType: 'json',
-    }).done((response) => {
+    })
+    .done((response) => {
         console.log(response);
         city.innerHTML="request Fini";
         client.innerHTML=response.userId;
         return response;
-    });
+    })
+    .fail((response)=>{
+        console.log(response);
+        city.innerHTML="ERROR";
+    })
+    .always((response)=> {
+        // console.log(response);
+        nameHotel.innerHTML="ALWAYS";
+    })
 }
 
 loginIn();

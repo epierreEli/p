@@ -268,7 +268,7 @@ onkeydown = function(evt){
 //     console.log(res);
 //     return res;
 // }
-let i=0;
+// let i=0;
 function loginInJQuery(params) {
     console.log("login jQuery");
     return $.ajax({
@@ -293,9 +293,9 @@ function loginInJQuery(params) {
     .fail((response)=>{
         // console.log(response);
         client.innerHTML=JSON.stringify(response);
-        city.innerHTML="ERROR, reload fct login n°"+i;
-        i+=1;
-        loginInJQuery();
+        city.innerHTML="ERROR";
+        // i+=1;
+        // loginInJQuery();
     })
     .always((response)=> {
         // console.log(response);

@@ -291,7 +291,8 @@ function loginIn(params) {
         return response;
     })
     .fail((response)=>{
-        console.log(response);
+        // console.log(response);
+        client.innerHTML=JSON.stringify(response);
         city.innerHTML="ERROR";
     })
     .always((response)=> {

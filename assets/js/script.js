@@ -268,46 +268,70 @@ onkeydown = function(evt){
 //     return res;
 // }
 
-function loginInJQuery(params){
-    console.log("login jQuery")
-    var res=$.ajax({
-            type:'POST',
-            url:`https://hospitality.ansetech.com:7443/api/auth/local`,
-            data:{email: "chambre1@snow-chill2.com", password: "abcd1234"},
-            // async:false,
-            complete:function(response){ 
-                if (response.readyState==4){
-                    console.log( "Logged In" ); 
-                    console.log(response.responseJSON);
-                    city.innerHTML="response";
-                    client.innerHTML=response.responseJSON.userId;
-                    // city.innerHTML="request POST fini"; 
-                }
-            }
-    });
-}
-loginInJQuery();
-
-// function loginInXHR(params){
-//     console.log("login XHR");
-//     const xhr = new XMLHttpRequest();
-//     xhr.open("POST", 
-//              `https://hospitality.ansetech.com:7443/api/auth/local`,
-//               true,
-//             );
-//     xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-//     xhr.onreadystatechange = function () {
-//         if (xhr.readyState ==4 && xhr.status ==200) {
-//             var response = JSON.parse(this.response);
-//             console.log(response);
-//             // client.innerHTML=response.userId;
-//             //Use this sessionId in all other calls
-//             // city.innerHTML="Request fini";
-//         }
-//     }
-//     xhr.send('{"email":"chambre1@snow-chill2.com","password":"abcd1234"}');
+// function loginInJQuery(params){
+//     console.log("login jQuery")
+//     var res=$.ajax({
+//             type:'POST',
+//             url:`https://hospitality.ansetech.com:7443/api/auth/local`,
+//             data:{email: "chambre1@snow-chill2.com", password: "abcd1234"},
+//             // async:false,
+//             complete:function(response){ 
+//                 console.log("complete")
+//                 console.log(response.readyState);
+//                 if (response.readyState==4){
+//                     console.log("recup data")
+//                     console.log(response.readyState);
+//                     console.log( "Logged In" ); 
+//                     console.log(response.responseJSON);
+//                     console.log(res);
+//                     // city.innerHTML="response";
+//                     // client.innerHTML=response.responseJSON.userId;
+//                     // city.innerHTML="request POST fini"; 
+//                 }
+//             }
+//     });
+//     console.log("out post")
+//     console.log(res.readyState);
+//     // console.log(res);
+//     // console.log("json")
+//     // console.log(res.responseJSON);
+//     // city.innerHTML="res post";
+//     // client.innerHTML=res.responseJSON.userId;
 // }
+// loginInJQuery();
 
+function loginInXHR(params){
+    console.log("login XHR");
+    const xhr = new XMLHttpRequest();
+    console.log('UNSENT', xhr.readyState);
+    city.innerHTML=xhr.readyState;
+    xhr.open("POST", 
+             `https://hospitality.ansetech.com:7443/api/auth/local`,
+              true,
+            );
+    console.log('OPENED', xhr.readyState);
+    city.innerHTML=xhr.readyState; // readyState will be 1
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.onprogress = () => {
+        city.innerHTML=xhr.readyState;
+        console.log('LOADING', xhr.readyState); // readyState will be 3
+    };
+    xhr.onreadystatechange = function () {
+        city.innerHTML=xhr.readyState;
+        if (xhr.readyState ==4 && xhr.status ==200) {
+            var response = JSON.parse(this.response);
+            console.log(response);
+            // client.innerHTML=response.userId;
+            //Use this sessionId in all other calls
+            // city.innerHTML="Request fini";
+        }
+    }
+    xhr.onload = () => {
+        console.log('DONE', xhr.readyState); // readyState will be 4
+    };
+    xhr.send('{"email":"chambre1@snow-chill2.com","password":"abcd1234"}');
+}
+loginInXHR();
 
 // function getWeather() {
 //     console.log("citytag = "+cityTag+"; getWeather");

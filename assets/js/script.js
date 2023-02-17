@@ -36,29 +36,18 @@ function getWeather() {
     console.log("citytag = "+cityTag+"; getWeather");
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityTag},fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric`;
     $.get(url).done(function(data){
-        var dataTemp=data.main.temp.toFixed(1);
-        temp.innerHTML =dataTemp+" °C";
-        iconWeather.setAttribute("src",`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
-    })
-      .fail(function() {
-        console.log( "error" );
-      })
-      .always(function() {
-         console.log( "update weather finished" );
-      });
+                  var dataTemp=data.main.temp.toFixed(1);
+                  temp.innerHTML =dataTemp+" °C";
+                  iconWeather.setAttribute("src",`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+              })
+              .fail(function() {
+                  console.log( "error" );
+              })
+              .always(function() {
+                  console.log( "update weather finished" );
+              });
 }
-
-async function getWeatherFetch(params){
-    console.log("citytag = "+cityTag+"; getWeatherFetch");
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityTag},fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric`
-        ).then((response) => response.json());
-    console.log(res);
-    // const temps=
-    temp.innerHTML=res.main.temp.toFixed(1);
-    iconWeather.setAttribute("src",`https://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`);
-}
-getWeatherFetch();
-
+getWeather();
 
 // Heure + Date
 
@@ -96,8 +85,7 @@ function updateTime(){
         }
     }
     if(updateMeteo){
-        // getWeather();
-        getWeatherFetch();
+        getWeather();
         updateMeteo=false;
     }
     else{
@@ -282,25 +270,35 @@ async function loginIn(params){
 
 function loginInJQuery(params){
     console.log("login jQuery")
-    var url=`https://hospitality.ansetech.com:7443/api/auth/local`;
-    var res;
-    $.post(url, { email: "chambre1@snow-chill2.com", password: "abcd1234" })
-        .done(function(response) {
-            console.log( "Logged In" );
-            res=response;  
-            console.log(response);
-            // client.innerHTML=response.userId;
-        })
-        .fail(function(response) {
-            console.log( "error" );
-            res=response.responseJSON;
-            console.log(res);
-            // client.innerHTML=res;
-        })  
-        .always(function() {
-            console.log( "finished" );
-            // city.innerHTML= "Request Fini";
-        });
+    var res=$.ajax({
+            type:'POST',
+            url:`https://hospitality.ansetech.com:7443/api/auth/local`,
+            data:{email: "chambre1@snow-chill2.com", password: "abcd1234"},
+            complete:function(response){
+                if (response.readyState===4){
+                    console.log( "Logged In" );
+                    // response=JSON.parse(this.response);  
+                    console.log(response.responseJSON);
+                    client.innerHTML=response.responseJSON.userId; 
+                }
+            }
+    });
+        // .done(function(response) {
+        //     console.log( "Logged In" );
+        //     res=response;  
+        //     console.log(response);
+        //     // client.innerHTML=response.userId;
+        // })
+        // .fail(function(response) {
+        //     console.log( "error" );
+        //     res=response.responseJSON;
+        //     console.log(res);
+        //     // client.innerHTML=res;
+        // })  
+        // .always(function() {
+        //     console.log( "finished" );
+        //     // city.innerHTML= "Request Fini";
+        // });
     return res;
 }
 
@@ -403,9 +401,9 @@ function affiche(user){
 
 async function getInfo(params) {
     console.log("Tentative de connexion");
-    const data = await loginIn(); 
+    // const data = await loginIn(); 
     // console.log("Token: "+data.token);
-    // const dataJQuery = loginInJQuery();
+    const dataJQuery = loginInJQuery();
     // console.log("dataJQuery");
     // console.log(dataJQuery);
     // const dataXHR = loginInXHR();
@@ -424,4 +422,4 @@ async function getInfo(params) {
     // affiche(user);
 }
 
-// getInfo();
+getInfo();

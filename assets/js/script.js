@@ -229,8 +229,8 @@ onkeydown = function(evt){
             break;
         case 13: // ok
             break;
-        case 8: // retour (461=> tv // 8=>ordi)
-            location.reload();
+        case 461: // retour (461=> tv // 8=>ordi)
+            window.location.reload();
             break;
     };
     // console.log("category = "+categorySelected+"; item ="+itemSelected);

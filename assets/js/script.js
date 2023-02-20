@@ -276,16 +276,16 @@ function loginInJQuery(params) {
     return $.ajax({
         url: "https://hospitality.ansetech.com:7443/api/auth/local",
         method: 'POST',
-        // headers: {
-        //     'Content-Type': 'application/json; charset=UTF-8',
-        //     'Accept': 'application/json',
-        // },
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json',
+        },
         crossDomain: true,
         data:{
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",
         },
-        // dataType: 'json',
+        dataType: 'json',
     })
     .done((response) => {
         console.log(response);

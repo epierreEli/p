@@ -310,17 +310,17 @@ function loginInJQuery(params) {
 function testLogin(params){
     $.ajax({
 		type : "POST",
-		contentType : 'application/json; charset=utf-8',
-		dataType : 'json',
-		crossDomain : true,
-		url : 'https://hospitality.ansetech.com:7443/api/auth/local',
-		data : JSON.stringify({
-			"email": "chambre1@snow-chill2.com",
-            "password": "abcd1234",
-		}),
+		// contentType : 'application/json; charset=utf-8',
+		// dataType : 'json',
+		// crossDomain : true,
+		url : 'https://reqres.in/api/login',
+		data :{
+            "email": "eve.holt@reqres.in",
+            "password": "cityslicka",
+		},
 		success : function(result) {
 			console.log(result);
-            client.innerHTML=result.userId
+            client.innerHTML=result.token
 		},
 		error : function(xhr, status, error) {
             console.log(xhr);

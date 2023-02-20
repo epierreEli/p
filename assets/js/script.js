@@ -275,15 +275,15 @@ function loginInJQuery(params) {
     return $.ajax({
         url: "https://hospitality.ansetech.com:7443/api/auth/local",
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Accept': 'application/json',
-        },
+        // headers: {
+        //     'Content-Type': 'application/json; charset=UTF-8',
+        //     'Accept': 'application/json',
+        // },
         data: JSON.stringify({
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",
         }),
-        dataType: 'json',
+        //dataType: 'json',
     })
     .done((response) => {
         console.log(response);
@@ -305,30 +305,30 @@ function loginInJQuery(params) {
 };
 loginInJQuery();
 
-// function LoginInTestPost(params){
-//     return $.ajax({
-//         url: "https://reqres.in/api/login",
-//         method:'POST',
-//         data:{
-//             "email": "eve.holt@reqres.in",
-//             "password": "cityslicka"
-//         },
-//     })
-//     .done((response)=>{
-//         console.log(response);
-//         client.innerHTML=response.token;
-//         city.innerHTML="request Fini";
-//     })
-//     .fail((response)=>{
-//         console.log(response);
-//         client.innerHTML=JSON.stringify(response);
-//         city.innerHTML="Error";
-//     })
-//     .always((response)=>{
-//         nameHotel.innerHTML="ALWAYS";
-//     })
-// }
-// LoginInTestPost();
+function LoginInTestPost(params){
+    return $.ajax({
+        url: "htt://reqres.in/api/login",
+        method:'POST',
+        data:{
+            "email": "eve.holt@reqres.in",
+            "password": "cityslicka"
+        },
+    })
+    .done((response)=>{
+        console.log(response);
+        client.innerHTML=response.token;
+        city.innerHTML="request Fini";
+    })
+    .fail((response)=>{
+        console.log(response);
+        client.innerHTML=JSON.stringify(response);
+        city.innerHTML="Error";
+    })
+    .always((response)=>{
+        nameHotel.innerHTML="ALWAYS";
+    })
+}
+LoginInTestPost();
 
 // async function LoginInTestPost(params){
 //     const res = await fetch("https://reqres.in/api/login",

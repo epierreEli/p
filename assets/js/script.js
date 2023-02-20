@@ -1,4 +1,5 @@
 console.clear();
+console.re.log('remote log reload')
 console.log("reload");
 console.log();
 
@@ -288,12 +289,14 @@ function loginInJQuery(params) {
     })
     .done((response) => {
         console.log(response);
+        console.re.log(response);
         city.innerHTML="request Fini";
         client.innerHTML=response.userId;
         return response;
     })
     .fail((response)=>{
         // console.log(response);
+        console.re.log(response);
         client.innerHTML=JSON.stringify(response);
         city.innerHTML="ERROR";
         // i+=1;

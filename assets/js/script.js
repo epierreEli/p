@@ -277,8 +277,8 @@ function loginInJQuery(params) {
         url: "https://hospitality.ansetech.com:7443/api/auth/local",
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Accept': 'application/json',
+            // 'Content-Type': 'application/json; charset=UTF-8',
+            // 'Accept': 'application/json',
         },
         crossDomain: true,
         data:{

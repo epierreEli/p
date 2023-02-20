@@ -1,5 +1,4 @@
 console.clear();
-console.re.log('remote log reload')
 console.log("reload");
 console.log();
 
@@ -157,7 +156,7 @@ console.log(document.activeElement);
 
 
 onkeydown = function(evt){
-    // document.getElementById("title").innerHTML="evt.key = "+evt.key+"; evt.keyCode = "+evt.keyCode;
+    document.getElementById("title").innerHTML="evt.key = "+evt.key+"; evt.keyCode = "+evt.keyCode;
     switch(evt.keyCode){
         case 37: // left
             if(itemSelected-1>=0){
@@ -285,18 +284,16 @@ function loginInJQuery(params) {
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",
         },
-        dataType: 'json',
+        // dataType: 'json',
     })
     .done((response) => {
         console.log(response);
-        console.re.log(response);
         city.innerHTML="request Fini";
         client.innerHTML=response.userId;
         return response;
     })
     .fail((response)=>{
         // console.log(response);
-        console.re.log(response);
         client.innerHTML=JSON.stringify(response);
         city.innerHTML="ERROR";
         // i+=1;
@@ -347,32 +344,6 @@ loginInJQuery();
 // };
 // setInterval(loginInJQueryNoPort,10000);
 
-
-function LoginInTestPost(params){
-    return $.ajax({
-        url: "https://reqres.in/api/login",
-        method:'POST',
-        data:{
-            "email": "eve.holt@reqres.in",
-            "password": "cityslicka"
-        },
-    })
-    .done((response)=>{
-        console.log(response);
-        client.innerHTML=response.token;
-        city.innerHTML="request Fini";
-    })
-    .fail((response)=>{
-        console.log(response);
-        client.innerHTML=JSON.stringify(response);
-        // city.innerHTML="Error";
-        categoryTitle.innerHTML="Error";
-    })
-    .always((response)=>{
-        nameHotel.innerHTML="ALWAYS";
-    })
-}
-// LoginInTestPost();
 
 // async function LoginInTestPost(params){
 //     const res = await fetch("https://reqres.in/api/login",

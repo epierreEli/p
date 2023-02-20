@@ -230,6 +230,7 @@ onkeydown = function(evt){
         case 13: // ok
             break;
         case 8: // retour (461=> tv // 8=>ordi)
+            location.reload();
             break;
     };
     // console.log("category = "+categorySelected+"; item ="+itemSelected);

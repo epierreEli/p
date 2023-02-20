@@ -305,7 +305,7 @@ function loginInJQuery(params) {
         nameHotel.innerHTML="Login jQuery";
     })
 };
-loginInJQuery();
+// loginInJQuery();
 
 function testLogin(params){
     $.ajax({
@@ -313,14 +313,16 @@ function testLogin(params){
 		// contentType : 'application/json; charset=utf-8',
 		// dataType : 'json',
 		// crossDomain : true,
-		url : 'https://reqres.in/api/login',
+        // 'https://reqres.in/api/login'
+        
+		url : "https://httpbin.org/post",
 		data :{
-            "email": "e.holt@reqres.in",
-            "password": "cityslicka",
+            "email": "test@test.fr",
+            "password": "1234",
 		},
 		success : function(result) {
 			console.log(result);
-            client.innerHTML=result.token
+            client.innerHTML=JSON.stringify(result)
 		},
 		error : function(xhr, status, error) {
             console.log(xhr);
@@ -332,7 +334,7 @@ function testLogin(params){
 		}
 	});
 }
-// testLogin();
+testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

@@ -119,8 +119,6 @@ itemInCategory[0].style.border=" 5px solid white";
 // category[0].style.filter="brightness()";
 // category[0].classList.add("categorySelected");
 
-// console.log("active element");
-// console.log(document.activeElement);
 // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
 
 var main = document.getElementsByTagName("main")[0];
@@ -152,6 +150,9 @@ var scrollHautLength=hauteurCategoryTitle-parseInt(styleCategoryTitle.marginTop)
 // console.log(hauteurMainTitle+(hauteurCategoryTitle-10)/2+hauteurCategory);
 var scrollMaxHaut=main.scrollHeight-main.clientHeight;
 var scrollHaut=0;
+
+console.log("active element");
+console.log(document.activeElement);
 
 
 onkeydown = function(evt){
@@ -235,7 +236,7 @@ onkeydown = function(evt){
     // console.log("scrollAt="+scrollAt+"; scrollMaxGauche="+scrollMaxGauche);
     // console.log("scrollHaut="+scrollHaut+"; scrollMaxHaut="+scrollMaxHaut);
     // console.log(item);
-    // console.log(document.activeElement);
+    console.log(document.activeElement);
 }    
 
 
@@ -302,7 +303,32 @@ function loginInJQuery(params) {
         nameHotel.innerHTML="ALWAYS";
     })
 };
-loginInJQuery();
+// loginInJQuery();
+
+function LoginInTestPost(params){
+    return $.ajax({
+        url: "https://reqres.in/api/login",
+        method:'POST',
+        data:{
+            "email": "eve.holt@reqres.in",
+            "password": "cityslicka"
+        },
+    })
+    .done((response)=>{
+        console.log(response);
+        client.innerHTML=response.token;
+        city.innerHTML="request Fini";
+    })
+    .fail((response)=>{
+        console.log(response);
+        client.innerHTML=JSON.stringify(response);
+        city.innerHTML="Error";
+    })
+    .always((response)=>{
+        nameHotel.innerHTML="ALWAYS";
+    })
+}
+LoginInTestPost();
 
 
 // function loginInXHR(params){

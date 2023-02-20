@@ -305,8 +305,34 @@ function loginInJQuery(params) {
         nameHotel.innerHTML="ALWAYS";
     })
 };
-loginInJQuery();
+// loginInJQuery();
 
+function testLogin(params){
+    $.ajax({
+		type : "POST",
+		contentType : 'application/json; charset=utf-8',
+		dataType : 'json',
+		crossDomain : true,
+		url : 'https://hospitality.ansetech.com:7443/api/auth/local',
+		data : JSON.stringify({
+			"email": "chambre1@snow-chill2.com",
+            "password": "abcd123",
+		}),
+		success : function(result) {
+			console.log(result);
+            client.innerHTML=result.userId
+		},
+		error : function(xhr, status, error) {
+            console.log(xhr);
+            client.innerHTML=JSON.stringify(xhr);
+			console.log(status);
+            city.innerHTML=status;
+            console.log(error);
+            categoryTitle.innerHTML=error;
+		}
+	});
+}
+testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

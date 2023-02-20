@@ -307,7 +307,7 @@ loginInJQuery();
 
 function loginInJQueryNoPort(params) {
     console.log("login jQuery");
-    city.innerHTML("request NO PORT")
+    city.innerHTML="request NO PORT";
     return $.ajax({
         url: "https://hospitality.ansetech.com/api/auth/local",
         method: 'POST',

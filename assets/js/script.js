@@ -302,10 +302,10 @@ function loginInJQuery(params) {
     })
     .always((response)=> {
         // console.log(response);
-        nameHotel.innerHTML="ALWAYS";
+        nameHotel.innerHTML="Login jQuery";
     })
 };
-// loginInJQuery();
+loginInJQuery();
 
 function testLogin(params){
     $.ajax({
@@ -315,7 +315,7 @@ function testLogin(params){
 		// crossDomain : true,
 		url : 'https://reqres.in/api/login',
 		data :{
-            "email": "eve.holt@reqres.in",
+            "email": "e.holt@reqres.in",
             "password": "cityslicka",
 		},
 		success : function(result) {
@@ -332,7 +332,7 @@ function testLogin(params){
 		}
 	});
 }
-testLogin();
+// testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

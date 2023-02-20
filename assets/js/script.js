@@ -279,11 +279,12 @@ function loginInJQuery(params) {
         //     'Content-Type': 'application/json; charset=UTF-8',
         //     'Accept': 'application/json',
         // },
+        crossDomain: true,
         data:{
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",
         },
-        //dataType: 'json',
+        dataType: 'json',
     })
     .done((response) => {
         console.log(response);
@@ -305,41 +306,43 @@ function loginInJQuery(params) {
 };
 loginInJQuery();
 
-function loginInJQueryNoPort(params) {
-    console.log("login jQuery NO PORT");
-    city.innerHTML="request NO PORT";
-    return $.ajax({
-        url: "https://hospitality.ansetech.com/api/auth/local",
-        method: 'POST',
-        // headers: {
-        //     'Content-Type': 'application/json; charset=UTF-8',
-        //     'Accept': 'application/json',
-        // },
-        data:{
-            "email": "chambre1@snow-chill2.com",
-            "password": "abcd1234",
-        },
-        //dataType: 'json',
-    })
-    .done((response) => {
-        console.log(response);
-        city.innerHTML="request Fini";
-        client.innerHTML=response.userId;
-        return response;
-    })
-    .fail((response)=>{
-        // console.log(response);
-        client.innerHTML=JSON.stringify(response);
-        city.innerHTML="ERROR";
-        // i+=1;
-        // loginInJQuery();
-    })
-    .always((response)=> {
-        // console.log(response);
-        nameHotel.innerHTML="ALWAYS";
-    })
-};
-setInterval(loginInJQueryNoPort,10000);
+
+// function loginInJQueryNoPort(params) {
+//     console.log("login jQuery NO PORT");
+//     city.innerHTML="request NO PORT";
+//     return $.ajax({
+//         url: "https://hospitality.ansetech.com/api/auth/local",
+//         method: 'POST',
+//         // headers: {
+//         //     'Content-Type': 'application/json; charset=UTF-8',
+//         //     'Accept': 'application/json',
+//         // },
+//         data:{
+//             "email": "chambre1@snow-chill2.com",
+//             "password": "abcd1234",
+//         },
+//         //dataType: 'json',
+//     })
+//     .done((response) => {
+//         console.log(response);
+//         city.innerHTML="request Fini";
+//         client.innerHTML=response.userId;
+//         return response;
+//     })
+//     .fail((response)=>{
+//         // console.log(response);
+//         client.innerHTML=JSON.stringify(response);
+//         // city.innerHTML="ERROR";
+//         categoryTitle.innerHTML="ERROR";
+//         // i+=1;
+//         // loginInJQuery();
+//     })
+//     .always((response)=> {
+//         // console.log(response);
+//         nameHotel.innerHTML="ALWAYS";
+//     })
+// };
+// setInterval(loginInJQueryNoPort,10000);
 
 
 function LoginInTestPost(params){

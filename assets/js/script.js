@@ -236,7 +236,7 @@ onkeydown = function(evt){
     // console.log("scrollAt="+scrollAt+"; scrollMaxGauche="+scrollMaxGauche);
     // console.log("scrollHaut="+scrollHaut+"; scrollMaxHaut="+scrollMaxHaut);
     // console.log(item);
-    console.log(document.activeElement);
+    // console.log(document.activeElement);
 }    
 
 
@@ -303,33 +303,49 @@ function loginInJQuery(params) {
         nameHotel.innerHTML="ALWAYS";
     })
 };
-// loginInJQuery();
+loginInJQuery();
 
-function LoginInTestPost(params){
-    return $.ajax({
-        url: "https://reqres.in/api/login",
-        method:'POST',
-        data:{
-            "email": "eve.holt@reqres.in",
-            "password": "cityslicka"
-        },
-    })
-    .done((response)=>{
-        console.log(response);
-        client.innerHTML=response.token;
-        city.innerHTML="request Fini";
-    })
-    .fail((response)=>{
-        console.log(response);
-        client.innerHTML=JSON.stringify(response);
-        city.innerHTML="Error";
-    })
-    .always((response)=>{
-        nameHotel.innerHTML="ALWAYS";
-    })
-}
-LoginInTestPost();
+// function LoginInTestPost(params){
+//     return $.ajax({
+//         url: "https://reqres.in/api/login",
+//         method:'POST',
+//         data:{
+//             "email": "eve.holt@reqres.in",
+//             "password": "cityslicka"
+//         },
+//     })
+//     .done((response)=>{
+//         console.log(response);
+//         client.innerHTML=response.token;
+//         city.innerHTML="request Fini";
+//     })
+//     .fail((response)=>{
+//         console.log(response);
+//         client.innerHTML=JSON.stringify(response);
+//         city.innerHTML="Error";
+//     })
+//     .always((response)=>{
+//         nameHotel.innerHTML="ALWAYS";
+//     })
+// }
+// LoginInTestPost();
 
+// async function LoginInTestPost(params){
+//     const res = await fetch("https://reqres.in/api/login",
+//             {
+//                 method: 'POST',
+//                 data:
+//                     {
+//                         "email": "eve.holt@reqres.in",
+//                         "password": "cityslicka",
+//                     }
+//             }
+//     ).then((response) =>console.log(response));
+//     console.log(res);
+//     // city.innerHTML="Reques"
+//     return res;
+// }
+// LoginInTestPost();
 
 // function loginInXHR(params){
 //     console.log("login XHR");

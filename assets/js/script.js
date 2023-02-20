@@ -316,7 +316,7 @@ function testLogin(params){
 		url : 'https://hospitality.ansetech.com:7443/api/auth/local',
 		data : JSON.stringify({
 			"email": "chambre1@snow-chill2.com",
-            "password": "abcd123",
+            "password": "abcd1234",
 		}),
 		success : function(result) {
 			console.log(result);

@@ -272,7 +272,7 @@ onkeydown = function(evt){
 // }
 // let i=0;
 function loginInJQuery(params) {
-    document.getElementById("title").innerHTML="crossDomain = true";
+    document.getElementById("title").innerHTML="double post test";
     console.log("login jQuery");
     return $.ajax({
         method: 'POST',
@@ -283,7 +283,9 @@ function loginInJQuery(params) {
         // },
         // headers: { 'Access-Control-Allow-Origin': '*' },
         crossDomain: true,
-    
+        // xhrFields: {
+        //     withCredentials: true,
+        //     },
         data:{
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",
@@ -332,31 +334,31 @@ loginInJQuery();
 // }
 // zFitness();
 
-// function testLogin(params){
-//     city.innerHTML='https://reqres.in:443/api/login';
-//     $.ajax({
-// 		method : "POST",
-// 		// contentType : 'application/json; charset=utf-8',
-// 		// dataType : 'json',
-// 		// crossDomain : true,
-// 		url : 'https://reqres.in:443/api/login',
-// 		data :{
-//             "email": "eve.holt@reqres.in",
-//             "password": "cityslicka",
-// 		}
-// 	})
-//     .done((response)=>{
-//         console.log(response);
-//         client.innerHTML=JSON.stringify(response);
-//     })
-//     .fail((response)=>{
-//         console.log(response);
-//         client.innerHTML=JSON.stringify(response);
-//         city.innerHTML="Error"
-//     })
-//     .always((response)=>{})
-// }
-// testLogin();
+function testLogin(params){
+    document.getElementsByTagName("h3")[0].innerHTML='https://reqres.in:443/api/login';
+    $.ajax({
+		method : "POST",
+		// contentType : 'application/json; charset=utf-8',
+		// dataType : 'json',
+		// crossDomain : true,
+		url : 'https://reqres.in:443/api/login',
+		data :{
+            "email": "eve.holt@reqres.in",
+            "password": "cityslicka",
+		}
+	})
+    .done((response)=>{
+        console.log(response);
+        document.getElementsByTagName("h3")[1].innerHTML=JSON.stringify(response);
+    })
+    .fail((response)=>{
+        console.log(response);
+        document.getElementsByTagName("h3")[1].innerHTML=JSON.stringify(response);
+        document.getElementsByTagName("h3")[2].innerHTML="Error"
+    })
+    .always((response)=>{})
+}
+testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

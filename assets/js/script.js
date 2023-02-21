@@ -156,7 +156,7 @@ console.log(document.activeElement);
 
 
 onkeydown = function(evt){
-    document.getElementById("title").innerHTML="evt.key = "+evt.key+"; evt.keyCode = "+evt.keyCode;
+    // document.getElementById("title").innerHTML="evt.key = "+evt.key+"; evt.keyCode = "+evt.keyCode;
     switch(evt.keyCode){
         case 37: // left
             if(itemSelected-1>=0){
@@ -275,7 +275,7 @@ function loginInJQuery(params) {
     console.log("login jQuery");
     return $.ajax({
         url: "https://hospitality.ansetech.com:7443/api/auth/local",
-        method: 'POST',
+        type: 'POST',
         // headers: {
         //     'Content-Type': 'application/json; charset=UTF-8',
         //     'Accept': 'application/json',
@@ -308,6 +308,28 @@ function loginInJQuery(params) {
     })
 };
 loginInJQuery();
+
+
+function zFitness(param){
+    $.ajax({
+        url:"http://hospitality.ansetech.com:7001/api/zfitness/videos",
+        type:'GET'
+    })
+    .done((response)=>{
+        console.log(response);
+        document.getElementById("title").innerHTML="zfitness = "+response.success;
+    })
+    .fail((response)=>{
+        // console.log(response);
+        cldocument.getElementById("title").innerHTML=JSON.stringify(response);
+        // i+=1;
+        // loginInJQuery();
+    })
+    .always((response)=> {
+        // console.log(response);
+    })
+}
+zFitness();
 
 function testLogin(params){
     $.ajax({

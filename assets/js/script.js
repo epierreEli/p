@@ -341,8 +341,8 @@ function testLogin(params){
         
 		url : 'https://reqres.in/api/login',
 		data :{
-            "email": "test",
-            "password": "1234",
+            "email": "eve.holt@reqres.in",
+            "password": "cityslicka"
 		},
 		success : function(result) {
 			console.log(result);
@@ -358,7 +358,7 @@ function testLogin(params){
 		}
 	});
 }
-testLogin();
+// testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

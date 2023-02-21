@@ -333,28 +333,26 @@ onkeydown = function(evt){
 
 function testLogin(params){
     $.ajax({
-		type : "POST",
+		method : "POST",
 		// contentType : 'application/json; charset=utf-8',
 		// dataType : 'json',
 		// crossDomain : true,
 		url : 'https://reqres.in/api/login',
 		data :{
             "email": "eve.holt@reqres.in",
-            "password": "cityslicka"
-		},
-		success : function(result) {
-			console.log(result);
-            client.innerHTML=JSON.stringify(result)
-		},
-		error : function(xhr, status, error,) {
-            console.log(xhr);
-            client.innerHTML=JSON.stringify(xhr);
-			console.log(status);
-            city.innerHTML=status;
-            console.log(error);
-            categoryTitle.innerHTML=error;
+            "password": "cityslicka",
 		}
-	});
+	})
+    .done((response)=>{
+        console.log(response);
+        client.innerHTML=JSON.stringify(response);
+    })
+    .fail((response)=>{
+        console.log(response);
+        client.innerHTML=JSON.stringify(response);
+        city.innerHTML="Error"
+    })
+    .always((response)=>{})
 }
 testLogin();
 

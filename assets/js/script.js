@@ -272,6 +272,7 @@ onkeydown = function(evt){
 // }
 // let i=0;
 function loginInJQuery(params) {
+    document.getElementById("title").innerHTML="crossDomain = true";
     console.log("login jQuery");
     return $.ajax({
         method: 'POST',

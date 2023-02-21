@@ -282,7 +282,7 @@ function loginInJQuery(params) {
         },
         crossDomain: true,
         xhrFields: {
-            withCredentials: true
+            withCredentials: false
         },
         data:{
             "email": "chambre1@snow-chill2.com",

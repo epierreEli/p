@@ -281,11 +281,15 @@ function loginInJQuery(params) {
             // 'Accept': 'application/json',
         },
         crossDomain: true,
+        xhrFields: {
+            withCredentials: false
+        },
         data:{
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",
         },
-        dataType: 'json',
+        // dataType: 'json',
+        
     })
     .done((response) => {
         console.log(response);
@@ -305,7 +309,7 @@ function loginInJQuery(params) {
         nameHotel.innerHTML="Login jQuery";
     })
 };
-// loginInJQuery();
+loginInJQuery();
 
 function testLogin(params){
     $.ajax({
@@ -334,7 +338,7 @@ function testLogin(params){
 		}
 	});
 }
-testLogin();
+// testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

@@ -271,43 +271,42 @@ onkeydown = function(evt){
 //     return res;
 // }
 // let i=0;
-// function loginInJQuery(params) {
-//     console.log("login jQuery");
-//     return $.ajax({
-//         url: "https://hospitality.ansetech.com:7443/api/auth/local",
-//         type: 'POST',
-//         // headers: {
-//         //     'Content-Type': 'application/json; charset=UTF-8',
-//         //     'Accept': 'application/json',
-//         // },
-//         // headers: { 'Access-Control-Allow-Origin': '*' },
-//         crossDomain: true,
-//         data:{
-//             "email": "chambre1@snow-chill2.com",
-//             "password": "abcd1234",
-//         },
-//         dataType: 'json',
-        
-//     })
-//     .done((response) => {
-//         console.log(response);
-//         city.innerHTML="request Fini";
-//         client.innerHTML=response.userId;
-//         return response;
-//     })
-//     .fail((response)=>{
-//         // console.log(response);
-//         client.innerHTML=JSON.stringify(response);
-//         city.innerHTML="ERROR";
-//         // i+=1;
-//         // loginInJQuery();
-//     })
-//     .always((response)=> {
-//         // console.log(response);
-//         nameHotel.innerHTML="Login jQuery";
-//     })
-// };
-// loginInJQuery();
+function loginInJQuery(params) {
+    console.log("login jQuery");
+    return $.ajax({
+        method: 'POST',
+        url: "https://hospitality.ansetech.com:7443/api/auth/local",
+        // headers: {
+        //     'Content-Type': 'application/json; charset=UTF-8',
+        //     'Accept': 'application/json',
+        // },
+        // headers: { 'Access-Control-Allow-Origin': '*' },
+        // crossDomain: true,
+        data:{
+            "email": "chambre1@snow-chill2.com",
+            "password": "abcd1234",
+        },
+        // dataType: 'json',
+    })
+    .done((response) => {
+        console.log(response);
+        city.innerHTML="request Fini";
+        client.innerHTML=response.userId;
+        return response;
+    })
+    .fail((response)=>{
+        // console.log(response);
+        client.innerHTML=JSON.stringify(response);
+        city.innerHTML="ERROR";
+        // i+=1;
+        // loginInJQuery();
+    })
+    .always((response)=> {
+        // console.log(response);
+        nameHotel.innerHTML="hospitality.ansetech.com:7443";
+    })
+};
+loginInJQuery();
 
 
 // function zFitness(param){
@@ -331,31 +330,31 @@ onkeydown = function(evt){
 // }
 // zFitness();
 
-function testLogin(params){
-    city.innerHTML='https://reqres.in:443/api/login';
-    $.ajax({
-		method : "POST",
-		// contentType : 'application/json; charset=utf-8',
-		// dataType : 'json',
-		// crossDomain : true,
-		url : 'https://reqres.in:443/api/login',
-		data :{
-            "email": "eve.holt@reqres.in",
-            "password": "cityslicka",
-		}
-	})
-    .done((response)=>{
-        console.log(response);
-        client.innerHTML=JSON.stringify(response);
-    })
-    .fail((response)=>{
-        console.log(response);
-        client.innerHTML=JSON.stringify(response);
-        city.innerHTML="Error"
-    })
-    .always((response)=>{})
-}
-testLogin();
+// function testLogin(params){
+//     city.innerHTML='https://reqres.in:443/api/login';
+//     $.ajax({
+// 		method : "POST",
+// 		// contentType : 'application/json; charset=utf-8',
+// 		// dataType : 'json',
+// 		// crossDomain : true,
+// 		url : 'https://reqres.in:443/api/login',
+// 		data :{
+//             "email": "eve.holt@reqres.in",
+//             "password": "cityslicka",
+// 		}
+// 	})
+//     .done((response)=>{
+//         console.log(response);
+//         client.innerHTML=JSON.stringify(response);
+//     })
+//     .fail((response)=>{
+//         console.log(response);
+//         client.innerHTML=JSON.stringify(response);
+//         city.innerHTML="Error"
+//     })
+//     .always((response)=>{})
+// }
+// testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

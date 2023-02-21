@@ -339,7 +339,7 @@ function testLogin(params){
 		// crossDomain : true,
         // 'https://reqres.in/api/login'
         
-		url : 'https://reqres.in:443/api/login',
+		url : 'https://reqres.in/api/login',
 		data :{
             "email": "test",
             "password": "1234",

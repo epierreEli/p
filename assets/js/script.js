@@ -307,7 +307,7 @@ function loginInJQuery(params) {
         nameHotel.innerHTML="Login jQuery";
     })
 };
-loginInJQuery();
+// loginInJQuery();
 
 
 function zFitness(param){
@@ -339,16 +339,16 @@ function testLogin(params){
 		// crossDomain : true,
         // 'https://reqres.in/api/login'
         
-		url : "https://httpbin.org/post",
+		url : 'https://reqres.in:443/api/login',
 		data :{
-            "email": "test@test.fr",
+            "email": "test",
             "password": "1234",
 		},
 		success : function(result) {
 			console.log(result);
             client.innerHTML=JSON.stringify(result)
 		},
-		error : function(xhr, status, error) {
+		error : function(xhr, status, error,) {
             console.log(xhr);
             client.innerHTML=JSON.stringify(xhr);
 			console.log(status);
@@ -358,7 +358,7 @@ function testLogin(params){
 		}
 	});
 }
-// testLogin();
+testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

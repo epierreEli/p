@@ -358,7 +358,7 @@ function testLogin(params){
 		}
 	});
 }
-// testLogin();
+testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

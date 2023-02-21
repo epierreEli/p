@@ -331,34 +331,32 @@ onkeydown = function(evt){
 // }
 // zFitness();
 
-// function testLogin(params){
-//     $.ajax({
-// 		type : "POST",
-// 		// contentType : 'application/json; charset=utf-8',
-// 		// dataType : 'json',
-// 		// crossDomain : true,
-//         // 'https://reqres.in/api/login'
-        
-// 		url : 'https://reqres.in/api/login',
-// 		data :{
-//             "email": "eve.holt@reqres.in",
-//             "password": "cityslicka"
-// 		},
-// 		success : function(result) {
-// 			console.log(result);
-//             client.innerHTML=JSON.stringify(result)
-// 		},
-// 		error : function(xhr, status, error,) {
-//             console.log(xhr);
-//             client.innerHTML=JSON.stringify(xhr);
-// 			console.log(status);
-//             city.innerHTML=status;
-//             console.log(error);
-//             categoryTitle.innerHTML=error;
-// 		}
-// 	});
-// }
-// testLogin();
+function testLogin(params){
+    $.ajax({
+		type : "POST",
+		// contentType : 'application/json; charset=utf-8',
+		// dataType : 'json',
+		// crossDomain : true,
+		url : 'https://reqres.in/api/login',
+		data :{
+            "email": "eve.holt@reqres.in",
+            "password": "cityslicka"
+		},
+		success : function(result) {
+			console.log(result);
+            client.innerHTML=JSON.stringify(result)
+		},
+		error : function(xhr, status, error,) {
+            console.log(xhr);
+            client.innerHTML=JSON.stringify(xhr);
+			console.log(status);
+            city.innerHTML=status;
+            console.log(error);
+            categoryTitle.innerHTML=error;
+		}
+	});
+}
+testLogin();
 
 // function loginInJQueryNoPort(params) {
 //     console.log("login jQuery NO PORT");

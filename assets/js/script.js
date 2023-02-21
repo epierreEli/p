@@ -329,7 +329,7 @@ function zFitness(param){
         // console.log(response);
     })
 }
-zFitness();
+// zFitness();
 
 function testLogin(params){
     $.ajax({

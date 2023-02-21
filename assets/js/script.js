@@ -281,7 +281,8 @@ function loginInJQuery(params) {
         //     'Accept': 'application/json',
         // },
         // headers: { 'Access-Control-Allow-Origin': '*' },
-        // crossDomain: true,
+        crossDomain: true,
+    
         data:{
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",

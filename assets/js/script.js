@@ -312,7 +312,7 @@ loginInJQuery();
 
 function zFitness(param){
     $.ajax({
-        url:"http://hospitality.ansetech.com:7001/api/zfitness/videos",
+        url:"https://hospitality.ansetech.com:7443/api/zfitness/videos",
         type:'GET'
     })
     .done((response)=>{

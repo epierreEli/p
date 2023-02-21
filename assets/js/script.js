@@ -332,6 +332,7 @@ onkeydown = function(evt){
 // zFitness();
 
 function testLogin(params){
+    city.innerHTML='https://reqres.in:443/api/login';
     $.ajax({
 		method : "POST",
 		// contentType : 'application/json; charset=utf-8',

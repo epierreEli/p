@@ -312,12 +312,10 @@ function logIn(email, password) {
         });
     });
 }
-async function hola(){
-    const data = await logIn("chambre1@snow-chill2.com","abcd1234");
+logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
     client.innerHTML=data.userId;
-}
+})
 
-hola();
 
 
 

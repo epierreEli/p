@@ -248,28 +248,27 @@ onkeydown = function(evt){
 //     });
 
 
-// async function loginIn(params){
-//     console.log("login fetch")
-//     const res = await fetch("https://hospitality.ansetech.com:7443/api/auth/local",
-//         {
-//             // mode:'no-cors',
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json; charset=UTF-8',
-//                 'Accept': 'application/json',
-//                 'User-Agent': 'Android Multipart HTTP Client 1.0',
-//             },
-//             body: JSON.stringify(
-//                 {
-//                     "email": "chambre1@snow-chill2.com",
-//                     "password": "abcd1234",
-//                 }
-//             )
-//         }
-//     ).then((response) => response.json());
-//     console.log(res);
-//     return res;
-// }
+async function loginIn(params){
+    console.log("login fetch")
+    const res = await fetch("https://hospitality.ansetech.com/api/auth/local",
+        {
+            // mode:'no-cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    "email": "chambre1@snow-chill2.com",
+                    "password": "abcd1234",
+                }
+            )
+        }
+    ).then((response) => response.json());
+    console.log(res);
+    return res;
+}
 // let i=0;
 function loginInJQuery(params) {
     document.getElementById("title").innerHTML="double post test; crossDomain = false";
@@ -310,7 +309,7 @@ function loginInJQuery(params) {
         nameHotel.innerHTML="hospitality.ansetech.com";
     })
 };
-loginInJQuery();
+// loginInJQuery();
 
 
 // function zFitness(param){
@@ -513,27 +512,28 @@ testLogin();
 //     // console.log("item 2 : "+page[1].contents[1].title); 
 // }
 
-// function getInfo(params) {
-//     console.log("Tentative de connexion");
-//     // const data = await loginIn(); 
-//     // console.log("Token: "+data.token);
-//     const dataJQuery = loginInJQuery();
-//     // console.log("dataJQuery");
-//     // console.log(dataJQuery);
-//     // const dataXHR = loginInXHR();
+async function getInfo(params) {
+    console.log("Tentative de connexion");
+    const data = await loginIn(); 
+    client.innerHTML=data.userId;
+    // console.log("Token: "+data.token);
+    // const dataJQuery = loginInJQuery();
+    // console.log("dataJQuery");
+    // console.log(dataJQuery);
+    // const dataXHR = loginInXHR();
     
     
-//     // console.log("getUser");
-//     // const user= await getUser(data); 
+    // console.log("getUser");
+    // const user= await getUser(data); 
 
 
-//     // console.log("getHotel");
-//     // const hotel=await getHotel(data, user);
-//     // console.log("getPages");
-//     // const page= await getPage(data, user);
+    // console.log("getHotel");
+    // const hotel=await getHotel(data, user);
+    // console.log("getPages");
+    // const page= await getPage(data, user);
     
-//     // image(hotel);
-//     // affiche(user);
-// }
+    // image(hotel);
+    // affiche(user);
+}
 
-// getInfo();
+getInfo();

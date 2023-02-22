@@ -249,7 +249,8 @@ onkeydown = function(evt){
 
 
 async function loginIn(params){
-    console.log("login fetch")
+    console.log("login fetch");
+    document.getElementById("title").innerHTML="fetch";
     const res = await fetch("https://hospitality.ansetech.com/api/auth/local",
         {
             // mode:'no-cors',

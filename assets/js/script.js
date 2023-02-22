@@ -312,7 +312,7 @@ logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
         city.innerHTML=infos.hotelInfos.city;
         nameHotel.innerHTML=infos.hotelInfos.name;
         getWeather();
-        logo.setAttribute('src',`http://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
+        logo.setAttribute('src',`https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
         getPages(infos.hotelId).then((pages)=>{
             infos["pages"]=pages;
         });

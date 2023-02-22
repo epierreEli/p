@@ -231,6 +231,7 @@ onkeydown = function(evt){
         case 13: // ok
             if (categorySelected==0 && itemSelected==3){
                 console.log("Netflix");
+                // categoryTitle.innerHTML="Netflix";
                 goToURL("www.netflix.com/fr");
             }
             break;
@@ -243,7 +244,13 @@ onkeydown = function(evt){
     // console.log("scrollHaut="+scrollHaut+"; scrollMaxHaut="+scrollMaxHaut);
     // console.log(item);
     // console.log(document.activeElement);
-}    
+}
+
+function goToURL(url){
+    // open in new tab
+    //window.open('https://'+url, '_blank').focus();
+    window.location.href = 'http://'+url;
+}
 
 function logIn(email, password) {
     return new Promise(function (resolve, reject) {
@@ -343,21 +350,12 @@ logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
 // }
 // zFitness();
 
-
-
-
 // function image(hotel){
 //     console.log('Affiche')
 //     image1.setAttribute('src',`http://hospitality.ansetech.com/host/${hotel.picturePath}`);
 //     image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
 // }
 
-// function affiche(user){
-//     // console.log("affichage");
-//     client.innerHTML=user.clientName;
-//     // city.innerHTML=hotel.city;
-//     // cityTag=hotel.city
-//     getWeather();
 //     // console.log("nb category : "+page.length);
 //     // console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
 //     // console.log("item 1 : "+page[0].contents[0].title);
@@ -367,28 +365,3 @@ logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
 //     // console.log("item 2 : "+page[1].contents[1].title); 
 // }
 
-// async function getInfo(params) {
-    // console.log("Tentative de connexion");
-    // const data = await loginIn(); 
-    // client.innerHTML=data.userId;
-    // console.log("Token: "+data.token);
-    // const dataJQuery = loginInJQuery();
-    // console.log("dataJQuery");
-    // console.log(dataJQuery);
-    // const dataXHR = loginInXHR();
-    
-    
-    // console.log("getUser");
-    // const user= await getUser(data); 
-
-
-    // console.log("getHotel");
-    // const hotel=await getHotel(data, user);
-    // console.log("getPages");
-    // const page= await getPage(data, user);
-    
-    // image(hotel);
-    // affiche(user);
-// }
-
-// getInfo();

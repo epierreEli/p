@@ -312,84 +312,65 @@ function logIn(email, password) {
         });
     });
 }
+
+function getUser(userId) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: `https://hospitality.ansetech.com:7443/api/users/${userId}`,
+            type: "GET",
+            headers: { Authorization: "Bearer " + infos.token },
+            success: (data) => resolve(data.user[0]),
+            error: (err) => reject(err),
+        });
+    });
+}
+
+function getHotel(hotelId) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: `https://hospitality.ansetech.com:7443/api/hotels/${hotelId}`,
+            type: "GET",
+            headers: { Authorization: "Bearer " + infos.token },
+            success: (data) => resolve(data.hotel[0]),
+            error: (err) => reject(err),
+        });
+    });
+}
+
+function getPages(hotelId) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: `https://hospitality.ansetech.com:7443/api/pages/fr/${hotelId}`,
+            type: "GET",
+            headers: { Authorization: "Bearer " + infos.token },
+            success: (data) => resolve(data),
+            error: (err) => reject(err),
+        });
+    });
+}
+
+let infos={};
 logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
-    client.innerHTML=data.userId;
+    infos['token']=data.token;
+    infos["userId"]=data.userId;
+    infos["hotelId"]=data.owner;
+    Promise.all([getUser(infos.userId),
+                getHotel(infos.hotelId)]
+    ).then((res)=>{
+        infos["userInfos"]=res[0];
+        infos["hotelInfos"]=res[1];
+        client.innerHTML=infos.userInfos.clientName;
+        city.innerHTML=infos.hotelInfos.city;
+        getWeather();
+        console.log(infos);
+        getPages(infos.hotelId).then((pages)=>{
+            infos["pages"]=pages;
+        });
+        console.log(infos);
+    })
 })
 
 
-
-
-function getUser(data){
-    $.ajax({
-        url: `https://hospitality.ansetech.com/api/users/${data.userId}`,
-        headers:{
-                    "Authorization": "Bearer "+data.token,
-                }
-    })
-    .done((user)=>{
-        user=user.user[0]
-        console.log(user);
-        client.innerHTML=user.clientName;
-        getHotel(data, user);
-        getPage(data, user);
-    })
-    .fail((response)=>{
-        console.log("error");
-    })
-    .always((response)=>{
-
-    })
-}
-
-function getHotel(data, user){
-    $.ajax({
-        url: `https://hospitality.ansetech.com/api/hotels/${user.hotel_id}`,
-        headers:{
-                    "Authorization": "Bearer "+data.token,
-                }
-    })
-    .done((hotel)=>{
-        hotel=hotel.hotel[0];
-        console.log(hotel);
-        city.innerHTML=hotel.city;
-        nameHotel.innerHTML=hotel.name;
-        getWeather();
-        // getHotel(data,user);
-    })
-    .fail((response)=>{
-        console.log("error");
-    })
-    .always((response)=>{
-
-    })
-}
-
-function getPage(data, user){
-    $.ajax({
-        url: `https://hospitality.ansetech.com/api/pages/fr/${user.hotel_id}`,
-        headers:{
-                    "Authorization": "Bearer "+data.token,
-                }
-    })
-    .done((page)=>{
-        console.log(page)
-        console.log("nb category : "+page.length);
-        console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
-        console.log("item 1 : "+page[0].contents[0].title);
-        console.log("item 2 : "+page[0].contents[1].title);
-        console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
-        console.log("item 1 : "+page[1].contents[0].title);
-        console.log("item 2 : "+page[1].contents[1].title); 
-
-        // getHotel(data,user);
-    })
-    .fail((response)=>{
-        console.log("error");
-    })
-    .always((response)=>{
-
-    })
-}
 // loginInJQuery();
 // function zFitness(param){
 //     $.ajax({
@@ -414,19 +395,6 @@ function getPage(data, user){
 
 
 
-// async function getPage(data, user){
-//     const res = await fetch(`https://hospitality.ansetech.com:7443/api/pages/fr/${user.hotel_id}`,
-//         {   
-//             // mode:'no-cors',
-//             headers:{
-//                 "User-Agent":"MyAgent",
-//                 "Authorization": "Bearer "+data.token,
-//             }
-//         }
-//     ).then((response) => response.json());
-//     // console.log(res);
-//     return res;
-// }
 
 // function image(hotel){
 //     console.log('Affiche')

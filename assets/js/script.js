@@ -272,20 +272,20 @@ onkeydown = function(evt){
 // }
 // let i=0;
 function loginInJQuery(params) {
-    document.getElementById("title").innerHTML="double post test";
+    document.getElementById("title").innerHTML="double post test; crossDomain = false";
     console.log("login jQuery");
     return $.ajax({
         method: 'POST',
-        url: "https://hospitality.ansetech.com:7443/api/auth/local",
+        url: "https://hospitality.ansetech.com/api/auth/local",
         // headers: {
         //     'Content-Type': 'application/json; charset=UTF-8',
         //     'Accept': 'application/json',
         // },
         // headers: { 'Access-Control-Allow-Origin': '*' },
-        crossDomain: true,
+        // crossDomain: true,
         // xhrFields: {
         //     withCredentials: true,
-        //     },
+        //     },   
         data:{
             "email": "chambre1@snow-chill2.com",
             "password": "abcd1234",
@@ -307,7 +307,7 @@ function loginInJQuery(params) {
     })
     .always((response)=> {
         // console.log(response);
-        nameHotel.innerHTML="hospitality.ansetech.com:7443";
+        nameHotel.innerHTML="hospitality.ansetech.com";
     })
 };
 loginInJQuery();

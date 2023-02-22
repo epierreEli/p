@@ -102,58 +102,79 @@ setInterval(updateTime, 1000);
 
 
 // Nav Spacial du bled  
-
 var body=document.getElementsByTagName("body")[0];
-body.focus();
-var category=document.getElementsByClassName("category");
-var nbCategoryTotal=category.length;
-var itemInCategory=category[0].getElementsByClassName("item");
-var nbItemInCategory=itemInCategory.length;
+var main = document.getElementsByTagName("main")[0];
+var mainTitle=document.getElementById("mainTitle");
+var category;
+var nbCategoryTotal;
+var itemInCategory;
+var nbItemInCategory
 var categorySelected=0;
 var itemSelected=0;
-
-// Init Nav
-// $("#itemSetting").css("-webkit-filter","brightness(100%)");
-// $("#itemSetting").find(".item").eq(0).css("border","5px solid white")
-$(".category").eq(0).css("-webkit-filter","brightness(100%)");
-itemInCategory[0].style.border=" 5px solid white";
-// category[0].style.filter="brightness()";
-// category[0].classList.add("categorySelected");
-
-// console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
-
-var main = document.getElementsByTagName("main")[0];
-main.scrollTop=0;
-category[0].scrollLeft=0;
-var categoryWidth=getComputedStyle(category[0]).width;
-var scrollLeftLength=$(".category").eq(1).find(".item").eq(1).position().left;
-var scrollMaxGauche=category[0].scrollWidth-category[0].clientWidth;
+var categoryWidth;
+var scrollLeftLength;
+var scrollMaxGauche;
 var scrollAt=0;
-// console.log("width = "+categoryWidth);
-// console.log("Scroll Max = "+scrollMaxGauche);
-// console.log("scroll = "+scrollLeftLength);
-// console.log("scrollAt = "+scrollAt);
-// console.log("main.scrollHeight = "+main.scrollHeight+"; main.clientHeight = "+main.clientHeight);
-var mainTitle=document.getElementById("mainTitle");
-var styleMainTitle=window.getComputedStyle(mainTitle);
-var hauteurMainTitle=mainTitle.offsetHeight+parseInt(styleMainTitle.marginTop)+parseInt(styleMainTitle.marginBottom);
-// console.log("height tot title = "+hauteurMainTitle);
-var categoryTitle=document.getElementsByTagName("h3")[0];
-var styleCategoryTitle=window.getComputedStyle(categoryTitle);  
-var hauteurCategoryTitle=categoryTitle.offsetHeight+parseInt(styleCategoryTitle.marginTop)+parseInt(styleCategoryTitle.marginBottom);
-// console.log(categoryTitle.offsetHeight/2)
-// console.log("height tot h2 = "+hauteurCategoryTitle);
-var styleCategory=window.getComputedStyle(category[1]);  
-var hauteurCategory=category[1].offsetHeight+parseInt(styleCategory.marginTop)+parseInt(styleCategory.marginBottom);
-// console.log("height tot cat = "+hauteurCategory);
-var scrollHautLength=hauteurCategoryTitle-parseInt(styleCategoryTitle.marginTop)+hauteurCategory;
-// console.log("height tot = "+scrollHautLength);
-// console.log(hauteurMainTitle+(hauteurCategoryTitle-10)/2+hauteurCategory);
-var scrollMaxHaut=main.scrollHeight-main.clientHeight;
+var styleMainTitle;
+var hauteurMainTitle;
+var categoryTitle;
+var styleCategoryTitle;
+var hauteurCategoryTitle;
+var styleCategory;
+var hauteurCategory;
+var scrollHautLength;
+var scrollMaxHaut;
 var scrollHaut=0;
 
-console.log("active element");
-console.log(document.activeElement);
+function navInit(){
+    body.focus();
+    category=document.getElementsByClassName("category");
+    nbCategoryTotal=category.length;
+    itemInCategory=category[0].getElementsByClassName("item");
+    nbItemInCategory=itemInCategory.length;
+    
+
+    // Init Nav
+    // $("#itemSetting").css("-webkit-filter","brightness(100%)");
+    // $("#itemSetting").find(".item").eq(0).css("border","5px solid white")
+    $(".category").eq(0).css("-webkit-filter","brightness(100%)");
+    itemInCategory[0].style.border=" 5px solid white";
+    // category[0].style.filter="brightness()";
+    // category[0].classList.add("categorySelected");
+
+    // console.log("category = "+categorySelected+"; item ="+itemSelected+"; toggle ="+toggleSetting);
+
+    main.scrollTop=0;
+    category[0].scrollLeft=0;
+    categoryWidth=getComputedStyle(category[0]).width;
+    scrollLeftLength=$(".category").eq(1).find(".item").eq(1).position().left;
+    scrollMaxGauche=category[0].scrollWidth-category[0].clientWidth; 
+    // console.log("width = "+categoryWidth);
+    // console.log("Scroll Max = "+scrollMaxGauche);
+    // console.log("scroll = "+scrollLeftLength);
+    // console.log("scrollAt = "+scrollAt);
+    // console.log("main.scrollHeight = "+main.scrollHeight+"; main.clientHeight = "+main.clientHeight);
+    
+    styleMainTitle=window.getComputedStyle(mainTitle);
+    hauteurMainTitle=mainTitle.offsetHeight+parseInt(styleMainTitle.marginTop)+parseInt(styleMainTitle.marginBottom);
+    // console.log("height tot title = "+hauteurMainTitle);
+    categoryTitle=document.getElementsByTagName("h3")[0];
+    styleCategoryTitle=window.getComputedStyle(categoryTitle);  
+    hauteurCategoryTitle=categoryTitle.offsetHeight+parseInt(styleCategoryTitle.marginTop)+parseInt(styleCategoryTitle.marginBottom);
+    // console.log(categoryTitle.offsetHeight/2)
+    // console.log("height tot h2 = "+hauteurCategoryTitle);
+    styleCategory=window.getComputedStyle(category[1]);  
+    hauteurCategory=category[1].offsetHeight+parseInt(styleCategory.marginTop)+parseInt(styleCategory.marginBottom);
+    // console.log("height tot cat = "+hauteurCategory);
+    scrollHautLength=hauteurCategoryTitle-parseInt(styleCategoryTitle.marginTop)+hauteurCategory;
+    // console.log("height tot = "+scrollHautLength);
+    // console.log(hauteurMainTitle+(hauteurCategoryTitle-10)/2+hauteurCategory);
+    scrollMaxHaut=main.scrollHeight-main.clientHeight;
+
+    // console.log("active element");
+    // console.log(document.activeElement);
+}
+
 
 
 onkeydown = function(evt){
@@ -239,7 +260,7 @@ onkeydown = function(evt){
             window.location.reload();
             break;
     };
-    console.log("category = "+categorySelected+"; item ="+itemSelected);
+    // console.log("category = "+categorySelected+"; item ="+itemSelected);
     // console.log("scrollAt="+scrollAt+"; scrollMaxGauche="+scrollMaxGauche);
     // console.log("scrollHaut="+scrollHaut+"; scrollMaxHaut="+scrollMaxHaut);
     // console.log(item);
@@ -304,6 +325,34 @@ function getPages(hotelId) {
     });
 }
 
+function afficheCategory(pages){
+    console.log("affiche catégories");
+    for (let i = 0; i < pages.length; i++) {
+        const cat=pages[i];
+        const categoryItem=cat.contents;
+        console.log("cat : "+i);
+        console.log(categoryItem.length);
+        var newH3=document.createElement('h3');
+        var newSection=document.createElement('section');
+        newH3.innerHTML=cat.title;
+        newSection.className="category";
+        document.getElementsByClassName("container")[0].appendChild(newH3);
+        document.getElementsByClassName("container")[0].appendChild(newSection);
+        for (let j = 0; j < categoryItem.length; j++) {
+            // <div class="item"><span>item 1</span></div>
+            var newSpan=document.createElement('span')
+            var newDiv=document.createElement('div');
+            var url=`https://hospitality.ansetech.com/host/files/images/pages/${categoryItem[j].image}`;
+            newSpan.innerHTML=categoryItem[j].title;
+            newDiv.appendChild(newSpan);
+            newDiv.className="item";
+            newDiv.style.backgroundImage = "url("+url+")";
+            document.getElementsByClassName("category")[i+1].appendChild(newDiv);         
+        }
+    }
+    navInit();
+}
+
 let infos={};
 var logo=document.getElementById("logo");
 logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
@@ -322,6 +371,7 @@ logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
         logo.setAttribute('src',`https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
         getPages(infos.hotelId).then((pages)=>{
             infos["pages"]=pages;
+            afficheCategory(infos.pages);
         });
         console.log(infos);
     })
@@ -352,8 +402,9 @@ logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
 
 // function image(hotel){
 //     console.log('Affiche')
-//     image1.setAttribute('src',`http://hospitality.ansetech.com/host/${hotel.picturePath}`);
-//     image2.setAttribute('src',`http://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
+//     image1.setAttribute('src',`https://hospitality.ansetech.com/host/${hotel.picturePath}`);
+//     image2.setAttribute('src',`https://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
+//     image.3.setAttribut('src', `https://hospitality.ansetech.com//host/files/images/pages/${category[0].image}`)
 // }
 
 //     // console.log("nb category : "+page.length);

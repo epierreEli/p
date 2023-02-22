@@ -34,6 +34,7 @@ var cityTag="Toulon";
 //           "https://openweathermap.org/img/wn/50d@2x.png"  // Mist
 //         ]
 function getWeather() {
+    cityTag=city.innerText;
     console.log("citytag = "+cityTag+"; getWeather");
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityTag},fr&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric`;
     $.get(url).done(function(data){
@@ -48,7 +49,7 @@ function getWeather() {
                   console.log( "update weather finished" );
               });
 }
-getWeather();
+// getWeather();
 
 // Heure + Date
 
@@ -272,9 +273,9 @@ onkeydown = function(evt){
 // }
 
 function loginInJQuery(params) {
-    document.getElementById("title").innerHTML="double post test; crossDomain = false";
+    // document.getElementById("title").innerHTML="double post test; crossDomain = false";
     console.log("login jQuery");
-    return $.ajax({
+    $.ajax({
         method: 'POST',
         url: "https://hospitality.ansetech.com/api/auth/local",
         data:{
@@ -282,23 +283,116 @@ function loginInJQuery(params) {
             "password": "abcd1234",
         },
     })
-    .done((response) => {
-        console.log(response);
-        city.innerHTML="request Fini";
-        client.innerHTML=response.userId;
-        return response;
+    .done((data) => {
+        console.log(data);
+        getUser(data);
+        // return response;
     })
     .fail((response)=>{
-        client.innerHTML=JSON.stringify(response);
-        city.innerHTML="ERROR";
+        console.log("error");
     })
     .always((response)=> {
-        nameHotel.innerHTML="hospitality.ansetech.com";
+        
     })
 };
-loginInJQuery();
 
 
+function logIn(email, password) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "https://hospitality.ansetech.com/api/auth/local",
+            type: "POST",
+            data: {
+                email: email,
+                password: password,
+            },
+            beforeSend: () => { },
+            success: (data) => resolve(data),
+            error: (err) => reject(err),
+        });
+    });
+}
+async function hola(){
+    const data = await logIn("chambre1@snow-chill2.com","abcd1234");
+    client.innerHTML=data.userId;
+}
+
+hola();
+
+
+
+function getUser(data){
+    $.ajax({
+        url: `https://hospitality.ansetech.com/api/users/${data.userId}`,
+        headers:{
+                    "Authorization": "Bearer "+data.token,
+                }
+    })
+    .done((user)=>{
+        user=user.user[0]
+        console.log(user);
+        client.innerHTML=user.clientName;
+        getHotel(data, user);
+        getPage(data, user);
+    })
+    .fail((response)=>{
+        console.log("error");
+    })
+    .always((response)=>{
+
+    })
+}
+
+function getHotel(data, user){
+    $.ajax({
+        url: `https://hospitality.ansetech.com/api/hotels/${user.hotel_id}`,
+        headers:{
+                    "Authorization": "Bearer "+data.token,
+                }
+    })
+    .done((hotel)=>{
+        hotel=hotel.hotel[0];
+        console.log(hotel);
+        city.innerHTML=hotel.city;
+        nameHotel.innerHTML=hotel.name;
+        getWeather();
+        // getHotel(data,user);
+    })
+    .fail((response)=>{
+        console.log("error");
+    })
+    .always((response)=>{
+
+    })
+}
+
+function getPage(data, user){
+    $.ajax({
+        url: `https://hospitality.ansetech.com/api/pages/fr/${user.hotel_id}`,
+        headers:{
+                    "Authorization": "Bearer "+data.token,
+                }
+    })
+    .done((page)=>{
+        console.log(page)
+        console.log("nb category : "+page.length);
+        console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
+        console.log("item 1 : "+page[0].contents[0].title);
+        console.log("item 2 : "+page[0].contents[1].title);
+        console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
+        console.log("item 1 : "+page[1].contents[0].title);
+        console.log("item 2 : "+page[1].contents[1].title); 
+
+        // getHotel(data,user);
+    })
+    .fail((response)=>{
+        console.log("error");
+    })
+    .always((response)=>{
+
+    })
+}
+// loginInJQuery();
 // function zFitness(param){
 //     $.ajax({
 //         url:"https://hospitality.ansetech.com:7443/api/zfitness/videos",
@@ -320,57 +414,7 @@ loginInJQuery();
 // }
 // zFitness();
 
-function testLogin(params){
-    document.getElementsByTagName("h3")[0].innerHTML='https://reqres.in:443/api/login';
-    $.ajax({
-		method : "POST",
-		// contentType : 'application/json; charset=utf-8',
-		// dataType : 'json',
-		// crossDomain : true,
-		url : 'https://reqres.in:443/api/login',
-		data :{
-            "email": "eve.holt@reqres.in",
-            "password": "cityslicka",
-		}
-	})
-    .done((response)=>{
-        console.log(response);
-        document.getElementsByTagName("h3")[1].innerHTML=JSON.stringify(response);
-    })
-    .fail((response)=>{
-        console.log(response);
-        document.getElementsByTagName("h3")[1].innerHTML=JSON.stringify(response);
-        document.getElementsByTagName("h3")[2].innerHTML="Error"
-    })
-    .always((response)=>{})
-}
-testLogin();
 
-
-// async function getUser(data) {
-//     const res = await fetch(`https://hospitality.ansetech.com:7443/api/users/${data.userId}`,
-//         {
-//             headers:{
-//                 "User-Agent":"MyAgent",
-//                 "Authorization": "Bearer "+data.token,
-//             }
-//         }
-//     ).then((response) => response.json());
-//     // console.log(res.user[0]);
-//     return res.user[0];
-// }
-// async function getHotel(data,user) {
-//     const res = await fetch(`https://hospitality.ansetech.com:7443/api/hotels/${user.hotel_id}`,
-//         {
-//             headers:{
-//                 "User-Agent":"MyAgent",
-//                 "Authorization": "Bearer "+data.token,
-//             }
-//         }
-//     ).then((response) => response.json());
-//     // console.log(res.hotel[0]);
-//     return res.hotel[0];
-// }
 
 // async function getPage(data, user){
 //     const res = await fetch(`https://hospitality.ansetech.com:7443/api/pages/fr/${user.hotel_id}`,

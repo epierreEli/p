@@ -79,8 +79,8 @@ header #location img{
     height: 30px;
 }
 header #logo{
-    height: 80px;
-    background-color: lightyellow;
+    height: 100%;
+    align-self: center;
 }
 header #info{
     display:flex;

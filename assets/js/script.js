@@ -51,7 +51,7 @@ function getWeather() {
 }
 // getWeather();
 
-// Heure + Date
+// Heure + Date       
 
 var time = document.getElementById("time");
 var dateLocal=document.getElementById("date");
@@ -284,6 +284,10 @@ onkeydown = function(evt){
                 document.getElementsByClassName("itemSelected")[0].remove();
                 itemDetails=false;
                 break;
+            case 8:
+                document.getElementsByClassName("itemSelected")[0].remove();
+                itemDetails=false;
+                break;
         }
     }
     
@@ -301,19 +305,6 @@ function updateBG(categorySelected,itemSelected){
     console.log(bgUrl);
     document.body.style.backgroundImage = "url("+bgUrl+")";
 }
-
-// {/* <section class="itemSelected">
-//     <div class="itemSelectedImage">
-//         <img src="https://hospitality.ansetech.com/host/files/images/pages/5dcd7ea62c9cc.jpg" alt="">
-//         <input type="button" value="Agrandir">
-//     </div>  
-//     <article class="itemSelectedText">
-//         <div>
-//             <h2>Title</h2>
-//         </div>
-//         <p>Text</p>
-//     </article>
-// </section> */}
 
 function  afficheItem(categorySelected,itemSelected){
     var path=infos.pages[categorySelected-1].contents[itemSelected];
@@ -476,19 +467,5 @@ logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
 // }
 // zFitness();
 
-// function image(hotel){
-//     console.log('Affiche')
-//     image1.setAttribute('src',`https://hospitality.ansetech.com/host/${hotel.picturePath}`);
-//     image2.setAttribute('src',`https://hospitality.ansetech.com/host/files/images/welcome/${hotel.welcomeImage}`)
-//     image.3.setAttribut('src', `https://hospitality.ansetech.com//host/files/images/pages/${category[0].image}`)
-// }
 
-//     // console.log("nb category : "+page.length);
-//     // console.log("cat 1 : "+page[0].title+"; nb item = "+page[0].contents.length);
-//     // console.log("item 1 : "+page[0].contents[0].title);
-//     // console.log("item 2 : "+page[0].contents[1].title);
-//     // console.log("cat 2 : "+page[1].title+"; nb item = "+page[1].contents.length);
-//     // console.log("item 1 : "+page[1].contents[0].title);
-//     // console.log("item 2 : "+page[1].contents[1].title); 
-// }
 

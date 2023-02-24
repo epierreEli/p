@@ -273,14 +273,14 @@ onkeydown = function(evt){
                     afficheItem(categorySelected, itemSelected);
                 }
                 break;
-            case 8: // retour (461=> tv // 8=>ordi)
+            case 461: // retour (461=> tv // 8=>ordi)
                 window.location.reload();
                 break;
         };
     }
     else{
         switch(evt.keyCode){
-            case 8:
+            case 461:
                 document.getElementsByClassName("itemSelected")[0].remove();
                 itemDetails=false;
                 break;

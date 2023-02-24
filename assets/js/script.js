@@ -108,7 +108,7 @@ var mainTitle=document.getElementById("mainTitle");
 var category;
 var nbCategoryTotal;
 var itemInCategory;
-var nbItemInCategory
+var nbItemInCategory;
 var categorySelected=0;
 var itemSelected=0;
 var categoryWidth;
@@ -125,6 +125,8 @@ var hauteurCategory;
 var scrollHautLength;
 var scrollMaxHaut;
 var scrollHaut=0;
+var bgUrl;
+var itemDetails=false;
 
 function navInit(){
     body.focus();
@@ -133,8 +135,6 @@ function navInit(){
     itemInCategory=category[0].getElementsByClassName("item");
     nbItemInCategory=itemInCategory.length;
     
-
-    // Init Nav
     // $("#itemSetting").css("-webkit-filter","brightness(100%)");
     // $("#itemSetting").find(".item").eq(0).css("border","5px solid white")
     $(".category").eq(0).css("-webkit-filter","brightness(100%)");
@@ -179,92 +179,172 @@ function navInit(){
 
 onkeydown = function(evt){
     // document.getElementById("title").innerHTML="evt.key = "+evt.key+"; evt.keyCode = "+evt.keyCode;
-    switch(evt.keyCode){
-        case 37: // left
-            if(itemSelected-1>=0){
-                itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
-                itemSelected--;
-                itemInCategory[itemSelected].style.border=" 5px solid white";
-                scrollAt-=scrollLeftLength;
-                if (scrollAt<scrollMaxGauche){
+    if (!itemDetails){
+        switch(evt.keyCode){
+            case 37: // left
+                if(itemSelected-1>=0){
+                    itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
+                    itemSelected--;
+                    itemInCategory[itemSelected].style.border=" 5px solid white";
+                    scrollAt-=scrollLeftLength;
+                    if (scrollAt<scrollMaxGauche){
+                        $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
+                    }
+                    else{
+                        $(".category").eq(categorySelected).animate({'scrollLeft':scrollMaxGauche},100);
+                    }
+                }
+                if (categorySelected>=1){
+                    updateBG(categorySelected-1,itemSelected );
+                }
+                break;
+            case 38: // up
+                if (categorySelected-1>=0){
+                    itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
+                    $(".category").eq(categorySelected).css("-webkit-filter","brightness(20%)");
+                    categorySelected--;
+                    $(".category").eq(categorySelected).css("-webkit-filter","brightness(100%)");
+                    itemInCategory=category[categorySelected].getElementsByClassName("item");
+                    nbItemInCategory=itemInCategory.length;
+                    itemSelected=0;
+                    itemInCategory[itemSelected].style.border=" 5px solid white";
+                    scrollAt=0;
+                    category[categorySelected].scrollLeft=0;
+                    category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
+                    if (categorySelected==0){
+                        scrollHaut=0;
+                        $("main").animate({'scrollTop':scrollHaut},100);
+                        console.log("changement bgimage0 cat0");
+                        bgUrl =`https://hospitality.ansetech.com/host/files/images/pages/${infos.pages[0].contents[0].image}`
+                        body.style.backgroundImage= "url("+bgUrl+")";
+                    }
+                    else {
+                        scrollHaut-=scrollHautLength;
+                        $("main").animate({'scrollTop':scrollHaut},100);
+                        updateBG(categorySelected-1,itemSelected );
+                    }
+                }
+                
+                break;
+            case 39: // right
+                if(itemSelected+1<nbItemInCategory){
+                    itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
+                    itemSelected++;
+                    itemInCategory[itemSelected].style.border=" 5px solid white";
+                    scrollAt+=scrollLeftLength;             
                     $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
                 }
-                else{
-                    $(".category").eq(categorySelected).animate({'scrollLeft':scrollMaxGauche},100);
+                if (categorySelected>=1){
+                    updateBG(categorySelected-1,itemSelected );
                 }
-            }
-            break;
-        case 38: // up
-            if (categorySelected-1>=0){
-                itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
-                $(".category").eq(categorySelected).css("-webkit-filter","brightness(20%)");
-                categorySelected--;
-                $(".category").eq(categorySelected).css("-webkit-filter","brightness(100%)");
-                itemInCategory=category[categorySelected].getElementsByClassName("item");
-                nbItemInCategory=itemInCategory.length;
-                itemSelected=0;
-                itemInCategory[itemSelected].style.border=" 5px solid white";
-                scrollAt=0;
-                category[categorySelected].scrollLeft=0;
-                category[categorySelected].scrollWidth-category[categorySelected].clientWidth;
-                if (categorySelected==0){
-                    scrollHaut=0;
-                    $("main").animate({'scrollTop':scrollHaut},100);
+                break;
+            case 40: // down
+                if (categorySelected+1<nbCategoryTotal){
+                    itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
+                    $(".category").eq(categorySelected).css("-webkit-filter","brightness(20%)");
+                    categorySelected++;
+                    $(".category").eq(categorySelected).css("-webkit-filter","brightness(100%)");
+                    itemInCategory=category[categorySelected].getElementsByClassName("item");
+                    nbItemInCategory=itemInCategory.length;
+                    itemSelected=0;
+                    itemInCategory[itemSelected].style.border=" 5px solid white";
+                    category[categorySelected].scrollLeft=0;
+                    scrollAt=0;
+                    scrollMaxGauche=category[categorySelected].scrollWidth-category[categorySelected].clientWidth; 
+                    if (categorySelected==1){
+                        scrollHaut=hauteurMainTitle-parseInt(styleCategoryTitle.marginTop);
+                        $("main").animate({'scrollTop':scrollHaut},100);
+                    }
+                    else if (categorySelected>=2){
+                        scrollHaut+=scrollHautLength;
+                        $("main").animate({'scrollTop':scrollHaut},100);
+                        updateBG(categorySelected-1,itemSelected );
+                    }
                 }
-                else {
-                    scrollHaut-=scrollHautLength;
-                    $("main").animate({'scrollTop':scrollHaut},100);
+                break;
+            case 13: // ok
+                if (categorySelected==0 && itemSelected==3){
+                    console.log("Netflix");
+                    // categoryTitle.innerHTML="Netflix";
+                    goToURL("www.netflix.com/fr");
                 }
-            }
-            break;
-        case 39: // right
-            if(itemSelected+1<nbItemInCategory){
-                itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
-                itemSelected++;
-                itemInCategory[itemSelected].style.border=" 5px solid white";
-                scrollAt+=scrollLeftLength;             
-                $(".category").eq(categorySelected).animate({'scrollLeft':scrollAt},100);
-            }
-            break;
-        case 40: // down
-            if (categorySelected+1<nbCategoryTotal){
-                itemInCategory[itemSelected].style.border=" 5px solid rgb(174,90,33)";
-                $(".category").eq(categorySelected).css("-webkit-filter","brightness(20%)");
-                categorySelected++;
-                $(".category").eq(categorySelected).css("-webkit-filter","brightness(100%)");
-                itemInCategory=category[categorySelected].getElementsByClassName("item");
-                nbItemInCategory=itemInCategory.length;
-                itemSelected=0;
-                itemInCategory[itemSelected].style.border=" 5px solid white";
-                category[categorySelected].scrollLeft=0;
-                scrollAt=0;
-                scrollMaxGauche=category[categorySelected].scrollWidth-category[categorySelected].clientWidth; 
-                if (categorySelected==1){
-                    scrollHaut=hauteurMainTitle-parseInt(styleCategoryTitle.marginTop);
-                    $("main").animate({'scrollTop':scrollHaut},100);
+                if (categorySelected>=1){
+                    console.log("affichage item");
+                    afficheItem(categorySelected, itemSelected);
                 }
-                else if (categorySelected>=2){
-                    scrollHaut+=scrollHautLength;
-                    $("main").animate({'scrollTop':scrollHaut},100);
-                }
-            }
-            break;
-        case 13: // ok
-            if (categorySelected==0 && itemSelected==3){
-                console.log("Netflix");
-                // categoryTitle.innerHTML="Netflix";
-                goToURL("www.netflix.com/fr");
-            }
-            break;
-        case 461: // retour (461=> tv // 8=>ordi)
-            window.location.reload();
-            break;
-    };
-    // console.log("category = "+categorySelected+"; item ="+itemSelected);
+                break;
+            case 8: // retour (461=> tv // 8=>ordi)
+                window.location.reload();
+                break;
+        };
+    }
+    else{
+        switch(evt.keyCode){
+            case 8:
+                document.getElementsByClassName("itemSelected")[0].remove();
+                itemDetails=false;
+                break;
+        }
+    }
+    
+    console.log("category = "+categorySelected+"; item ="+itemSelected);
+    console.log("itemDetails = "+itemDetails);
     // console.log("scrollAt="+scrollAt+"; scrollMaxGauche="+scrollMaxGauche);
     // console.log("scrollHaut="+scrollHaut+"; scrollMaxHaut="+scrollMaxHaut);
     // console.log(item);
     // console.log(document.activeElement);
+}
+
+function updateBG(categorySelected,itemSelected){
+    var url = infos.pages[categorySelected].contents[itemSelected].image
+    bgUrl =`https://hospitality.ansetech.com/host/files/images/pages/${url}`;
+    console.log(bgUrl);
+    document.body.style.backgroundImage = "url("+bgUrl+")";
+}
+
+// {/* <section class="itemSelected">
+//     <div class="itemSelectedImage">
+//         <img src="https://hospitality.ansetech.com/host/files/images/pages/5dcd7ea62c9cc.jpg" alt="">
+//         <input type="button" value="Agrandir">
+//     </div>  
+//     <article class="itemSelectedText">
+//         <div>
+//             <h2>Title</h2>
+//         </div>
+//         <p>Text</p>
+//     </article>
+// </section> */}
+
+function  afficheItem(categorySelected,itemSelected){
+    var path=infos.pages[categorySelected-1].contents[itemSelected];
+    var newSection=document.createElement('section');
+    newSection.className="itemSelected";
+    var newDiv=document.createElement('div');
+    newDiv.className="itemSelectedImage";
+    var newArticle=document.createElement('article');
+    newArticle.className="itemSelectedText";
+
+    var newImg=document.createElement('img');
+    newImg.setAttribute('src',`https://hospitality.ansetech.com/host/files/images/pages/${path.image}`);
+    var newInput=document.createElement('input');
+    newInput.type="button";
+    newInput.value="Agrandir";
+    newDiv.appendChild(newImg);
+    newDiv.appendChild(newInput);
+    newSection.appendChild(newDiv);
+
+    var newTitle=document.createElement('div');
+    var newH2=document.createElement('h2');
+    newH2.innerHTML=path.title;
+    newTitle.appendChild(newH2);
+    newArticle.appendChild(newTitle);
+    var newP=document.createElement('p');
+    newP.innerHTML=path.text;
+    newArticle.appendChild(newP);
+    newSection.appendChild(newArticle);
+
+    main.appendChild(newSection);
+    itemDetails=true;
 }
 
 function goToURL(url){
@@ -326,12 +406,9 @@ function getPages(hotelId) {
 }
 
 function afficheCategory(pages){
-    console.log("affiche catégories");
     for (let i = 0; i < pages.length; i++) {
         const cat=pages[i];
         const categoryItem=cat.contents;
-        console.log("cat : "+i);
-        console.log(categoryItem.length);
         var newH3=document.createElement('h3');
         var newSection=document.createElement('section');
         newH3.innerHTML=cat.title;
@@ -339,8 +416,7 @@ function afficheCategory(pages){
         document.getElementsByClassName("container")[0].appendChild(newH3);
         document.getElementsByClassName("container")[0].appendChild(newSection);
         for (let j = 0; j < categoryItem.length; j++) {
-            // <div class="item"><span>item 1</span></div>
-            var newSpan=document.createElement('span')
+            var newSpan=document.createElement('span');
             var newDiv=document.createElement('div');
             var url=`https://hospitality.ansetech.com/host/files/images/pages/${categoryItem[j].image}`;
             newSpan.innerHTML=categoryItem[j].title;
@@ -368,17 +444,17 @@ logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
         city.innerHTML=infos.hotelInfos.city;
         nameHotel.innerHTML=infos.hotelInfos.name;
         getWeather();
-        logo.setAttribute('src',`https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
+        logo.setAttribute('src',`https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);   
         getPages(infos.hotelId).then((pages)=>{
             infos["pages"]=pages;
+            const url =`https://hospitality.ansetech.com/host/files/images/pages/${pages[0].contents[0].image}`
+            body.style.backgroundImage= "url("+url+")";
             afficheCategory(infos.pages);
         });
         console.log(infos);
     })
 })
 
-
-// loginInJQuery();
 // function zFitness(param){
 //     $.ajax({
 //         url:"https://hospitality.ansetech.com:7443/api/zfitness/videos",

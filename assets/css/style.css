@@ -6,15 +6,52 @@ body{
     overflow: hidden;
     height: 100vh;
     /* background-color: lightgrey; */
-    background-image: url("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg");
+    /* background-image: url("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg"); */
     background-repeat:no-repeat;
     background-size: cover;
 }
 
 /* -----classList---- */
 
-.itemSelected{
+.itemFocus{
     border: 5px solid white;
+}
+.itemSelected{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: coral;
+}
+.itemSelectedImage {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    align-items: center;
+}
+.itemSelectedImage img{
+    position: relative;
+    top:15%;
+    height: 30%;
+}
+.itemSelectedImage input{
+    position: relative;
+    top: 30%;
+    width: 100px;
+}
+.itemSelectedText{
+    display:flex;
+    flex-direction: column;
+    position: relative;
+    top:15%;
+    width: 100%;
+}
+.itemSelectedText div {
+    background-color: darkgoldenrod;
 }
 
 /* --------- */
@@ -27,6 +64,7 @@ header{
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 10px 15px 10px 15px ;
+    height: 15vh;
 }
 header #location{
     display: flex;

@@ -333,6 +333,7 @@ onkeydown = function(evt){
 
 var test=document.getElementsByClassName("category")[0].getElementsByClassName("item")[4].getElementsByTagName("video")[0];
 test.setAttribute("src","./assets/img/210530_clip_radio-star_12s.mp4");
+test.setAttribute("autoplay","true");
 
 
 function updateBG(categorySelected,itemSelected){

@@ -128,6 +128,7 @@ var scrollHaut=0;
 var bgUrl;
 var itemDetails=false;
 var imageFS=false;
+var videoFS=false;
 
 function navInit(){
     body.focus();
@@ -269,6 +270,10 @@ onkeydown = function(evt){
                     // categoryTitle.innerHTML="Netflix";
                     goToURL("www.netflix.com/fr");
                 }
+                if (categorySelected==0 && itemSelected==4){
+                    console.log("video");
+                    afficheVideoFS();
+                }
                 if (categorySelected>=1){
                     console.log("affichage item");
                     afficheItem(categorySelected, itemSelected);
@@ -290,7 +295,12 @@ onkeydown = function(evt){
                     document.getElementsByClassName("imgFullScreen")[0].remove();
                     imageFS=false;
                 }
-                else {
+                else if (videoFS){
+                    document.getElementsByClassName("imgFullScreen")[0].remove();
+                    videoFS=false;
+                    itemDetails=false;
+                } 
+                else{
                     document.getElementsByClassName("itemSelected")[0].remove();
                     itemDetails=false;
                 }
@@ -300,6 +310,11 @@ onkeydown = function(evt){
                     document.getElementsByClassName("imgFullScreen")[0].remove();
                     imageFS=false;
                 }
+                else if (videoFS){
+                    document.getElementsByClassName("imgFullScreen")[0].remove();
+                    videoFS=false;
+                    itemDetails=false;
+                } 
                 else {
                     document.getElementsByClassName("itemSelected")[0].remove();
                     itemDetails=false;
@@ -315,6 +330,10 @@ onkeydown = function(evt){
     // console.log(item);
     // console.log(document.activeElement);
 }
+
+var test=document.getElementsByClassName("category")[0].getElementsByClassName("item")[4].getElementsByTagName("video")[0];
+test.setAttribute("src","./assets/img/210530_clip_radio-star_12s.mp4");
+
 
 function updateBG(categorySelected,itemSelected){
     var url = infos.pages[categorySelected].contents[itemSelected].image
@@ -363,6 +382,19 @@ function afficheImageFS(){
     newDiv.style.backgroundImage="url("+`https://hospitality.ansetech.com/host/files/images/pages/${path.image}`+")";
     main.appendChild(newDiv);
     imageFS=true;
+}
+
+function afficheVideoFS(){
+    var newDiv=document.createElement('div');
+    newDiv.className="imgFullScreen";
+    var newVideo=document.createElement("video");
+    newVideo.setAttribute("id", "video2");
+    newVideo.setAttribute("src","./assets/img/210530_clip_radio-star_12s.mp4");
+    newDiv.appendChild(newVideo);
+    main.appendChild(newDiv);
+    document.querySelector('#video2').autoplay = true;
+    itemDetails=true;
+    videoFS=true;
 }
 
 function goToURL(url){

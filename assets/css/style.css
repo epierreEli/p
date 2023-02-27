@@ -52,7 +52,7 @@ body{
     width: 100%;
 }
 .itemSelectedText div {
-    background-color: darkgoldenrod;
+    background-color: grey;
     padding: 15px;
 }
 .itemSelectedText p{
@@ -183,6 +183,16 @@ main .item span{
     height: 20%;
     text-align: center;
     color: white;
+}
+main #video1{
+    flex-direction: column;
+    justify-content: space-between;
+}
+main .item video{
+    width: 100%;
+}
+main #video2{
+    width: 100%;
 }
 main .category .item:last-child{
     margin-right: 0px;

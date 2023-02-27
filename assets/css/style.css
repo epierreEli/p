@@ -32,11 +32,12 @@ body{
     flex-direction: column;
     /* justify-content: space-evenly; */
     align-items: center;
+    width: 60%;
 }
 .itemSelectedImage img{
     position: relative;
     top:15%;
-    height: 30%;
+    width: 100%;
 }
 .itemSelectedImage input{
     position: relative;
@@ -52,6 +53,10 @@ body{
 }
 .itemSelectedText div {
     background-color: darkgoldenrod;
+    padding: 15px;
+}
+.itemSelectedText p{
+    padding: 25px;
 }
 
 /* --------- */

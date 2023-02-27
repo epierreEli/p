@@ -127,6 +127,7 @@ var scrollMaxHaut;
 var scrollHaut=0;
 var bgUrl;
 var itemDetails=false;
+var imageFS=false;
 
 function navInit(){
     body.focus();
@@ -273,9 +274,6 @@ onkeydown = function(evt){
                     afficheItem(categorySelected, itemSelected);
                 }
                 break;
-            case 82: // btn rouge
-                nameHotel.innerHTML="BTN ROUGE";
-                break;
             case 461: // retour (461=> tv // 8=>ordi)
                 window.location.reload();
                 break;
@@ -283,13 +281,29 @@ onkeydown = function(evt){
     }
     else{
         switch(evt.keyCode){
-            case 461:
-                document.getElementsByClassName("itemSelected")[0].remove();
-                itemDetails=false;
+            case 13:
+                console.log("img FS");
+                afficheImageFS();
                 break;
             case 8:
-                document.getElementsByClassName("itemSelected")[0].remove();
-                itemDetails=false;
+                if (imageFS){
+                    document.getElementsByClassName("imgFullScreen")[0].remove();
+                    imageFS=false;
+                }
+                else {
+                    document.getElementsByClassName("itemSelected")[0].remove();
+                    itemDetails=false;
+                }
+                break;
+            case 461:
+                if (imageFS){
+                    document.getElementsByClassName("imgFullScreen")[0].remove();
+                    imageFS=false;
+                }
+                else {
+                    document.getElementsByClassName("itemSelected")[0].remove();
+                    itemDetails=false;
+                }
                 break;
         }
     }
@@ -339,6 +353,16 @@ function  afficheItem(categorySelected,itemSelected){
 
     main.appendChild(newSection);
     itemDetails=true;
+}
+
+function afficheImageFS(){
+    var path=infos.pages[categorySelected-1].contents[itemSelected];
+    console.log(path.image);
+    var newDiv=document.createElement('div');
+    newDiv.className="imgFullScreen";
+    newDiv.style.backgroundImage="url("+`https://hospitality.ansetech.com/host/files/images/pages/${path.image}`+")";
+    main.appendChild(newDiv);
+    imageFS=true;
 }
 
 function goToURL(url){

@@ -273,6 +273,9 @@ onkeydown = function(evt){
                     afficheItem(categorySelected, itemSelected);
                 }
                 break;
+            case 82: // btn rouge
+                nameHotel.innerHTML="BTN ROUGE";
+                break;
             case 461: // retour (461=> tv // 8=>ordi)
                 window.location.reload();
                 break;

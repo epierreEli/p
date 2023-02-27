@@ -392,6 +392,7 @@ function afficheVideoFS(){
     newVideo.setAttribute("id", "video2");
     newVideo.setAttribute("src","./assets/img/210530_clip_radio-star_12s.mp4");
     newVideo.autoplay=true;
+    newVideo.loop=true;
     newDiv.appendChild(newVideo);
     main.appendChild(newDiv);
     itemDetails=true;

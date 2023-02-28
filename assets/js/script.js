@@ -324,7 +324,7 @@ onkeydown = function(evt){
     }
     
     console.log("category = "+categorySelected+"; item ="+itemSelected);
-    console.log("itemDetails = "+itemDetails);
+    // console.log("itemDetails = "+itemDetails);
     // console.log("scrollAt="+scrollAt+"; scrollMaxGauche="+scrollMaxGauche);
     // console.log("scrollHaut="+scrollHaut+"; scrollMaxHaut="+scrollMaxHaut);
     // console.log(item);

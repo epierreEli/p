@@ -24,7 +24,7 @@ body{
     left: 0;
     height: 100vh;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     background-color: #3C383E;
 }
 .itemSelectedImage {
@@ -65,7 +65,7 @@ body{
     top:0;
     height: 100%;
     width: 100%;
-    z-index: 2;
+    z-index: 3;
     background-repeat:no-repeat;
     background-size: cover;
 }
@@ -189,6 +189,7 @@ main #video1{
     justify-content: space-between;
 }
 main .item video{
+    position: relative;
     width: 100%;
     z-index: 1;
 }

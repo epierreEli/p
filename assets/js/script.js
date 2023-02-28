@@ -127,6 +127,7 @@ var scrollHautLength;
 var scrollMaxHaut;
 var scrollHaut=0;
 var bgUrl;
+var nbSectionStart=document.getElementsByTagName("section").length;
 var itemDetails=false;
 var imageFS=false;
 var videoFS=false;
@@ -261,7 +262,7 @@ onkeydown = function(evt){
                     else if (categorySelected>=2){
                         scrollHaut+=scrollHautLength;
                         $("main").animate({'scrollTop':scrollHaut},100);
-                        updateBG(categorySelected-1,itemSelected );
+                        updateBG(categorySelected-1,itemSelected);
                     }
                 }
                 break;
@@ -460,7 +461,7 @@ function getPages(hotelId) {
 
 function afficheCategory(pages){
     for (let i = 0; i < pages.length; i++) {
-        const cat=pages[i];
+        const cat = pages[i];
         const categoryItem=cat.contents;
         var newH3=document.createElement('h3');
         var newSection=document.createElement('section');
@@ -476,7 +477,7 @@ function afficheCategory(pages){
             newDiv.appendChild(newSpan);
             newDiv.className="item";
             newDiv.style.backgroundImage = "url("+url+")";
-            document.getElementsByClassName("category")[i+1].appendChild(newDiv);         
+            document.getElementsByClassName("category")[i+nbSectionStart].appendChild(newDiv);         
         }
     }
     navInit();

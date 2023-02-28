@@ -186,8 +186,25 @@ main .item span{
     color: white;
 }
 main #video1{
+    position: relative;
+    display: flex;
     flex-direction: column;
+    flex-shrink: 0;
+    border: 5px solid rgb(174, 90, 33);
+    height: 150px;
+    width: 200px;
+    margin-right: 15px;
     justify-content: space-between;
+}
+main #video1 span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    color: white;
 }
 main .item video{
     position: relative;

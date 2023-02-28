@@ -331,12 +331,15 @@ onkeydown = function(evt){
     // console.log(item);
     // console.log(document.activeElement);
 }
+var test2=document.getElementById("video1").getElementsByTagName("video")[0]
+test2.muted=true;
+test2.autoplay=true;
+test2.loop=true;
+// var test=document.getElementById("video1").getElementsByTagName("source")[0];
+// console.log(test);
+// test.setAttribute("src","./assets/img/210530_clip_radio-star_12s.mp4");
+// test.setAttribute("type","video/mp4");
 
-var test=document.getElementsByClassName("category")[0].getElementsByClassName("item")[4].getElementsByTagName("video")[0];
-test.setAttribute("src","./assets/img/210530_clip_radio-star_12s.mp4");
-test.muted=true;
-test.autoplay=true;
-test.loop=true;
 
 function updateBG(categorySelected,itemSelected){
     var url = infos.pages[categorySelected].contents[itemSelected].image

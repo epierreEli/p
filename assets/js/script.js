@@ -103,6 +103,7 @@ setInterval(updateTime, 1000);
 
 // Nav Spacial du bled  
 var body=document.getElementsByTagName("body")[0];
+var logo=document.getElementById("logo");
 var main = document.getElementsByTagName("main")[0];
 var mainTitle=document.getElementById("mainTitle");
 var category;
@@ -483,7 +484,7 @@ function afficheCategory(pages){
 }
 
 let infos={};
-var logo=document.getElementById("logo");
+
 logIn("chambre1@snow-chill2.com","abcd1234").then((data)=>{
     infos['token']=data.token;
     infos["userId"]=data.userId;

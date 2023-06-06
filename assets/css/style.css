@@ -1,6 +1,7 @@
 * {
     margin:0;
     padding:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
     overflow: hidden;
@@ -8,8 +9,9 @@ body{
     /* background-color: lightgrey; */
     /* background-image: url("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg"); */
     background-repeat:no-repeat;
-    background-size: cover;
     z-index: -1;
+    background-size: contain;
+    background-position: center;
 }
 
 /* -----classList---- */
@@ -128,6 +130,12 @@ main::-webkit-scrollbar {
   }
 main h2, h3 {
     color: white;
+    /*black font border*/
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgba(0, 0, 0, 0.6);
+    /*black shadow text*/
+    text-shadow: 0 0 2px black;
+
 }
 main .container{
     /* border: 5px dashed rgb(47, 82, 143); */

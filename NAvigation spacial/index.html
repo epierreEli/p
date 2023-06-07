@@ -1,167 +1,160 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Navigation entre les éléments de la page</title>
   <style>
-    .highlighted {
-      background-color: rgb(170, 25, 30);
-    }
-
-    /*dimension des image dans mes div -colum*/
+    /*dimension des images dans les div - colonne*/
     .row img {
-    width: 50px; /* Spécifie la largeur souhaitée */
-    height: 50px; /* Spécifie la hauteur souhaitée */
+      width: 50px;
+      /* Spécifie la largeur souhaitée */
+      height: 50px;
+      /* Spécifie la hauteur souhaitée */
     }
 
-    /* Ajout de styles pour la mise en page souhaitée */
+    /* Mise en page des lignes et colonnes */
     .row {
       display: flex;
+      justify-content: flex-start;
+      position: absolute;
+      /* Alignement à gauche par défaut */
+    }
+
+    .row.highlighted .column {
+      transform: translateX(-50px);
+      /* Décale la ligne vers la gauche */
+    }
+
+    .row.highlighted .column:last-child {
+      transform: translateX(0);
+      /* Réinitialise le décalage du dernier élément */
     }
 
     .column {
       display: flex;
       flex-direction: row;
+      transition: transform 0.3s ease;
+      /* Ajoute une transition fluide lors du décalage */
     }
 
+    .child:active {
+      background-color: rgb(170, 25, 30);
+    }
+
+    .highlighted {
+      background-color: rgb(170, 25, 30);
+    }
   </style>
 </head>
+
 <body>
   <h1>Navigation entre les éléments de la page</h1>
-
-  <div class="row">
-        <div id="div1" tabindex="1">
-            <img src="icon1.png" alt="Icon 1">
-        </div>
-        <div id="div2" tabindex="2">
-            <img src="icon2.png" alt="Icon 2">
-        </div>
-        <div id="div3" tabindex="3">
-            <img src="icon3.png" alt="Icon 3">
-        </div>
-  
-    </div>
-
-    <div class="row">
-      <div id="div4" tabindex="4">
-        <img src="icon4.png" alt="Icon 4">
-      </div>
-      <div id="div5" tabindex="5">
-        <img src="icon5.png" alt="Icon 5">
-      </div>
-      <div id="div6" tabindex="6">
-        <img src="icon6.png" alt="Icon 6">
-      </div>
-    </div>
-
-    <div class="row">
-
-      <div id="div7" tabindex="7">
-        <img src="icon7.png" alt="Icon 7">
-      </div>
-      <div id="div8" tabindex="8">
-        <img src="icon8.png" alt="Icon 8">
-      </div>
-
-      <div id="div9" tabindex="9">
-        <img src="icon9.png" alt="Icon 9">
-      </div>
-
-      <div id="divxcv1" tabindex="8">
-        <img src="icon8.png" alt="Icon 8">
-      </div>
-
-      
-      <div id="divxcv2" tabindex="8">
-        <img src="icon8.png" alt="Icon 8">
-      </div>
-
-      
-      <div id="divxcv3" tabindex="8">
-        <img src="icon8.png" alt="Icon 8">
-      </div>
-
-
-    </div>
-
-    <div class="rowtest">
-
-        <div id="div7" tabindex="7">
-          <img src="icon7.png" alt="Icon 7">
-        </div>
-        <div id="div8" tabindex="8">
-          <img src="icon8.png" alt="Icon 8">
-        </div>
-  
-        <div id="div9" tabindex="9">
-          <img src="icon9.png" alt="Icon 9">
-        </div>
-        
-     
-        <div id="divxcv1" tabindex="8">
-          <img src="icon8.png" alt="Icon 8">
-        </div>
-  
-        
-        <div id="divxcv2" tabindex="8">
-          <img src="icon8.png" alt="Icon 8">
-        </div>
-  
-        
-        <div id="divxcv3" tabindex="8">
-          <img src="icon8.png" alt="Icon 8">
-        </div>
-  
-  
-      </div>
+  <section id="main"></section>
 
   <script>
-    document.addEventListener("keydown", function(event) {
-    var currentElement = document.activeElement;
-    var nextElement;
+    var matrix = [
+      [1, 2, 3],
+    ];
 
-    switch(event.keyCode) {
-        case 37: // Left Arrow
-        nextElement = currentElement.previousElementSibling;
-        break;
-        case 38: // Up Arrow
-        nextElement = findElementInDirection(currentElement, "previousElementSibling", "lastElementChild");
-        break;
-        case 39: // Right Arrow
-        nextElement = currentElement.nextElementSibling;
-        break;
-        case 40: // Down Arrow
-        nextElement = findElementInDirection(currentElement, "nextElementSibling", "firstElementChild");
-        break;
+    var matrixDom = []
+    var mainSection = document.getElementById('main');
+    var count = 0
+    for (var i = 0; i < matrix.length; i++) {
+      //create row add it to main section and add it to main matrixDom
+      var rowDom = document.createElement('div');
+      rowDom.classList.add('row');
+      var row = [];
+      for (var j = 0; j < matrix[i].length; j++) {
+        count++;
+        var childDom = document.createElement('div');
+        childDom.classList.add('child');
+        var childIconDom = document.createElement('img');
+        childIconDom.setAttribute('src', `icon${count}.png`);
+        childDom.setAttribute('tabindex', `0`);
+        childDom.appendChild(childIconDom)
+        rowDom.appendChild(childDom);
+        row.push(childDom);
+      }
+      mainSection.appendChild(rowDom);
+      matrix[i] = row;
     }
 
-    if (nextElement) {
-        event.preventDefault(); // Prevent default arrow key behavior (e.g., scrolling)
+    matrix[0][0].focus();
+    console.log(matrix[0][0]);
+
+    document.addEventListener("keydown", function (event) {
+
+      var currentElement = document.activeElement;
+      var nextElement;
+      var rowIndex, columnIndex;
+
+      var numRows = matrix.length;
+      var numColumns = matrix[0].length;
+
+      //get currentWidth
+      var currentWidth = currentElement.clientWidth;
+      console.log(currentWidth);
+
+      //get currentParentElement
+      var rowDom = currentElement.parentNode;
+      console.log(rowDom);
+
+
+      // Recherche de l'indice de l'élément actuel dans la matrice
+      for (var i = 0; i < numRows; i++) {
+        var row = matrix[i];
+        var columnIndex = row.indexOf(currentElement);
+        if (columnIndex !== -1) {
+          rowIndex = i;
+          break;
+        }
+      }
+
+      switch (event.keyCode) {
+        case 37: // Flèche gauche
+          if (columnIndex > 0) {
+            nextElement = matrix[rowIndex][columnIndex - 1];
+          } else {
+            nextElement = matrix[rowIndex][numColumns - 1];
+          }
+          //move rowDom to 100px left position
+          rowDom.style.left = "50px";
+          
+          
+          break;
+        case 38: // Flèche haut
+          if (rowIndex > 0) {
+            nextElement = matrix[rowIndex - 1][columnIndex];
+          } else {
+            nextElement = matrix[numRows - 1][columnIndex];
+          }
+          break;
+        case 39: // Flèche droite
+          if (columnIndex < numColumns - 1) {
+            nextElement = matrix[rowIndex][columnIndex + 1];
+          } else {
+            nextElement = matrix[rowIndex][0];
+          }
+
+          rowDom.style.left = "-50px";
+          break;
+        case 40: // Flèche bas
+          if (rowIndex < numRows - 1) {
+            nextElement = matrix[rowIndex + 1][columnIndex];
+          } else {
+            nextElement = matrix[0][columnIndex];
+          }
+          break;
+      }
+
+      if (nextElement) {
         nextElement.focus();
         nextElement.classList.add("highlighted");
         currentElement.classList.remove("highlighted");
-    }
+      }
     });
 
-    function findElementInDirection(currentElement, siblingProperty, childProperty) {
-    var parentDiv = currentElement.parentElement;
-    var nextElement = parentDiv[siblingProperty];
-
-    if (!nextElement) {
-        return null; // No next row
-    }
-
-    var currentIndex = Array.from(parentDiv.children).indexOf(currentElement);
-    var nextRow = nextElement.children;
-    var nextElementInRow = nextRow[currentIndex] || nextRow[0];
-
-    if (!nextElementInRow) {
-        return null; // No element in the next row at the same index
-    }
-
-    return nextElementInRow;
-    }
-
-
-  </script>
+    </script>
 </body>
+
 </html>

@@ -56,7 +56,12 @@
   <h1>Navigation entre les éléments de la page</h1>
   <section id="main"></section>
 
-  <script>
+  <script type="module">
+    import * as logicParserModule from "./logicParser.js";
+
+    console.table(logicParserModule.buildLogicMatrix());
+    
+
     var matrix = [
       [1, 2, 3],
       [1, 2, 3],

@@ -58,12 +58,9 @@
 
   <script type="module">
     import * as manageLogicModule from "./manageLogic.js";
+    import * as logicParserModule from "./logicParser.js";
 
-    var matrix = [
-      [0, 1, 0],
-      [-1, -1, -1],
-      [0, 0, 0],
-    ];
+    var matrix = logicParserModule.buildLogicMatrix()
 
     document.addEventListener("keydown", function (event) {
       var [i,j] = manageLogicModule.navigationSpatiale(matrix, event);

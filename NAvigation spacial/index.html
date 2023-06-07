@@ -47,9 +47,8 @@
 
     #main {
       overflow: hidden;
+      position: relative;
     }
-
-    
   </style>
 </head>
 
@@ -66,6 +65,7 @@
 
     var matrixDom = []
     var mainSection = document.getElementById('main');
+    mainSection.style.top = "0px";
     var count = 0
     for (var i = 0; i < matrix.length; i++) {
       //create row add it to main section and add it to main matrixDom
@@ -84,10 +84,10 @@
         rowDom.appendChild(childDom);
         row.push(childDom);
       }
-      var div =document.createElement('div');
+      var divDom = document.createElement('div');
       // div.innerHTML = " ";
-      div.appendChild(rowDom);
-      mainSection.appendChild(div);
+      divDom.appendChild(rowDom);
+      mainSection.appendChild(divDom);
       matrix[i] = row;
     }
 
@@ -133,39 +133,27 @@
               //move rowDom to 50px left position
               rowDom.style.left = (parseInt(rowDom.style.left) + 50) + "px";
             }
-
-
-
-
-
-
-
-
-
-
-
-
             break;
           case 38: // Flèche haut
             if (rowIndex > 0) {
               nextElement = matrix[rowIndex - 1][0];
               rowDom.style.left = "20px";
+              mainSection.style.top = (parseInt(mainSection.style.top ) + 50) + "px";
+
             }
             break;
           case 39: // Flèche droite
             if (columnIndex < numColumns - 1) {
               nextElement = matrix[rowIndex][columnIndex + 1];
               rowDom.style.left = (parseInt(rowDom.style.left) - 50) + "px";
-
             }
-
-
-
             break;
           case 40: // Flèche bas
             if (rowIndex < numRows - 1) {
               nextElement = matrix[rowIndex + 1][0];
               rowDom.style.left = "20px";
+              mainSection.style.top = (parseInt(mainSection.style.top) - 50) + "px";
+
             }
             break;
         }

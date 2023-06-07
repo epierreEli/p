@@ -1,91 +1,177 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="widh3=device-widh3, initial-scale=1.0" />
-    <title>UpTVweb</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
+<html>
 
-  <body>
-    <header id="header">
-      <div id="location">
-        <span id="city"></span>
-        <div>
-          <img id="iconWeather" src="" alt="Icone météo" />
-          <span id="weather">Météo</span>
-        </div>
-      </div>
-      <img id="logo" src="" alt="Logo" />
-      <div id="info">
-        <span id="client">Client</span>
-        <span id="date">Date</span>
-        <div id="infoHD">
-          <span id="time">Heure</span>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/330/330490.png"
-            alt="langue FR"
-          />
-        </div>
-      </div>
-    </header>
+<head>
+  <title>Navigation entre les éléments de la page</title>
+  <style>
+    /*dimension des images dans les div - colonne*/
+    .row img {
+      width: 50px;
+      /* Spécifie la largeur souhaitée */
+      height: 50px;
+      /* Spécifie la hauteur souhaitée */
+    }
 
-    <main>
-      <div class="container">
-        <section id="mainTitle">
-          <h2 id="name">Title</h2>
-          <div class="category">
-            <img
-              class="image item"
-              src="https://cdn-icons-png.flaticon.com/512/3159/3159543.png"
-              alt="TV"
-            />
-            <img
-              class="image item"
-              src="https://cdn-icons-png.flaticon.com/512/4047/4047711.png"
-              alt="USB Externe"
-            />
-            <img
-              class="image item"
-              src="https://cdn-icons-png.flaticon.com/512/2040/2040504.png"
-              alt="Paramètres"
-            />
-            <img
-              class="image item"
-              src="https://www.numerama.com/content/uploads/2016/06/13502130_10153696123838870_522765110773053650_n-796x796-2.png"
-              alt="netflix"
-            />
-          </div>
-        </section>
-        <!-- <h3>Test Video</h3>
-            <section class="category">
-                <div id="video1" class="item">
-                    <video>
-                        <source src="./assets/img/210530_clip_radio-star_12s.mp4" type="video/mp4">
-                    </video>
-                    <span>Video</span>
-                </div>
-                <div class="item"><span>Test</span></div>
-            </section> -->
-      </div>
+    /* Mise en page des lignes et colonnes */
+    .row {
+      display: flex;
+      justify-content: flex-start;
+      position: relative;
+      /* Alignement à gauche par défaut */
+    }
 
-      <!-- <div id="homepage">
-            <img src="champ.gif" alt="Champagne">
-            <div id="homepageHello">
-                <h2>Bienvenue</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nosdivud exercitation ullamco laboris nisi 
-                      ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                      reprehenderit in voluptate velit esse cillum dolore eu fugiat 
-                      nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                      sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-        </div>         -->
-    </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="./assets/js/script.js"></script>
-  </body>
+    .row.highlighted .column {
+      transform: translateX(-50px);
+      /* Décale la ligne vers la gauche */
+    }
+
+    .row.highlighted .column:last-child {
+      transform: translateX(0);
+      /* Réinitialise le décalage du dernier élément */
+    }
+
+    .column {
+      display: flex;
+      flex-direction: row;
+      transition: transform 0.3s ease;
+      /* Ajoute une transition fluide lors du décalage */
+    }
+
+    .child:active {
+      background-color: rgb(170, 25, 30);
+    }
+
+    .highlighted {
+      background-color: rgb(170, 25, 30);
+    }
+
+    #main {
+      overflow: hidden;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Navigation entre les éléments de la page</h1>
+  <section id="main"></section>
+
+  <script>
+    var matrix = [
+      [1, 2, 3],
+      [1, 2, 3],
+      [1, 2, 3],
+    ];
+
+    var matrixDom = []
+    var mainSection = document.getElementById('main');
+    mainSection.style.top = "0px";
+    var count = 0
+    for (var i = 0; i < matrix.length; i++) {
+      //create row add it to main section and add it to main matrixDom
+      var rowDom = document.createElement('div');
+      rowDom.style.left = "20px";
+      rowDom.classList.add('row');
+      var row = [];
+      for (var j = 0; j < matrix[i].length; j++) {
+        count++;
+        var childDom = document.createElement('div');
+        childDom.classList.add('child');
+        var childIconDom = document.createElement('img');
+        childIconDom.setAttribute('src', `icon${count}.png`);
+        childDom.setAttribute('tabindex', `0`);
+        childDom.appendChild(childIconDom)
+        rowDom.appendChild(childDom);
+        row.push(childDom);
+      }
+      var divDom = document.createElement('div');
+      // div.innerHTML = " ";
+      divDom.appendChild(rowDom);
+      mainSection.appendChild(divDom);
+      matrix[i] = row;
+    }
+
+    matrix[0][0].focus();
+    //console.log(matrix[0][0]);
+
+    document.addEventListener("keydown", function (event) {
+
+      var currentElement = document.activeElement;
+      var nextElement;
+      var rowIndex, columnIndex;
+
+      var numRows = matrix.length;
+
+
+
+      //get currentWidth
+      var currentWidth = currentElement.clientWidth;
+      //console.log(currentWidth);
+
+      //get currentParentElement if the parent is found we continue
+      var rowDom = currentElement.parentNode;
+      if (rowDom && rowDom.classList.contains('row')) {
+        console.log(rowDom);
+
+
+        // Recherche de l'indice de l'élément actuel dans la matrice
+        for (var i = 0; i < numRows; i++) {
+          var row = matrix[i];
+          var columnIndex = row.indexOf(currentElement);
+          if (columnIndex !== -1) {
+            rowIndex = i;
+            break;
+          }
+        }
+
+        var numColumns = matrix[rowIndex].length;
+
+        switch (event.keyCode) {
+          case 37: // Flèche gauche
+            if (columnIndex > 0) {
+              nextElement = matrix[rowIndex][columnIndex - 1];
+              //move rowDom to 50px left position
+              rowDom.style.left = (parseInt(rowDom.style.left) + 50) + "px";
+            }
+            break;
+          case 38: // Flèche haut
+            if (rowIndex > 0) {
+              nextElement = matrix[rowIndex - 1][0];
+              rowDom.style.left = "20px";
+              mainSection.style.top = (parseInt(mainSection.style.top ) + 50) + "px";
+
+            }
+            break;
+          case 39: // Flèche droite
+            if (columnIndex < numColumns - 1) {
+              nextElement = matrix[rowIndex][columnIndex + 1];
+              rowDom.style.left = (parseInt(rowDom.style.left) - 50) + "px";
+            }
+            break;
+          case 40: // Flèche bas
+            if (rowIndex < numRows - 1) {
+              nextElement = matrix[rowIndex + 1][0];
+              rowDom.style.left = "20px";
+              mainSection.style.top = (parseInt(mainSection.style.top) - 50) + "px";
+
+            }
+            break;
+        }
+
+        if (nextElement) {
+          nextElement.focus();
+          nextElement.classList.add("highlighted");
+          currentElement.classList.remove("highlighted");
+        }
+
+      } else {
+        console.log('Parent row not found!');
+      }
+
+
+    });
+
+  </script>
+</body>
+
 </html>

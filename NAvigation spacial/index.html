@@ -16,7 +16,7 @@
     .row {
       display: flex;
       justify-content: flex-start;
-      position: absolute;
+      /* position: absolute; */
       /* Alignement à gauche par défaut */
     }
 
@@ -54,6 +54,8 @@
   <script>
     var matrix = [
       [1, 2, 3],
+      [1, 2, 3],
+      [1, 2, 3],
     ];
 
     var matrixDom = []
@@ -62,6 +64,7 @@
     for (var i = 0; i < matrix.length; i++) {
       //create row add it to main section and add it to main matrixDom
       var rowDom = document.createElement('div');
+      rowDom.style.left = "20px";
       rowDom.classList.add('row');
       var row = [];
       for (var j = 0; j < matrix[i].length; j++) {
@@ -75,12 +78,14 @@
         rowDom.appendChild(childDom);
         row.push(childDom);
       }
-      mainSection.appendChild(rowDom);
+      var div = document.createElement('div');
+      div.appendChild (rowDom);
+      mainSection.appendChild(div);
       matrix[i] = row;
     }
 
     matrix[0][0].focus();
-    console.log(matrix[0][0]);
+    //console.log(matrix[0][0]);
 
     document.addEventListener("keydown", function (event) {
 
@@ -89,72 +94,91 @@
       var rowIndex, columnIndex;
 
       var numRows = matrix.length;
-      var numColumns = matrix[0].length;
+
+
 
       //get currentWidth
       var currentWidth = currentElement.clientWidth;
-      console.log(currentWidth);
+      //console.log(currentWidth);
 
-      //get currentParentElement
+      //get currentParentElement if the parent is found we continue
       var rowDom = currentElement.parentNode;
-      console.log(rowDom);
+      if (rowDom && rowDom.classList.contains('row')) {
+        console.log(rowDom);
 
 
-      // Recherche de l'indice de l'élément actuel dans la matrice
-      for (var i = 0; i < numRows; i++) {
-        var row = matrix[i];
-        var columnIndex = row.indexOf(currentElement);
-        if (columnIndex !== -1) {
-          rowIndex = i;
-          break;
+        // Recherche de l'indice de l'élément actuel dans la matrice
+        for (var i = 0; i < numRows; i++) {
+          var row = matrix[i];
+          var columnIndex = row.indexOf(currentElement);
+          if (columnIndex !== -1) {
+            rowIndex = i;
+            break;
+          }
         }
+
+        var numColumns = matrix[rowIndex].length;
+
+        switch (event.keyCode) {
+          case 37: // Flèche gauche
+            if (columnIndex > 0) {
+              nextElement = matrix[rowIndex][columnIndex - 1];
+              //move rowDom to 50px left position
+              rowDom.style.left = (parseInt(rowDom.style.left) + 50) + "px";
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            break;
+          case 38: // Flèche haut
+            if (rowIndex > 0) {
+              nextElement = matrix[rowIndex - 1][columnIndex];
+            } else {
+              nextElement = matrix[numRows - 1][columnIndex];
+            }
+            break;
+          case 39: // Flèche droite
+            if (columnIndex < numColumns - 1) {
+              nextElement = matrix[rowIndex][columnIndex + 1];
+              rowDom.style.left = (parseInt(rowDom.style.left) - 50) + "px";
+
+            }
+
+
+
+            break;
+          case 40: // Flèche bas
+            if (rowIndex < numRows - 1) {
+              nextElement = matrix[rowIndex + 1][columnIndex];
+            } else {
+              nextElement = matrix[0][columnIndex];
+            }
+            break;
+        }
+
+        if (nextElement) {
+          nextElement.focus();
+          nextElement.classList.add("highlighted");
+          currentElement.classList.remove("highlighted");
+        }
+
+      } else {
+        console.log('Parent row not found!');
       }
 
-      switch (event.keyCode) {
-        case 37: // Flèche gauche
-          if (columnIndex > 0) {
-            nextElement = matrix[rowIndex][columnIndex - 1];
-          } else {
-            nextElement = matrix[rowIndex][numColumns - 1];
-          }
-          //move rowDom to 100px left position
-          rowDom.style.left = "50px";
-          
-          
-          break;
-        case 38: // Flèche haut
-          if (rowIndex > 0) {
-            nextElement = matrix[rowIndex - 1][columnIndex];
-          } else {
-            nextElement = matrix[numRows - 1][columnIndex];
-          }
-          break;
-        case 39: // Flèche droite
-          if (columnIndex < numColumns - 1) {
-            nextElement = matrix[rowIndex][columnIndex + 1];
-          } else {
-            nextElement = matrix[rowIndex][0];
-          }
 
-          rowDom.style.left = "-50px";
-          break;
-        case 40: // Flèche bas
-          if (rowIndex < numRows - 1) {
-            nextElement = matrix[rowIndex + 1][columnIndex];
-          } else {
-            nextElement = matrix[0][columnIndex];
-          }
-          break;
-      }
-
-      if (nextElement) {
-        nextElement.focus();
-        nextElement.classList.add("highlighted");
-        currentElement.classList.remove("highlighted");
-      }
     });
 
-    </script>
+  </script>
 </body>
 
 </html>

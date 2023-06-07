@@ -16,7 +16,7 @@
     .row {
       display: flex;
       justify-content: flex-start;
-      /* position: absolute; */
+      position: relative;
       /* Alignement à gauche par défaut */
     }
 
@@ -44,6 +44,12 @@
     .highlighted {
       background-color: rgb(170, 25, 30);
     }
+
+    #main {
+      overflow: hidden;
+    }
+
+    
   </style>
 </head>
 
@@ -78,8 +84,9 @@
         rowDom.appendChild(childDom);
         row.push(childDom);
       }
-      var div = document.createElement('div');
-      div.appendChild (rowDom);
+      var div =document.createElement('div');
+      // div.innerHTML = " ";
+      div.appendChild(rowDom);
       mainSection.appendChild(div);
       matrix[i] = row;
     }
@@ -141,9 +148,8 @@
             break;
           case 38: // Flèche haut
             if (rowIndex > 0) {
-              nextElement = matrix[rowIndex - 1][columnIndex];
-            } else {
-              nextElement = matrix[numRows - 1][columnIndex];
+              nextElement = matrix[rowIndex - 1][0];
+              rowDom.style.left = "20px";
             }
             break;
           case 39: // Flèche droite
@@ -158,9 +164,8 @@
             break;
           case 40: // Flèche bas
             if (rowIndex < numRows - 1) {
-              nextElement = matrix[rowIndex + 1][columnIndex];
-            } else {
-              nextElement = matrix[0][columnIndex];
+              nextElement = matrix[rowIndex + 1][0];
+              rowDom.style.left = "20px";
             }
             break;
         }

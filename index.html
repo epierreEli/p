@@ -61,10 +61,14 @@
     import * as logicParserModule from "./logicParser.js";
 
     var matrix = logicParserModule.buildLogicMatrix()
+    var [i, j] = manageLogicModule.initPosition(matrix);
+    var matrixCopy = JSON.parse(JSON.stringify(matrix));
+    matrixCopy[i][j] = "A";
+    console.table(matrixCopy);
 
     document.addEventListener("keydown", function (event) {
-      var [i,j] = manageLogicModule.navigationSpatiale(matrix, event);
-      console.log(i,j);
+      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event);
+      console.log(i, j);
       var matrixCopy = JSON.parse(JSON.stringify(matrix));
       matrixCopy[i][j] = "A";
       console.table(matrixCopy);

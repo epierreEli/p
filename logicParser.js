@@ -5,6 +5,7 @@ var data = {
             type: "extended",
             children: [
                 {
+                    disabled: true,
                     icon:"icon1.jpg",
                     title: "titre 1",
                     text: "lorem ipsum, text de description",
@@ -13,6 +14,16 @@ var data = {
                     icon: "icon2.jpg",
                     title: "titre 2",
                     disabled: true,
+                },
+                {
+                    icon: "icon3.jpg",
+                    title: "titre 3",
+                    text: "lorem ipsum, text de description",
+                },
+                {
+                    icon: "icon3.jpg",
+                    title: "titre 3",
+                    text: "lorem ipsum, text de description",
                 },
                 {
                     icon: "icon3.jpg",

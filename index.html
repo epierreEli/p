@@ -5,7 +5,7 @@
   <title>Navigation entre les éléments de la page</title>
   <style>
     /* Style de base */
-    *{
+    * {
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -59,11 +59,11 @@
       object-fit: cover;
     }
 
-    .vignette{
+    .vignette {
       position: relative;
     }
 
-    .vignette img{
+    .vignette img {
       position: absolute;
       top: 0;
       left: 0;
@@ -71,14 +71,14 @@
       height: 100%;
     }
 
-    .vignette p{
+    .vignette p {
       margin: 0;
       position: absolute;
       line-height: 30px;
       width: 100%;
       bottom: 0;
       text-align: center;
-      background-color: rgba(0,0,0,0.3);
+      background-color: rgba(0, 0, 0, 0.3);
       color: white;
     }
   </style>
@@ -103,7 +103,9 @@
     matrixCopy[i][j] = "A";
     console.table(matrixCopy);
 
-    var count=0;
+    var count = 0;
+    var matrixDom = [];
+
     for (var i = 0; i < matrix.length; i++) {
       //create row add it to main section and add it to main matrixDom
       var rowDom = document.createElement('div');
@@ -113,7 +115,7 @@
       for (var j = 0; j < matrix[i].length; j++) {
         count++;
         var childDom = document.createElement('div');
-        childDom.classList.add('child');       
+        childDom.classList.add('child');
         var vignette = new logicParserModule.Vignette(`Vignette ${count}`, `./icon${count}.png`);
         childDom.setAttribute('tabindex', `0`);
         childDom.appendChild(vignette.render());
@@ -124,13 +126,40 @@
       // div.innerHTML = " ";
       divDom.appendChild(rowDom);
       mainSection.appendChild(divDom);
+      matrixDom.push(row);
+      
     }
 
 
+    function shiftRow(matrixDom, x, y, direction, oldElementPositionX, oldElementPositionY) {
+      var row = matrixDom[x][y].parentNode;
+
+      //on recherche la position de l ancienne element active 
+      let activeElement = document.activeElement;
+      var oldElementPositionX = activeElement.getBoundingClientRect().left;
+      var oldElementPositionY = activeElement.getBoundingClientRect().top;
+      //on passe au nouveau element active
+      matrixDom[x][y].focus();
+
+      if (direction == 'left') {
+        row.style.left = parseInt(row.getBoundingClientRect().left) - parseInt(row.getBoundingClientRect().left) - (oldElementPositionX) + "px";
+        console.log(row.style.left);
+        
+      } else if (direction == 'right') {
+        row.style.left = parseInt(row.getBoundingClientRect().left) + parseInt(row.getBoundingClientRect().left) - (oldElementPositionX) + "px";
+        console.log(row.style.left);
+      }
+
+
+    }
+
     document.addEventListener("keydown", function (event) {
-      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x,y,direction)=>{
-        console.log("Changement de position vers la ",x,y,direction);
-        //remove active class every where and set class to active for domMatrix[x][y] 
+      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x, y, direction) => {
+        console.log("Changement de position vers la ", x, y, direction);
+
+      // on appella fonction de decalage des ligne 
+        shiftRow(matrixDom, x, y, direction);
+
       });
       var matrixCopy = JSON.parse(JSON.stringify(matrix));
       matrixCopy[i][j] = "A";

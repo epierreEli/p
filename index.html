@@ -4,6 +4,11 @@
 <head>
   <title>Navigation entre les éléments de la page</title>
   <style>
+    /* Style de base */
+    *{
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
     /*dimension des images dans les div - colonne*/
     .row img {
       width: 50px;
@@ -49,17 +54,49 @@
       overflow: hidden;
       position: relative;
     }
+
+    img {
+      object-fit: cover;
+    }
+
+    .vignette{
+      position: relative;
+    }
+
+    .vignette img{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .vignette p{
+      margin: 0;
+      position: absolute;
+      line-height: 30px;
+      width: 100%;
+      bottom: 0;
+      text-align: center;
+      background-color: rgba(0,0,0,0.3);
+      color: white;
+    }
   </style>
 </head>
 
 <body>
   <h1>Navigation entre les éléments de la page</h1>
-  <section id="main"></section>
+  <section id="test"></section>
+  <div>
+    <section id="main"></section>
+  </div>
 
   <script type="module">
     import * as logicParserModule from "./logicParser.js";
+    var testSection = document.getElementById('test');
+    var el = logicParserModule.test();
+    testSection.appendChild(el);
 
-    console.table(logicParserModule.buildLogicMatrix());
     
 
     var matrix = [
@@ -81,11 +118,10 @@
       for (var j = 0; j < matrix[i].length; j++) {
         count++;
         var childDom = document.createElement('div');
-        childDom.classList.add('child');
-        var childIconDom = document.createElement('img');
-        childIconDom.setAttribute('src', `icon${count}.png`);
+        childDom.classList.add('child');       
+        var vignette = new logicParserModule.Vignette(`Vignette ${count}`, `./icon${count}.png`);
         childDom.setAttribute('tabindex', `0`);
-        childDom.appendChild(childIconDom)
+        childDom.appendChild(vignette.render());
         rowDom.appendChild(childDom);
         row.push(childDom);
       }
@@ -111,6 +147,7 @@
 
       //get currentWidth
       var currentWidth = currentElement.clientWidth;
+      var currentHeigth = currentElement.clientHeight;
       //console.log(currentWidth);
 
       //get currentParentElement if the parent is found we continue
@@ -136,28 +173,28 @@
             if (columnIndex > 0) {
               nextElement = matrix[rowIndex][columnIndex - 1];
               //move rowDom to 50px left position
-              rowDom.style.left = (parseInt(rowDom.style.left) + 50) + "px";
+              rowDom.style.left = (parseInt(rowDom.style.left) + currentWidth) + "px";
             }
             break;
           case 38: // Flèche haut
             if (rowIndex > 0) {
               nextElement = matrix[rowIndex - 1][0];
               rowDom.style.left = "20px";
-              mainSection.style.top = (parseInt(mainSection.style.top ) + 50) + "px";
+              mainSection.style.top = (parseInt(mainSection.style.top ) + currentHeigth) + "px";
 
             }
             break;
           case 39: // Flèche droite
             if (columnIndex < numColumns - 1) {
               nextElement = matrix[rowIndex][columnIndex + 1];
-              rowDom.style.left = (parseInt(rowDom.style.left) - 50) + "px";
+              rowDom.style.left = (parseInt(rowDom.style.left) - currentWidth) + "px";
             }
             break;
           case 40: // Flèche bas
             if (rowIndex < numRows - 1) {
               nextElement = matrix[rowIndex + 1][0];
               rowDom.style.left = "20px";
-              mainSection.style.top = (parseInt(mainSection.style.top) - 50) + "px";
+              mainSection.style.top = (parseInt(mainSection.style.top) - currentHeigth) + "px";
 
             }
             break;

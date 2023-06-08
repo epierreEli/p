@@ -67,8 +67,9 @@
     console.table(matrixCopy);
 
     document.addEventListener("keydown", function (event) {
-      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event);
-      console.log(i, j);
+      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x,y)=>{
+        console.log("Changement de position ",x,y);
+      });
       var matrixCopy = JSON.parse(JSON.stringify(matrix));
       matrixCopy[i][j] = "A";
       console.table(matrixCopy);

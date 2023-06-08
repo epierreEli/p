@@ -14,7 +14,9 @@ export function initPosition(matrix) {
     throw new Error('matrix dont contain available cell');
 }
 
-export function navigationSpatiale(matrix, event) {
+//TODO: definition des evenements commun changement de column et changement de row
+
+export function navigationSpatiale(matrix, event, onEvent) {
     var numColumns = matrix[i].length;
     var numRows = matrix.length;
     var oldindex = i;
@@ -29,6 +31,8 @@ export function navigationSpatiale(matrix, event) {
             if (j < 0) {
                 i = oldindex;
                 j = oldjindex
+            }else{
+                onEvent(i,j);
             }
             break;
         case 38: // Flèche haut
@@ -47,6 +51,8 @@ export function navigationSpatiale(matrix, event) {
             if ((i < 0)) {
                 i = oldindex;
                 j = oldjindex
+            }else{
+                onEvent(i,j);
             }
 
             break;
@@ -59,6 +65,8 @@ export function navigationSpatiale(matrix, event) {
             if (j > numColumns - 1) {
                 i = oldindex;
                 j = oldjindex
+            }else{
+                onEvent(i,j);
             }
 
             break;
@@ -74,6 +82,8 @@ export function navigationSpatiale(matrix, event) {
             if (i >= numRows) {
                 i = oldindex;
                 j = oldjindex
+            }else{
+                onEvent(i,j);
             }
 
             break;

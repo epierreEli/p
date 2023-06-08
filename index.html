@@ -67,8 +67,9 @@
     console.table(matrixCopy);
 
     document.addEventListener("keydown", function (event) {
-      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x,y)=>{
-        console.log("Changement de position ",x,y);
+      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x,y,direction)=>{
+        console.log("Changement de position vers la ",x,y,direction);
+        //remove active class every where and set class to active for domMatrix[x][y] 
       });
       var matrixCopy = JSON.parse(JSON.stringify(matrix));
       matrixCopy[i][j] = "A";

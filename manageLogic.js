@@ -21,18 +21,20 @@ export function navigationSpatiale(matrix, event, onEvent) {
     var numRows = matrix.length;
     var oldindex = i;
     var oldjindex = j;
+    var direction = null;
     switch (event.keyCode) {
         case 37: // Flèche gauche
             // if (!(j > 0)) break;
             do {
                 j = j - 1;
             } while ((j >= 0) && (matrix[i][j] !== 1));
-            
+
             if (j < 0) {
                 i = oldindex;
                 j = oldjindex
-            }else{
-                onEvent(i,j);
+            } else {
+                direction = 'left';
+                onEvent(i, j, direction);
             }
             break;
         case 38: // Flèche haut
@@ -40,8 +42,8 @@ export function navigationSpatiale(matrix, event, onEvent) {
             console.log(i, j);
             do {
                 i = i - 1;
-                if(i<0)break;
-                if(matrix[i].includes(1)) {
+                if (i < 0) break;
+                if (matrix[i].includes(1)) {
                     j = matrix[i].indexOf(1);
                     break;
                 }
@@ -51,8 +53,15 @@ export function navigationSpatiale(matrix, event, onEvent) {
             if ((i < 0)) {
                 i = oldindex;
                 j = oldjindex
-            }else{
-                onEvent(i,j);
+            } else {
+                direction = 'up';
+                onEvent(i, j, direction);
+                if (oldjindex < j) {
+
+                    onEvent(i, j, 'right');
+                } else if (oldjindex > j) {
+                    onEvent(i, j, 'left');
+                }
             }
 
             break;
@@ -65,25 +74,37 @@ export function navigationSpatiale(matrix, event, onEvent) {
             if (j > numColumns - 1) {
                 i = oldindex;
                 j = oldjindex
-            }else{
-                onEvent(i,j);
+            } else {
+                direction = 'right';
+                onEvent(i, j, direction);
+
             }
 
             break;
         case 40: // Flèche bas
             do {
                 i = i + 1;
-                if(i>=numRows)break;
-                if(matrix[i].includes(1)) {
+                if (i >= numRows) break;
+                if (matrix[i].includes(1)) {
                     j = matrix[i].indexOf(1);
+
+
+
                     break;
                 }
             } while (matrix[i][j] !== 1);
             if (i >= numRows) {
                 i = oldindex;
                 j = oldjindex
-            }else{
-                onEvent(i,j);
+            } else {
+                direction = 'down';
+                onEvent(i, j, direction);
+                if (oldjindex < j) {
+
+                    onEvent(i, j, 'right');
+                } else if (oldjindex > j) {
+                    onEvent(i, j, 'left');
+                }
             }
 
             break;

@@ -81,11 +81,80 @@
       background-color: rgba(0, 0, 0, 0.3);
       color: white;
     }
+
+  /* gestion header */
+    header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border: 2px solid black;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px 15px 10px 15px;
+      height: 15vh;
+    }
+
+    header #location {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+
+    header #location div {
+      display: flex;
+      align-items: center;
+    }
+
+    header #location img {
+      height: 30px;
+    }
+
+    header #logo {
+      height: auto;
+      align-self: center;
+    }
+
+    header #info {
+      display: flex;
+      flex-direction: column;
+      text-align: end;
+      justify-content: space-around;
+    }
+
+    header #info #infoHD {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+    }
+
+    header #info img {
+      height: 30px;
+      margin-right: 20px;
+    }
   </style>
 </head>
 
 <body>
-  <h1>Navigation entre les éléments de la page</h1>
+  <header id="header">
+    <div id="location">
+        <span id="city"></span>
+        <div>
+            <img id="iconWeather" src="" alt="Icone météo">
+            <span id="weather">Météo</span>
+        </div>
+    </div>
+    <img id="logo" src="" alt="Logo">
+    <div id="info">
+        <span id="client">Client</span>
+        <span id="date">Date</span>
+        <div id="infoHD">
+            <span id="time">Heure</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/330/330490.png" alt="langue FR">
+        </div>
+    </div>
+</header>
+
+
   <section id="test"></section>
   <div>
     <section id="main"></section>
@@ -94,6 +163,24 @@
   <script type="module">
     import * as manageLogicModule from "./manageLogic.js";
     import * as logicParserModule from "./logicParser.js";
+    import * as requestModule from "./request.js";
+
+    requestModule.getWeather("Toulon")
+  .then(([icon, temperature]) => {
+    // Use the retrieved icon and temperature here
+    console.log("Icon:", icon);
+    console.log("Temperature:", temperature);
+    const iconweather =document.querySelector("#iconWeather");
+    const temp=document.querySelector("#weather");
+    iconweather.setAttribute("src", icon);
+    temp.innerHTML=temperature;
+    
+  })
+  .catch((error) => {
+    // Handle any errors that occurred during the request
+    console.error("Error:", error);
+  });
+
 
     var mainSection = document.getElementById("main");
 
@@ -127,7 +214,7 @@
       divDom.appendChild(rowDom);
       mainSection.appendChild(divDom);
       matrixDom.push(row);
-      
+
     }
 
 
@@ -144,7 +231,7 @@
       if (direction == 'left') {
         row.style.left = parseInt(row.getBoundingClientRect().left) - parseInt(row.getBoundingClientRect().left) - (oldElementPositionX) + "px";
         console.log(row.style.left);
-        
+
       } else if (direction == 'right') {
         row.style.left = parseInt(row.getBoundingClientRect().left) + parseInt(row.getBoundingClientRect().left) - (oldElementPositionX) + "px";
         console.log(row.style.left);
@@ -157,7 +244,7 @@
       var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x, y, direction) => {
         console.log("Changement de position vers la ", x, y, direction);
 
-      // on appella fonction de decalage des ligne 
+        // on appella fonction de decalage des ligne 
         shiftRow(matrixDom, x, y, direction);
 
       });

@@ -18,7 +18,7 @@ export function initPosition(matrix) {
 
 export function navigationSpatiale(matrix, event, onEvent) {
     var numColumns = matrix[i].length;
-    var numRows = matrix.length;
+    let numRows = matrix.length;
     var oldindex = i;
     var oldjindex = j;
     var direction = null;

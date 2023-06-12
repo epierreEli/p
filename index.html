@@ -82,7 +82,7 @@
       color: white;
     }
 
-  /* gestion header */
+    /* gestion header */
     header {
       display: flex;
       flex-direction: row;
@@ -134,26 +134,27 @@
   </style>
 </head>
 
-<body>
+<body id="body">
   <header id="header">
     <div id="location">
-        <span id="city"></span>
-        <div>
-            <img id="iconWeather" src="" alt="Icone météo">
-            <span id="weather">Météo</span>
-        </div>
+      <span id="city"></span>
+      <div>
+        <img id="iconWeather" src="" alt="Icone météo">
+        <span id="weather">Météo</span>
+      </div>
     </div>
+    <!-- position du nom de l hotel a changer a l avenir -->
+    <h1 id="nameHotel">nameHotel</h1>
     <img id="logo" src="" alt="Logo">
     <div id="info">
-        <span id="client">Client</span>
-        <span id="date">Date</span>
-        <div id="infoHD">
-            <span id="time">Heure</span>
-            <img src="https://cdn-icons-png.flaticon.com/512/330/330490.png" alt="langue FR">
-        </div>
+      <span id="client">Client</span>
+      <span id="date">Date</span>
+      <div id="infoHD">
+        <span id="time">Heure</span>
+        <img src="https://cdn-icons-png.flaticon.com/512/330/330490.png" alt="langue FR">
+      </div>
     </div>
-</header>
-
+  </header>
 
   <section id="test"></section>
   <div>
@@ -165,80 +166,78 @@
     import * as logicParserModule from "./logicParser.js";
     import * as requestModule from "./request.js";
 
-    requestModule.getWeather("Toulon")
-  .then(([icon, temperature]) => {
-    // Use the retrieved icon and temperature here
-    console.log("Icon:", icon);
-    console.log("Temperature:", temperature);
-    const iconweather =document.querySelector("#iconWeather");
-    const temp=document.querySelector("#weather");
-    iconweather.setAttribute("src", icon);
-    temp.innerHTML=temperature;
-    
-  })
-  .catch((error) => {
-    // Handle any errors that occurred during the request
-    console.error("Error:", error);
-  });
 
 
-    var mainSection = document.getElementById("main");
 
-    var matrix = logicParserModule.buildLogicMatrix()
-    var [i, j] = manageLogicModule.initPosition(matrix);
-    var matrixCopy = JSON.parse(JSON.stringify(matrix));
-    matrixCopy[i][j] = "A";
-    console.table(matrixCopy);
+    //on get la date et l heure
+    // Example usage:
+    requestModule.getCurrentDateTime((date, time) => {
+      let timeString = document.querySelector("#time");
+      console.log(timeString);
+      timeString.innerHTML = time;
 
-    var count = 0;
-    var matrixDom = [];
-
-    for (var i = 0; i < matrix.length; i++) {
-      //create row add it to main section and add it to main matrixDom
-      var rowDom = document.createElement('div');
-      rowDom.style.left = "20px";
-      rowDom.classList.add('row');
-      var row = [];
-      for (var j = 0; j < matrix[i].length; j++) {
-        count++;
-        var childDom = document.createElement('div');
-        childDom.classList.add('child');
-        var vignette = new logicParserModule.Vignette(`Vignette ${count}`, `./icon${count}.png`);
-        childDom.setAttribute('tabindex', `0`);
-        childDom.appendChild(vignette.render());
-        rowDom.appendChild(childDom);
-        row.push(childDom);
-      }
-      var divDom = document.createElement('div');
-      // div.innerHTML = " ";
-      divDom.appendChild(rowDom);
-      mainSection.appendChild(divDom);
-      matrixDom.push(row);
-
-    }
+      let dateString = document.querySelector("#date");
+      dateString.innerHTML = date;
 
 
-    function shiftRow(matrixDom, x, y, direction, oldElementPositionX, oldElementPositionY) {
-      var row = matrixDom[x][y].parentNode;
+    });
 
-      //on recherche la position de l ancienne element active 
-      let activeElement = document.activeElement;
-      var oldElementPositionX = activeElement.getBoundingClientRect().left;
-      var oldElementPositionY = activeElement.getBoundingClientRect().top;
-      //on passe au nouveau element active
-      matrixDom[x][y].focus();
+    // info contiendra le token d acces et tous les autre infos necesssaires 
+    let infos = {};
+    const cityString = document.querySelector("#city");
+    const logoicon = document.querySelector("#logo");
+    const client = document.querySelector("#client");
+    const nameHotelstring = document.querySelector("#nameHotel");
 
-      if (direction == 'left') {
-        row.style.left = parseInt(row.getBoundingClientRect().left) - parseInt(row.getBoundingClientRect().left) - (oldElementPositionX) + "px";
-        console.log(row.style.left);
+    requestModule.logIn("chambre1@snow-chill2.com", "abcd1234").then((data) => {
+      infos['token'] = data.token;
+      infos["userId"] = data.userId;
+      infos["hotelId"] = data.owner;
 
-      } else if (direction == 'right') {
-        row.style.left = parseInt(row.getBoundingClientRect().left) + parseInt(row.getBoundingClientRect().left) - (oldElementPositionX) + "px";
-        console.log(row.style.left);
-      }
+      Promise.all([requestModule.getUser(infos.userId, infos), requestModule.getHotel(infos.hotelId, infos)])
+        .then((res) => {
+          infos["userInfos"] = res[0];
+          infos["hotelInfos"] = res[1];
+          client.innerHTML = infos.userInfos.clientName;
+          city.innerHTML = infos.hotelInfos.city;
+          nameHotel.innerHTML = infos.hotelInfos.name;
 
 
-    }
+          logo.setAttribute('src', `https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
+
+          requestModule.getPages(infos.hotelId, infos).then((pages) => {
+            infos["pages"] = pages;
+            const url = `https://hospitality.ansetech.com/host/files/images/pages/${pages[0].contents[0].icon}`;
+            body.style.backgroundImage = "url(" + url + ")";
+
+            console.log(infos.pages);
+            //construction des elements 
+            requestModule.showCategoryAndConstructElement(infos.pages);
+          });
+
+          console.log(infos);
+        });
+    });
+
+    // on get la temperature 
+    requestModule.getWeather(city.innerHTML)
+      .then(([icon, temperature]) => {
+        // Use the retrieved icon and temperature here
+        console.log("Icon:", icon);
+        console.log("Temperature:", temperature);
+        const iconweather = document.querySelector("#iconWeather");
+        const temp = document.querySelector("#weather");
+        iconweather.setAttribute("src", icon);
+        temp.innerHTML = temperature;
+
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the request
+        console.error("Error:", error);
+      });
+
+
+
 
     document.addEventListener("keydown", function (event) {
       var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x, y, direction) => {

@@ -1,5 +1,7 @@
+import * as logicParserModule from "./logicParser.js";
+
 // recupere la temperature et l image associe 
-export async function getWeather (cityTag) {
+export async function getWeather(cityTag) {
   console.log("citytag = " + cityTag + "; getWeather");
 
   return new Promise((resolve, reject) => {
@@ -35,194 +37,201 @@ export async function getWeather (cityTag) {
   });
 }
 
+export function getCurrentDateTime(callback) {
+  set();
+  setInterval(() => {
+    set();
+  }, 60000);
 
-  function updateTime() {
-    var date = new Date();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
-    var largeurClient;
-  
-    if (updateDate) {
-      dateLocal.innerHTML = date.toLocaleDateString('fr-FR', options);
-      updateDate = false;
-      largeurClient = document.getElementById("info").offsetWidth;
-      document.getElementById("location").style.width = largeurClient + "px";
-    } else {
-      if (hours == 23 && minutes == 59 && seconds == 59) {
-        updateDate = true;
-      }
-    }
-  
-    if (updateHeure) {
-      time.innerHTML =
-        ((hours < 10) ? "0" : "") + hours +
-        ((minutes < 10) ? ":0" : ":") + minutes +
-        ((seconds < 10) ? ":0" : ":") + seconds;
-    } else {
-      if (seconds == 59) {
-        updateHeure = true;
-      }
-    }
-  
-    if (updateMeteo) {
-      getWeather();
-      updateMeteo = false;
-    } else {
-      if (seconds == 59) {
-        updateMeteo = true;
-      }
-    }
-  }
+  function set() {
+    const currentDate = new Date();
 
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit'
+    };
+    const formattedDate = currentDate.toLocaleDateString('fr-FR', options);
+
+    const formattedTime = currentDate.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    callback(formattedDate, formattedTime);
+  }
+}
+
+
+export function logIn(email, password) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://hospitality.ansetech.com/api/auth/local", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          reject(xhr.statusText);
+        }
+      }
+    };
+    xhr.onerror = function () {
+      reject("Network error");
+    };
+    var data = JSON.stringify({ email: email, password: password });
+    xhr.send(data);
+  });
+}
+
+
+export function getUser(userId, infos) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", `https://hospitality.ansetech.com:7443/api/users/${userId}`);
+    xhr.setRequestHeader("Authorization", "Bearer " + infos.token);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        resolve(response.user[0]);
+      } else {
+        reject(new Error("Request failed with status: " + xhr.status));
+      }
+    };
+    xhr.onerror = function () {
+      reject(new Error("Request failed"));
+    };
+    xhr.send();
+  });
+}
+
+
+export function getHotel(hotelId, infos) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", `https://hospitality.ansetech.com:7443/api/hotels/${hotelId}`);
+    xhr.setRequestHeader("Authorization", "Bearer " + infos.token);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        resolve(response.hotel[0]);
+      } else {
+        reject(new Error("Request failed with status: " + xhr.status));
+      }
+    };
+    xhr.onerror = function () {
+      reject(new Error("Request failed"));
+    };
+    xhr.send();
+  });
+}
+
+export function getPages(hotelId, infos) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    var url = "https://hospitality.ansetech.com:7443/api/pages/fr/" + hotelId;
+
+    xhr.open("GET", url);
+    xhr.setRequestHeader("Authorization", "Bearer " + infos.token);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        resolve(JSON.parse(xhr.responseText));
+
+      } else {
+        reject(xhr.statusText);
+      }
+    };
+    xhr.onerror = function () {
+      reject("An error occurred during the request.");
+    };
+    xhr.send();
+  });
+}
+
+
+
+export function showCategoryAndConstructElement(pages) {
+  // on prend les donnes qu on recupere et on les organise dans les structured data
+  const recuperedData = convertData(pages);
+  console.log(recuperedData);
+
+  var mainSection = document.getElementById("main");
   
-  function updateBG(categorySelected, itemSelected) {
-    var url = infos.pages[categorySelected].contents[itemSelected].image;
-    var bgUrl = `https://hospitality.ansetech.com/host/files/images/pages/${url}`;
-    console.log(bgUrl);
-    document.body.style.backgroundImage = "url(" + bgUrl + ")";
-  }
-  function afficheImageFS() {
-    var path = infos.pages[categorySelected - 1].contents[itemSelected];
-    console.log(path.image);
-    var newDiv = document.createElement('div');
-    newDiv.className = "imgFullScreen";
-    newDiv.style.backgroundImage = "url(" + `https://hospitality.ansetech.com/host/files/images/pages/${path.image}` + ")";
-    main.appendChild(newDiv);
-    imageFS = true;
-  }
-  
-  function afficheVideoFS() {
-    var newDiv = document.createElement('div');
-    newDiv.className = "imgFullScreen";
-    var newVideo = document.createElement("video");
-    newVideo.setAttribute("id", "video2");
-    newVideo.setAttribute("src", "./assets/img/210530_clip_radio-star_12s.mp4");
-    newVideo.autoplay = true;
-    newVideo.loop = true;
-    newDiv.appendChild(newVideo);
-    main.appendChild(newDiv);
-    itemDetails = true;
-    videoFS = true;
-  }
+  var count = 0;
+  var matrixDom = [];
+
+  for (var i = 0; i < recuperedData.grid.length; i++) {
+    // idealemet il faut utilser recupred data 
+    const category = pages[i];
+    console.log(recuperedData.grid[i].title);
+
+    const newH3 = document.createElement('h3');
+    newH3.innerHTML = recuperedData.grid[i].title;
+    mainSection.appendChild(newH3);
+    //create row add it to main section and add it to main matrixDom
+    var rowDom = document.createElement('div');
+    rowDom.style.left = "20px";
+    rowDom.classList.add('row');
+    var row = [];
+
+
     
-  async function logIn(email, password) {
-    try {
-      const response = await fetch("https://hospitality.ansetech.com/api/auth/local", {
-        method: "POST",
-        body: JSON.stringify({ email: email, password: password }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
+    
+    for (var j = 0; j < category.contents.length; j++) {
+      count++;
+      var childDom = document.createElement('div');
+      childDom.classList.add('child');
+      var url = `https://hospitality.ansetech.com/host/files/images/pages/${recuperedData.grid[i].children[j].icon}`;
+      var vignette = new logicParserModule.Vignette(recuperedData.grid[i].children[j].title, url);
+      console.log(recuperedData.grid[i].children[j].title, recuperedData.grid[i].children[j].icon);
+      childDom.setAttribute('tabindex', `0`);
+      childDom.appendChild(vignette.render());
+      rowDom.appendChild(childDom);
+      row.push(childDom);
+
+    /*
+      newDiv.style.backgroundImage = "url(" + url + ")";*/
     }
+      var divDom = document.createElement('div');
+      divDom.appendChild(rowDom);
+      mainSection.appendChild(divDom);
+      matrixDom.push(row);
+
   }
-  
-  async function getUser(userId) {
-    try {
-      const response = await fetch(`https://hospitality.ansetech.com:7443/api/users/${userId}`, {
-        headers: { Authorization: "Bearer " + infos.token },
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch user");
+
+}
+
+// focntion permmettant de prendre les info recuperer dans la backend et de le mettre sous forme de data struturé
+export function convertData(inputData) {
+  var data = {
+    grid: []
+  };
+
+  for (var i = 0; i < inputData.length; i++) {
+    var category = inputData[i];
+    var categoryItem = {
+      title: category.title,
+      type: "extended",
+      children: []
+    };
+
+    for (var j = 0; j < category.contents.length; j++) {
+      var content = category.contents[j];
+      var childItem = {
+        icon: content.image,
+        title: content.title
+      };
+
+      if (content.text) {
+        childItem.text = content.text;
       }
-      const data = await response.json();
-      return data.user[0];
-    } catch (error) {
-      throw error;
+
+      categoryItem.children.push(childItem);
     }
+
+    data.grid.push(categoryItem);
   }
-  
-  async function getHotel(hotelId) {
-    try {
-      const response = await fetch(`https://hospitality.ansetech.com:7443/api/hotels/${hotelId}`, {
-        headers: { Authorization: "Bearer " + infos.token },
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch hotel");
-      }
-      const data = await response.json();
-      return data.hotel[0];
-    } catch (error) {
-      throw error;
-    }
-  }
-  
-  async function getPages(hotelId) {
-    try {
-      const response = await fetch(`https://hospitality.ansetech.com:7443/api/pages/fr/${hotelId}`, {
-        headers: { Authorization: "Bearer " + infos.token },
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch pages");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  }
-  
-  function afficheCategory(pages) {
-    for (let i = 0; i < pages.length; i++) {
-      const cat = pages[i];
-      const categoryItem = cat.contents;
-      var newH3 = document.createElement('h3');
-      var newSection = document.createElement('section');
-      newH3.innerHTML = cat.title;
-      newSection.className = "category";
-      document.getElementsByClassName("container")[0].appendChild(newH3);
-      document.getElementsByClassName("container")[0].appendChild(newSection);
-      for (let j = 0; j < categoryItem.length; j++) {
-        var newSpan = document.createElement('span');
-        var newDiv = document.createElement('div');
-        var url = `https://hospitality.ansetech.com/host/files/images/pages/${categoryItem[j].image}`;
-        newSpan.innerHTML = categoryItem[j].title;
-        newDiv.appendChild(newSpan);
-        newDiv.className = "item";
-        newDiv.style.backgroundImage = "url(" + url + ")";
-        document.getElementsByClassName("category")[i + 1].appendChild(newDiv);
-      }
-    }
-    navInit();
-  }
-  
-  let infos = {};
-  
-  (async () => {
-    try {
-      const loginData = await logIn("chambre1@snow-chill2.com", "abcd1234");
-      infos.token = loginData.token;
-      infos.userId = loginData.userId;
-      infos.hotelId = loginData.owner;
-  
-      const [user, hotel] = await Promise.all([
-        getUser(infos.userId),
-        getHotel(infos.hotelId)
-      ]);
-  
-      infos.userInfos = user;
-      infos.hotelInfos = hotel;
-      client.innerHTML = infos.userInfos.clientName;
-      city.innerHTML = infos.hotelInfos.city;
-      nameHotel.innerHTML = infos.hotelInfos.name;
-      getWeather();
-      logo.setAttribute('src', `https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
-  
-      const pages = await getPages(infos.hotelId);
-      infos.pages = pages;
-      const url = `https://hospitality.ansetech.com/host/files/images/pages/${pages[0].contents[0].image}`;
-      body.style.backgroundImage = "url(" + url + ")";
-      afficheCategory(infos.pages);
-  
-      console.log(infos);
-    } catch (error) {
-      console.error(error);
-    }
-  })();
-  
+
+  return data;
+}

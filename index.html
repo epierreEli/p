@@ -131,6 +131,8 @@
       height: 30px;
       margin-right: 20px;
     }
+
+    
   </style>
 </head>
 
@@ -160,11 +162,14 @@
   <div>
     <section id="main"></section>
   </div>
-
   <script type="module">
     import * as manageLogicModule from "./manageLogic.js";
     import * as logicParserModule from "./logicParser.js";
     import * as requestModule from "./request.js";
+    import * as smoothscrolModule from "./smoothScroll.js";
+    import * as logicscrolModule from "./grid.js";
+    import * as logicModule from "./logic.js";
+   
 
 
 
@@ -188,7 +193,7 @@
     const logoicon = document.querySelector("#logo");
     const client = document.querySelector("#client");
     const nameHotelstring = document.querySelector("#nameHotel");
-
+    let indexedMatrix;
     requestModule.logIn("chambre1@snow-chill2.com", "abcd1234").then((data) => {
       infos['token'] = data.token;
       infos["userId"] = data.userId;
@@ -212,7 +217,13 @@
 
             console.log(infos.pages);
             //construction des elements 
-            requestModule.showCategoryAndConstructElement(infos.pages);
+
+            indexedMatrix = logicscrolModule.buildPannel(requestModule.convertData(infos.pages).grid);
+
+            indexedMatrix.flat()[0].focus();
+
+
+            // requestModule.showCategoryAndConstructElement(infos.pages);
           });
 
           console.log(infos);
@@ -237,20 +248,41 @@
       });
 
 
+    //gestion de la navigation 
+    // listen when loading is done and focus on first element with tabindex
 
 
-    document.addEventListener("keydown", function (event) {
-      var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x, y, direction) => {
-        console.log("Changement de position vers la ", x, y, direction);
 
-        // on appella fonction de decalage des ligne 
-        shiftRow(matrixDom, x, y, direction);
-
-      });
-      var matrixCopy = JSON.parse(JSON.stringify(matrix));
-      matrixCopy[i][j] = "A";
-      console.table(matrixCopy);
+    // listen to keydown event and bind it to tab navigation
+    document.addEventListener("keydown", (e) => {
+      if (e.key.includes("Arrow")) {
+        e.preventDefault();
+        logicModule.logicEvent(indexedMatrix, e, (myEvent, controles) => {
+          switch (myEvent) {
+            case logicModule.logicEvents.CANT_GO_RIGHT:
+              controles.goDownFirst();
+              break;
+            case logicModule.logicEvents.CANT_GO_LEFT:
+              controles.goUpLast();
+              break;
+          }
+        });
+        smoothScrollToElement(document.activeElement);
+      }
     });
+
+    /* document.addEventListener("keydown", function (event) {
+       var [i, j] = manageLogicModule.navigationSpatiale(matrix, event, (x, y, direction) => {
+         console.log("Changement de position vers la ", x, y, direction);
+ 
+         // on appella fonction de decalage des ligne 
+         shiftRow(matrixDom, x, y, direction);
+ 
+       });
+       var matrixCopy = JSON.parse(JSON.stringify(matrix));
+       matrixCopy[i][j] = "A";
+       console.table(matrixCopy);
+     });*/
 
 
 

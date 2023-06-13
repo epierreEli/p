@@ -1,3 +1,4 @@
+import * as vignetteModule from "./grid.js";
 import * as logicParserModule from "./logicParser.js";
 
 // recupere la temperature et l image associe 
@@ -149,7 +150,13 @@ export function getPages(hotelId, infos) {
   });
 }
 
-
+/*
+export function showCategoryAndConstructElement(pages){
+  const recuperedData = convertData(pages);
+  let indexedMatrixc=vignetteModule.buildPannel(recuperedData.grid);
+  // return indexedMatrixc;
+}*/
+/*
 
 export function showCategoryAndConstructElement(pages) {
   // on prend les donnes qu on recupere et on les organise dans les structured data
@@ -190,8 +197,7 @@ export function showCategoryAndConstructElement(pages) {
       rowDom.appendChild(childDom);
       row.push(childDom);
 
-    /*
-      newDiv.style.backgroundImage = "url(" + url + ")";*/
+
     }
       var divDom = document.createElement('div');
       divDom.appendChild(rowDom);
@@ -201,6 +207,7 @@ export function showCategoryAndConstructElement(pages) {
   }
 
 }
+*/
 
 // focntion permmettant de prendre les info recuperer dans la backend et de le mettre sous forme de data struturé
 export function convertData(inputData) {

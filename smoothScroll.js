@@ -1,4 +1,4 @@
-export function smoothScrollToElement(element) {
+function smoothScrollToElement(element) {
     var parent = element.parentNode;
     var parentRect = parent.getBoundingClientRect();
     var elementRect = element.getBoundingClientRect();

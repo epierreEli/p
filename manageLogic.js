@@ -1,7 +1,7 @@
 var i = 0;
 var j = 0;
 
-export function initPosition(matrix) {
+function initPosition(matrix) {
     //flaten matrix
     for (var x = 0; x < matrix.length; x++) {
         for (var y = 0; y < matrix[x].length; y++) {
@@ -16,7 +16,7 @@ export function initPosition(matrix) {
 
 //TODO: definition des evenements commun changement de column et changement de row
 
-export function navigationSpatiale(matrix, event, onEvent) {
+function navigationSpatiale(matrix, event, onEvent) {
     var numColumns = matrix[i].length;
     let numRows = matrix.length;
     var oldindex = i;

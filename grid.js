@@ -1,7 +1,5 @@
-import * as vignetteModule from "./grid.js";
-import * as logicParserModule from "./logicParser.js";
 
-export function buildPannel(grid = []) {
+function buildPannel(grid = []) {
     const indexedMatrix = [];
     const main = document.getElementById("main");
     grid.forEach((element) => {
@@ -33,11 +31,11 @@ export function buildPannel(grid = []) {
     return indexedMatrix;
 }
 
-export function buildVignette(data, selectable = true) {
+function buildVignette(data, selectable = true) {
     var vignetteElement = document.createElement('div');
     vignetteElement.classList.add('child');
     var url = `https://hospitality.ansetech.com/host/files/images/pages/${data.icon}`;
-    var vignetteInstance = new logicParserModule.Vignette(data.title, url);
+    var vignetteInstance = new Vignette(data.title, url);
     console.log(data.title, data.icon);
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");

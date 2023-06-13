@@ -1,11 +1,10 @@
-import * as vignetteModule from "./grid.js";
-import * as logicParserModule from "./logicParser.js";
+
 
 // recupere la temperature et l image associe 
-export async function getWeather(cityTag) {
+function getWeather(cityTag) {
   console.log("citytag = " + cityTag + "; getWeather");
 
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     var url =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
       cityTag +
@@ -14,7 +13,7 @@ export async function getWeather(cityTag) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
 
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           var data = JSON.parse(xhr.responseText);
@@ -38,7 +37,8 @@ export async function getWeather(cityTag) {
   });
 }
 
-export function getCurrentDateTime(callback) {
+
+function getCurrentDateTime(callback) {
   set();
   setInterval(() => {
     set();
@@ -64,7 +64,7 @@ export function getCurrentDateTime(callback) {
 }
 
 
-export function logIn(email, password) {
+function logIn(email, password) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://hospitality.ansetech.com/api/auth/local", true);
@@ -87,7 +87,7 @@ export function logIn(email, password) {
 }
 
 
-export function getUser(userId, infos) {
+function getUser(userId, infos) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", `https://hospitality.ansetech.com:7443/api/users/${userId}`);
@@ -108,7 +108,7 @@ export function getUser(userId, infos) {
 }
 
 
-export function getHotel(hotelId, infos) {
+function getHotel(hotelId, infos) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", `https://hospitality.ansetech.com:7443/api/hotels/${hotelId}`);
@@ -128,7 +128,7 @@ export function getHotel(hotelId, infos) {
   });
 }
 
-export function getPages(hotelId, infos) {
+function getPages(hotelId, infos) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     var url = "https://hospitality.ansetech.com:7443/api/pages/fr/" + hotelId;
@@ -150,67 +150,10 @@ export function getPages(hotelId, infos) {
   });
 }
 
-/*
-export function showCategoryAndConstructElement(pages){
-  const recuperedData = convertData(pages);
-  let indexedMatrixc=vignetteModule.buildPannel(recuperedData.grid);
-  // return indexedMatrixc;
-}*/
-/*
 
-export function showCategoryAndConstructElement(pages) {
-  // on prend les donnes qu on recupere et on les organise dans les structured data
-  const recuperedData = convertData(pages);
-  console.log(recuperedData);
-
-  var mainSection = document.getElementById("main");
-  
-  var count = 0;
-  var matrixDom = [];
-
-  for (var i = 0; i < recuperedData.grid.length; i++) {
-    // idealemet il faut utilser recupred data 
-    const category = pages[i];
-    console.log(recuperedData.grid[i].title);
-
-    const newH3 = document.createElement('h3');
-    newH3.innerHTML = recuperedData.grid[i].title;
-    mainSection.appendChild(newH3);
-    //create row add it to main section and add it to main matrixDom
-    var rowDom = document.createElement('div');
-    rowDom.style.left = "20px";
-    rowDom.classList.add('row');
-    var row = [];
-
-
-    
-    
-    for (var j = 0; j < category.contents.length; j++) {
-      count++;
-      var childDom = document.createElement('div');
-      childDom.classList.add('child');
-      var url = `https://hospitality.ansetech.com/host/files/images/pages/${recuperedData.grid[i].children[j].icon}`;
-      var vignette = new logicParserModule.Vignette(recuperedData.grid[i].children[j].title, url);
-      console.log(recuperedData.grid[i].children[j].title, recuperedData.grid[i].children[j].icon);
-      childDom.setAttribute('tabindex', `0`);
-      childDom.appendChild(vignette.render());
-      rowDom.appendChild(childDom);
-      row.push(childDom);
-
-
-    }
-      var divDom = document.createElement('div');
-      divDom.appendChild(rowDom);
-      mainSection.appendChild(divDom);
-      matrixDom.push(row);
-
-  }
-
-}
-*/
 
 // focntion permmettant de prendre les info recuperer dans la backend et de le mettre sous forme de data struturé
-export function convertData(inputData) {
+function convertData(inputData) {
   var data = {
     grid: []
   };

@@ -16,7 +16,7 @@ Array.prototype.current = function () {
 Array.prototype.currentIndice = 0;
 
 //define logicEvents
-export const logicEvents = {
+const logicEvents = {
     ACTION: -1,
     CANT_GO_UP: 0,
     CANT_GO_DOWN: 1,
@@ -30,7 +30,7 @@ export const logicEvents = {
     GO_LAST: 9,
 };
 
-export function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
+function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
     const controles = {
         goUpFirst: goUpFirst,
         goUpLast: goUpLast,

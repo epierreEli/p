@@ -147,21 +147,21 @@
   <div>
     <section id="main"></section>
   </div>
-  <script type="module">
-    import * as manageLogicModule from "./manageLogic.js";
-    import * as logicParserModule from "./logicParser.js";
-    import * as requestModule from "./request.js";
-    import * as smoothscrolModule from "./smoothScroll.js";
-    import * as logicscrolModule from "./grid.js";
-    import * as logicModule from "./logic.js";
-   
+<script src="./manageLogic.js"></script>
+<script src="./logicParser.js"></script>
+<script src= "./request.js"></script>
+<script src="./smoothScroll.js"></script>
+<script src="./grid.js"></script>
+<script src="./logic.js"></script>
+
+<script>
 
 
 
 
     //on get la date et l heure
     // Example usage:
-    requestModule.getCurrentDateTime((date, time) => {
+    getCurrentDateTime((date, time) => {
       let timeString = document.querySelector("#time");
       console.log(timeString);
       timeString.innerHTML = time;
@@ -179,12 +179,13 @@
     const client = document.querySelector("#client");
     const nameHotelstring = document.querySelector("#nameHotel");
     let indexedMatrix;
-    requestModule.logIn("chambre1@snow-chill2.com", "abcd1234").then((data) => {
+    
+    logIn("chambre1@snow-chill2.com", "abcd1234").then((data) => {
       infos['token'] = data.token;
       infos["userId"] = data.userId;
       infos["hotelId"] = data.owner;
 
-      Promise.all([requestModule.getUser(infos.userId, infos), requestModule.getHotel(infos.hotelId, infos)])
+      Promise.all([getUser(infos.userId, infos), getHotel(infos.hotelId, infos)])
         .then((res) => {
           infos["userInfos"] = res[0];
           infos["hotelInfos"] = res[1];
@@ -195,7 +196,7 @@
 
           logo.setAttribute('src', `https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
 
-          requestModule.getPages(infos.hotelId, infos).then((pages) => {
+          getPages(infos.hotelId, infos).then((pages) => {
             infos["pages"] = pages;
             const url = `https://hospitality.ansetech.com/host/files/images/pages/${pages[0].contents[0].icon}`;
             body.style.backgroundImage = "url(" + url + ")";
@@ -203,9 +204,9 @@
             console.log(infos.pages);
             //construction des elements 
 
-            indexedMatrix = logicscrolModule.buildPannel(requestModule.convertData(infos.pages).grid);
+            indexedMatrix = buildPannel(convertData(infos.pages).grid);
 
-            indexedMatrix.flat()[0].focus();
+            indexedMatrix.first().first().focus();
 
 
             // requestModule.showCategoryAndConstructElement(infos.pages);
@@ -216,7 +217,7 @@
     });
 
     // on get la temperature 
-    requestModule.getWeather(city.innerHTML)
+    getWeather(city.innerHTML)
       .then(([icon, temperature]) => {
         // Use the retrieved icon and temperature here
         console.log("Icon:", icon);
@@ -242,13 +243,13 @@
     document.addEventListener("keydown", (e) => {
       if (e.key.includes("Arrow")) {
         e.preventDefault();
-        logicModule.logicEvent(indexedMatrix, e, (myEvent, controles) => {
+        logicEvent(indexedMatrix, e, (myEvent, controles) => {
           switch (myEvent) {
-            case logicModule.logicEvents.CANT_GO_RIGHT:
-              controles.goDownFirst();
+            case logicEvents.CANT_GO_RIGHT:
+              //controles.goDownFirst();
               break;
-            case logicModule.logicEvents.CANT_GO_LEFT:
-              controles.goUpLast();
+            case logicEvents.CANT_GO_LEFT:
+              //controles.goUpLast();
               break;
           }
         });

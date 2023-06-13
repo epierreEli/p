@@ -107,7 +107,7 @@ class Image extends Child {
     }
 }
 
-export class Vignette extends Image {
+class Vignette extends Image {
     constructor(title, url) {
         super(title, url);
     }
@@ -132,7 +132,7 @@ export class Vignette extends Image {
 
 
 
-export function test() {
+function test() {
     var testList =[];
 
     var link = new Link("Lien vers Google", "https://www.google.fr");
@@ -155,7 +155,7 @@ export function test() {
 }
 
 
-export function buildLogicMatrix() {
+function buildLogicMatrix() {
     var matrix = [];
     for (var i = 0; i < data.grid.length; i++) {
         matrix.push([-1]);

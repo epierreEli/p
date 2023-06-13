@@ -19,7 +19,7 @@ function getWeather(cityTag) {
           var data = JSON.parse(xhr.responseText);
           var dataTemp = data.main.temp.toFixed(1);
           const iconUrl =
-            "https://openweathermap.org/img/wn/" +
+            "http://openweathermap.org/img/wn/" +
             data.weather[0].icon +
             "@2x.png";
 

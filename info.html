@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Full Image Body Site</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #full-image {
+            background-image: url('e.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+        }
+
+        #blackrectangle {
+            background-color: black;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #minirectangle {
+            background-color: grey;
+            height: 10%;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #imagest {
+            background-image: url('e.jpg');
+            background-size: cover;
+
+            background-position: center;
+            background-color: grey;
+            height: 150px;
+            /* Set the height in pixels */
+            width: 250px;
+            /* Set the width in pixels */
+            position: absolute;
+            top: 37%;
+            left: 10%;
+
+            z-index: 1;
+
+        }
+
+        #button {
+            background-color: black;
+            height: 30px;
+            width: 50px;
+            border-color: rgb(28, 27, 27);
+            /* Set the button's border color */
+            color: white;
+            /* Set the button's text color */
+
+
+            position: absolute;
+            top: 35%;
+            left: 30%;
+
+        }
+
+        #description {
+            color: blanchedalmond;
+            text-align : left;
+            position: absolute;
+            top: 35%;
+            left: 30%;
+            
+           
+
+        }
+
+        #title{
+            font-size: 30px;
+        }
+
+        #infodescription{
+            width: 50px;
+         }
+    </style>
+</head>
+
+<body>
+    <div id="full-image"></div>
+    <div id="blackrectangle">
+        <div id="description">
+            <h3 id="title">titre de base </h3>
+            <p id="infodescription">sofuuuuuuuuuuuuuuuuuuuuhossbvobvsbbvovbsfjvojvosjjobvsgogsfgvbuvofvbfvobsvb</p>
+        </div>
+    </div>
+    <div id="minirectangle">
+        <button id="button" type="button" tabindex="0">SEE</button>
+    </div>
+    <div id="imagest"></div>
+
+    </div>
+
+</body>
+
+</html>

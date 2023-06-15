@@ -41,20 +41,21 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
         goCurrentLast: goCurrentLast,
     };
     const currentRow = matrix.current();
-    switch (keyboardEvent.key) {
-        case "ArrowUp":
+    switch (keyboardEvent.keyCode) {
+        case 38:
             goUpFirst();
             break;
-        case "ArrowDown":
+        case 40:
             goDownFirst();
             break;
-        case "ArrowLeft":
+        case 37:
             goCurrentLeft();
             break;
-        case "ArrowRight":
+        case 39:
             goCurrentRight();
             break;
         default:
+            console.log(keyboardEvent.keyCode);
             throw new Error("Unknown key");
     }
     event(logicEvents.ACTION);

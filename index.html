@@ -35,7 +35,7 @@
       overflow: hidden;
     }
 
-    .row > * {
+    .row>* {
       flex-shrink: 0;
     }
 
@@ -117,7 +117,40 @@
       margin-right: 20px;
     }
 
-    
+
+
+
+    /* Styles for the login page */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #f2f2f2;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      width: 300px;
+    }
+
+    /* Other styles */
+    input[type=text],
+    input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 
@@ -147,15 +180,74 @@
   <div>
     <section id="main"></section>
   </div>
-<script src="./manageLogic.js"></script>
-<script src="./logicParser.js"></script>
-<script src= "./request.js"></script>
-<script src="./smoothScroll.js"></script>
-<script src="./grid.js"></script>
-<script src="./logic.js"></script>
 
-<script>
+  <!-- The login modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <h2>Login Form</h2>
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" id="username">
 
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" id="password">
+
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <script src="./manageLogic.js"></script>
+  <script src="./logicParser.js"></script>
+  <script src="./request.js"></script>
+  <script src="./smoothScroll.js"></script>
+  <script src="./grid.js"></script>
+  <script src="./logic.js"></script>
+
+  <script>
+
+    // Gestion du login
+    var modal = document.getElementById("loginModal");
+    var body = document.getElementById("body");
+
+    // Function to open the modal
+    function openModal() {
+
+
+      modal.style.display = "block";
+
+
+    }
+
+    // Function to close the modal
+    function closeModal() {
+
+
+      modal.style.display = "none";
+
+
+
+    }
+
+    // Function to handle login
+    function login() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Validate the user data
+      if (username === "your_username" && password === "your_password") {
+        // Successful login, close the modal
+
+        closeModal();
+        // Optionally, you can perform additional actions or redirect the user here
+      } else {
+        // Invalid login, display an error message or take necessary actions
+
+        console.log("Invalid username or password. Please try again.");
+      }
+    }
+    /*
+
+      openModal();
+      login();*/
 
 
 
@@ -179,7 +271,7 @@
     const client = document.querySelector("#client");
     const nameHotelstring = document.querySelector("#nameHotel");
     let indexedMatrix;
-    
+
     logIn("chambre1@snow-chill2.com", "abcd1234").then((data) => {
       infos['token'] = data.token;
       infos["userId"] = data.userId;
@@ -240,10 +332,10 @@
 
 
     // listen to keydown event and bind it to tab navigation
-    document.addEventListener("keydown", (e) => {
-      if (e.key.includes("Arrow")) {
+    document.addEventListener("keydown", function (e) {
+      if (e.keyCode >= 37 && e.keyCode <= 40) {
         e.preventDefault();
-        logicEvent(indexedMatrix, e, (myEvent, controles) => {
+        logicEvent(indexedMatrix, e, function (myEvent, controles) {
           switch (myEvent) {
             case logicEvents.CANT_GO_RIGHT:
               //controles.goDownFirst();
@@ -253,7 +345,7 @@
               break;
           }
         });
-        smoothscrolModule.smoothScrollToElement(document.activeElement);
+        smoothScrollToElement(document.activeElement);
       }
     });
 

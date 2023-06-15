@@ -171,6 +171,7 @@ function convertData(inputData) {
       var childItem = {
         icon: content.image,
         title: content.title
+        // text: content.text
       };
 
       if (content.text) {

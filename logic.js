@@ -54,8 +54,12 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
         case 39:
             goCurrentRight();
             break;
+        case 13:
+            // gestion de a touvh entrer
+            enterOnElement();
+            break;
         default:
-            console.log(keyboardEvent.keyCode);
+
             throw new Error("Unknown key");
     }
     event(logicEvents.ACTION);
@@ -115,5 +119,14 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
 
     function event(logicEvent) {
         manageEvent(logicEvent, controles);
+    }
+}
+
+
+
+function enterOnElement() {
+    var activeElement = document.activeElement;
+    if (activeElement) {
+        activeElement.click(); // Trigger click event on the active element
     }
 }

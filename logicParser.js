@@ -103,6 +103,7 @@ class Image extends Child {
         el.alt = this.title;
         el.width = width;
         el.height = height;
+        el.style.borderRadius = "10px";
         return el;
     }
 }
@@ -118,7 +119,9 @@ class Vignette extends Image {
         container.style.width = this.width + "px";
         container.style.margin = "10px";
 
+        
         var image = super.render();
+        
 
         var title = document.createElement("p");
         title.innerText = this.title;
@@ -130,6 +133,38 @@ class Vignette extends Image {
     }
 }
 
+class Video extends Vignette {
+    constructor(title, url, width = 150, height = 100) {
+      super(title, url, width, height);
+    }
+  
+    render() {
+      var container = document.createElement("div");
+      container.classList.add("vignette");
+      container.style.height = this.height + "px";
+      container.style.width = this.width + "px";
+      container.style.margin = "10px";
+  
+      var video = document.createElement("video");
+      video.style.objectFit = "cover";
+      video.style.borderRadius = "10px";
+      video.src = this.url;
+      video.controls = true;
+      video.width = this.width;
+      video.height = this.height;
+      video.autoplay=true;
+      video.loop=true;
+  
+      var title = document.createElement("p");
+      title.innerText = this.title;
+  
+      container.appendChild(video);
+      container.appendChild(title);
+  
+      return container;
+    }
+  }
+  
 
 
 function test() {

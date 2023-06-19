@@ -56,7 +56,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             break;
         case 13:
             // gestion de a touvh entrer
-            enterOnElement();
+            sendElement();
             break;
         default:
 
@@ -124,9 +124,29 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
 
 
 
-function enterOnElement() {
+//gestion de l envoi de la donnee
+function sendElement() {
+
     var activeElement = document.activeElement;
-    if (activeElement) {
-        activeElement.click(); // Trigger click event on the active element
-    }
+
+    // acces aux attributs setter avant 
+    var data = {
+        description: activeElement.getAttribute('title'),
+        title: activeElement.getAttribute('description'),
+        src: activeElement.getAttribute('icon')
+        
+    };
+
+    var dataString = JSON.stringify(data);
+    // sessionStorage.setItem('data', dataString);
+    setCookie('data', dataString);
+    console.log("datastring"+dataString);
+
+    window.location.href = 'info.html';
+
 }
+
+function setCookie(name, value) {
+    document.cookie = `${name}=${value}; SameSite=None; Secure`;
+}
+

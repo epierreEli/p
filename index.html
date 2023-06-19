@@ -118,7 +118,40 @@
     }
 
 
+    /* loading component css */
+    #loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      /* semi-transparent background */
+      z-index: 9999;
+      /* ensure the loading indicator is on top of other elements */
+    }
 
+    .loading-indicator {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
     /* Styles for the login page */
     .modal {
@@ -155,6 +188,7 @@
 </head>
 
 <body id="body">
+  <!-- en tete -->
   <header id="header">
     <div id="location">
       <span id="city"></span>
@@ -191,8 +225,13 @@
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" id="password">
 
-      <button onclick="login()">Login</button>
+      <button onclick="login()" tabindex="0">Login</button>
     </div>
+  </div>
+  <!-- The loading -->
+  <div id="loading-container">
+    <!-- Progress indicator elements will be added here -->
+    <div class="loading-indicator"></div>
   </div>
 
   <script src="./manageLogic.js"></script>
@@ -201,53 +240,12 @@
   <script src="./smoothScroll.js"></script>
   <script src="./grid.js"></script>
   <script src="./logic.js"></script>
+  <script src="./login.js"></script>
 
   <script>
-
-    // Gestion du login
-    var modal = document.getElementById("loginModal");
-    var body = document.getElementById("body");
-
-    // Function to open the modal
-    function openModal() {
+    hideLoadingIndicator();
 
 
-      modal.style.display = "block";
-
-
-    }
-
-    // Function to close the modal
-    function closeModal() {
-
-
-      modal.style.display = "none";
-
-
-
-    }
-
-    // Function to handle login
-    function login() {
-      var username = document.getElementById("username").value;
-      var password = document.getElementById("password").value;
-
-      // Validate the user data
-      if (username === "your_username" && password === "your_password") {
-        // Successful login, close the modal
-
-        closeModal();
-        // Optionally, you can perform additional actions or redirect the user here
-      } else {
-        // Invalid login, display an error message or take necessary actions
-
-        console.log("Invalid username or password. Please try again.");
-      }
-    }
-    /*
-
-      openModal();
-      login();*/
 
 
 
@@ -264,56 +262,17 @@
 
     });
 
-    // info contiendra le token d acces et tous les autre infos necesssaires 
-    let infos = {};
-    const cityString = document.querySelector("#city");
-    const logoicon = document.querySelector("#logo");
-    const client = document.querySelector("#client");
-    const nameHotelstring = document.querySelector("#nameHotel");
-    let indexedMatrix;
-
-    logIn("chambre1@snow-chill2.com", "abcd1234").then((data) => {
-      infos['token'] = data.token;
-      infos["userId"] = data.userId;
-      infos["hotelId"] = data.owner;
-
-      Promise.all([getUser(infos.userId, infos), getHotel(infos.hotelId, infos)])
-        .then((res) => {
-          infos["userInfos"] = res[0];
-          infos["hotelInfos"] = res[1];
-          client.innerHTML = infos.userInfos.clientName;
-          city.innerHTML = infos.hotelInfos.city;
-          nameHotel.innerHTML = infos.hotelInfos.name;
 
 
-          logo.setAttribute('src', `https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
-
-          getPages(infos.hotelId, infos).then((pages) => {
-            infos["pages"] = pages;
-            const url = `https://hospitality.ansetech.com/host/files/images/pages/${pages[0].contents[0].icon}`;
-            body.style.backgroundImage = "url(" + url + ")";
-
-            console.log(infos.pages);
-            //construction des elements 
-
-            indexedMatrix = buildPannel(convertData(infos.pages).grid);
-
-            indexedMatrix.first().first().focus();
 
 
-            // requestModule.showCategoryAndConstructElement(infos.pages);
-          });
-
-          console.log(infos);
-        });
-    });
+    //ouverture du popup de login
+    openModal();
 
     // on get la temperature 
     getWeather(city.innerHTML)
       .then(([icon, temperature]) => {
         // Use the retrieved icon and temperature here
-        console.log("Icon:", icon);
-        console.log("Temperature:", temperature);
         const iconweather = document.querySelector("#iconWeather");
         const temp = document.querySelector("#weather");
         iconweather.setAttribute("src", icon);
@@ -333,7 +292,7 @@
 
     // listen to keydown event and bind it to tab navigation
     document.addEventListener("keydown", function (e) {
-      if (e.keyCode >= 37 && e.keyCode <= 40) {
+      if ((e.keyCode >= 37 && e.keyCode <= 40) || (e.keyCode == 13)) {
         e.preventDefault();
         logicEvent(indexedMatrix, e, function (myEvent, controles) {
           switch (myEvent) {
@@ -346,9 +305,11 @@
           }
         });
         smoothScrollToElement(document.activeElement);
+        // we want to to see the attributes of the active element
+
+
       }
     });
-
 
 
 

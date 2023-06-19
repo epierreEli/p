@@ -118,7 +118,6 @@
     }
 
 
-<<<<<<< HEAD
     /* loading component css */
     #loading-container {
       position: fixed;
@@ -153,9 +152,6 @@
         transform: rotate(360deg);
       }
     }
-=======
-
->>>>>>> 0810d9521123e7508382368265e1d3be64129e7b
 
     /* Styles for the login page */
     .modal {
@@ -229,7 +225,6 @@
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" id="password">
 
-<<<<<<< HEAD
       <button onclick="login()" tabindex="0">Login</button>
     </div>
   </div>
@@ -238,11 +233,6 @@
     <!-- Progress indicator elements will be added here -->
     <div class="loading-indicator"></div>
   </div>
-=======
-      <button onclick="login()">Login</button>
-    </div>
-  </div>
->>>>>>> 0810d9521123e7508382368265e1d3be64129e7b
 
   <script src="./manageLogic.js"></script>
   <script src="./logicParser.js"></script>
@@ -250,61 +240,11 @@
   <script src="./smoothScroll.js"></script>
   <script src="./grid.js"></script>
   <script src="./logic.js"></script>
-<<<<<<< HEAD
   <script src="./login.js"></script>
 
   <script>
     hideLoadingIndicator();
 
-=======
-
-  <script>
-
-    // Gestion du login
-    var modal = document.getElementById("loginModal");
-    var body = document.getElementById("body");
-
-    // Function to open the modal
-    function openModal() {
-      body.style.display  ="none";
-
-      modal.style.display = "block";
-      
-      
-    }
-
-    // Function to close the modal
-    function closeModal() {
-      body.style.display ="block";
-
-      modal.style.display = "none";
-      
-
-      
-    }
-
-    // Function to handle login
-    function login() {
-      var username = document.getElementById("username").value;
-      var password = document.getElementById("password").value;
-
-      // Validate the user data
-      if (username === "your_username" && password === "your_password") {
-        // Successful login, close the modal
-        return 1;
-        closeModal();
-        // Optionally, you can perform additional actions or redirect the user here
-      } else {
-        // Invalid login, display an error message or take necessary actions
-        return 0;
-        console.log("Invalid username or password. Please try again.");
-      }
-    }
-    
-
-      openModal();
-      var check=login();
->>>>>>> 0810d9521123e7508382368265e1d3be64129e7b
 
 
 
@@ -322,29 +262,6 @@
 
     });
 
-<<<<<<< HEAD
-=======
-    // info contiendra le token d acces et tous les autre infos necesssaires 
-    let infos = {};
-    const cityString = document.querySelector("#city");
-    const logoicon = document.querySelector("#logo");
-    const client = document.querySelector("#client");
-    const nameHotelstring = document.querySelector("#nameHotel");
-    let indexedMatrix;
-
-    logIn("chambre1@snow-chill2.com", "abcd1234").then((data) => {
-      infos['token'] = data.token;
-      infos["userId"] = data.userId;
-      infos["hotelId"] = data.owner;
-
-      Promise.all([getUser(infos.userId, infos), getHotel(infos.hotelId, infos)])
-        .then((res) => {
-          infos["userInfos"] = res[0];
-          infos["hotelInfos"] = res[1];
-          client.innerHTML = infos.userInfos.clientName;
-          city.innerHTML = infos.hotelInfos.city;
-          nameHotel.innerHTML = infos.hotelInfos.name;
->>>>>>> 0810d9521123e7508382368265e1d3be64129e7b
 
 
 

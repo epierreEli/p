@@ -67,6 +67,32 @@
       color: white;
     }
 
+    /* nouveau style de vignette pour les applications  */
+    .vignetteApp {
+      position: relative;
+    }
+
+    .vignetteApp img {
+      position: absolute;
+      top: 0;
+      left: 15%;
+    
+      width: 70%;
+      height: 60%;
+      position: center;
+    }
+
+    .vignetteApp p {
+      margin: 0;
+      position: absolute;
+      line-height: 20px;
+      width: 100%;
+      bottom: 0;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
     /* gestion header */
     header {
       display: flex;
@@ -184,6 +210,23 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
+
+    /* css of the main apps */
+    #approw {
+      display: flex;
+      /* Use flexbox layout */
+      justify-content: flex-start;
+      /* Align items to the start of the container */
+      align-items: center;
+      /* Center items vertically */
+
+    }
+
+    #approw>div {
+      margin-right: 10px;
+      /* Add some spacing between elements */
+      left: "20px";
+    }
   </style>
 </head>
 
@@ -211,6 +254,16 @@
   </header>
 
   <section id="test"></section>
+
+  <!-- section creer pour les applications  -->
+  <div>
+    <section id="approw">
+      
+
+    </section>
+
+  </div>
+
   <div>
     <section id="main"></section>
   </div>

@@ -164,8 +164,52 @@ class Video extends Vignette {
       return container;
     }
   }
-  
 
+  
+  
+  
+class ImageApp extends Child {
+    constructor(title, url,width=100,height=100) {
+        super({ selectionnable: true });
+        this.title = title;
+        this.url = url;
+        this.width = width;
+        this.height = height;
+    }
+    render(width=this.width,height=this.height) {
+        var el = document.createElement("img");
+        el.src = this.url;
+        el.alt = this.title;
+        el.width = width;
+        el.height = height;
+
+        return el;
+    }
+}
+class VignetteApp extends ImageApp {
+    constructor(title, url) {
+        super(title, url);
+    }
+    render() {     
+        var container = document.createElement("div");
+        container.classList.add("vignetteApp");
+        container.style.height = 50 + "px";
+        container.style.width = 50 + "px";
+        container.style.margin = "10px";
+
+        
+        var image = super.render();
+        
+
+        var title = document.createElement("p");
+        title.innerText = this.title;
+
+        container.appendChild(image);
+        container.appendChild(title);
+
+        return container;
+    }
+}
 
 function test() {
     var testList =[];

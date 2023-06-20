@@ -68,12 +68,15 @@ function login() {
 
 
 
-                    const first=indexedMatrix.first().first();
+                    const first = indexedMatrix.first().first();
                     first.focus();
-                
-                    const backgroundImage=first.getAttribute('icon');
-                    const body=document.querySelector("body");
+
+                    const backgroundImage = first.getAttribute('icon');
+                    const body = document.querySelector("body");
                     body.style.backgroundImage = "url(" + backgroundImage + ")";
+                    body.style.backgroundSize = 'cover';
+                    body.style.backgroundPosition = 'center';
+                    body.style.backgroundRepeat = 'no-repeat';
 
 
 

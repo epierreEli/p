@@ -75,3 +75,4 @@ function isVideoLink(link) {
     const fileExtension = link.substring(link.lastIndexOf('.')).toLowerCase();
     return videoExtensions.includes(fileExtension);
 }
+

@@ -1,5 +1,5 @@
 // Define your application grid
-const gridDataApp = [
+var gridDataApp = [
     {
         title: "",
         children: [
@@ -10,7 +10,6 @@ const gridDataApp = [
         ]
     }
 ];
-
 
 
 function buildPannel(grid = []) {
@@ -97,7 +96,7 @@ function isVideoLink(link) {
 
 
 
-//application panel revoir pour fusionner les deux fonction build 
+//application panel revoir pour fusionner les deux fonc
 function buildAppPannel(grid = []) {
 
 
@@ -150,6 +149,8 @@ function buildAppVignette(data, selectable = true) {
     vignetteElement.setAttribute('title', data.title);
     vignetteElement.setAttribute('icon', data.icon);
 
+    vignetteElement.setAttribute('application', 'true');
+
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
 
 
@@ -158,5 +159,14 @@ function buildAppVignette(data, selectable = true) {
 
     return vignetteElement;
 }
-// Call the buildPannel function with the grid data
-buildAppPannel(gridDataApp);
+
+
+function mergeMatrices(moveMatrix, indexedMatrix) {
+    // Iterate over the moveMatrix and append each row to the indexedMatrix
+    moveMatrix.forEach((row) => {
+      indexedMatrix.push(row);
+    });
+  
+    return indexedMatrix;
+  }
+  

@@ -57,9 +57,17 @@ function login() {
                     //
 
                     console.log(infos.pages);
-                    //construction des elements 
 
+                    //construction des elements ****************
+
+                    // Call the buildPannel function with the grid data for the application 
+                    //  construction des apllication fixes 
+                    const appMatrix = buildAppPannel(gridDataApp);
+                    //  construction des elements dynamique 
                     indexedMatrix = buildPannel(convertData(infos.pages).grid);
+
+                    //concatanate both matrix t allow movement (deplacement)
+                    indexedMatrix = mergeMatrices(indexedMatrix, appMatrix);
                     hideLoadingIndicator();
 
 

@@ -66,16 +66,14 @@ function login() {
                     //  construction des elements dynamique 
                     indexedMatrix = buildPannel(convertData(infos.pages).grid);
 
-                    //concatanate both matrix t allow movement (deplacement)
-                    indexedMatrix = mergeMatrices(indexedMatrix, appMatrix);
-                    hideLoadingIndicator();
+
 
 
 
                     console.log(indexedMatrix);
 
 
-
+                    // wes et the background to be the first element of indexedmatrxi befire we concatanate the two matrix 
                     const first = indexedMatrix.first().first();
                     first.focus();
 
@@ -86,6 +84,9 @@ function login() {
                     body.style.backgroundPosition = 'center';
                     body.style.backgroundRepeat = 'no-repeat';
 
+                    //concatanate both matrix t allow movement (deplacement)
+                    indexedMatrix = mergeMatrices(indexedMatrix, appMatrix);
+                    hideLoadingIndicator();
 
 
                 });

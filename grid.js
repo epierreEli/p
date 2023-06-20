@@ -116,7 +116,7 @@ function buildAppPannel(grid = []) {
 
 
         element.children.forEach((data) => {
-  
+
             const isSelectable = !data.disabled;
             const vignetteElement = buildAppVignette(data, isSelectable);
             if (isSelectable) indexedRow.push(vignetteElement);
@@ -139,7 +139,7 @@ function buildAppPannel(grid = []) {
 function buildAppVignette(data, selectable = true) {
     var vignetteElement = document.createElement('div');
     vignetteElement.classList.add('child');
-   
+
 
     var vignetteInstance = new VignetteApp(data.title, data.icon);
 
@@ -148,7 +148,7 @@ function buildAppVignette(data, selectable = true) {
     vignetteElement.setAttribute('description', data.text);
     vignetteElement.setAttribute('title', data.title);
     vignetteElement.setAttribute('icon', data.icon);
-
+    // we create a new attribute to indicate that this is an application
     vignetteElement.setAttribute('application', 'true');
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
@@ -164,9 +164,8 @@ function buildAppVignette(data, selectable = true) {
 function mergeMatrices(moveMatrix, indexedMatrix) {
     // Iterate over the moveMatrix and append each row to the indexedMatrix
     moveMatrix.forEach((row) => {
-      indexedMatrix.push(row);
+        indexedMatrix.push(row);
     });
-  
+
     return indexedMatrix;
-  }
-  
+}

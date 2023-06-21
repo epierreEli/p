@@ -68,8 +68,10 @@ function buildVignette(data, selectable = true) {
         // url diffrent pour les vidéos
         url = data.icon;
         var vignetteInstance = new Video(data.title, url);
+        vignetteElement.setAttribute('video', 'true');
     } else {
         var vignetteInstance = new Vignette(data.title, url);
+        vignetteElement.setAttribute('video', 'false');
     }
 
     // important pour lacces et l envoie apres

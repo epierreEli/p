@@ -129,17 +129,24 @@ function actionOnElement() {
 
     var activeElement = document.activeElement;
     console.log(activeElement.getAttribute('application'));
-
+    //si ce n est pas une application
     if (activeElement.getAttribute('application') == 'false') {
         
-        sendDatatoOtherPage(activeElement);
+        console.log('activeElement: ' + activeElement.getAttribute('video'));
+        if (activeElement.getAttribute('video') == 'false') {
+            sendDatatoOtherPage(activeElement);
+        }
+       
 
-    }else if (activeElement.getAttribute('application') == 'true') {
-        
+
+        //si c est une application
+    } else if (activeElement.getAttribute('application') == 'true') {
+
         console.log(activeElement.getAttribute('title'));
         if (activeElement.getAttribute('title') == 'Panier') {
             showCart();
         }
+
         if (activeElement.getAttribute('title') == 'Parametres') {
             showSettings();
         }

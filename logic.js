@@ -131,6 +131,7 @@ function actionOnElement() {
     console.log(activeElement.getAttribute('application'));
 
     if (activeElement.getAttribute('application') == 'false') {
+        
         sendDatatoOtherPage(activeElement);
 
     }else if (activeElement.getAttribute('application') == 'true') {
@@ -138,6 +139,9 @@ function actionOnElement() {
         console.log(activeElement.getAttribute('title'));
         if (activeElement.getAttribute('title') == 'Panier') {
             showCart();
+        }
+        if (activeElement.getAttribute('title') == 'Parametres') {
+            showSettings();
         }
     }
 

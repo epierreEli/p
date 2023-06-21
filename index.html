@@ -159,7 +159,7 @@
 
     // listen to keydown event and bind it to tab navigation
     document.addEventListener("keydown", function (e) {
-      if ((e.keyCode >= 37 && e.keyCode <= 40) || (e.keyCode == 13)) {
+      if ((e.keyCode >= 37 && e.keyCode <= 40) || (e.keyCode == 13)|| (e.keyCode == 8)) {
         e.preventDefault();
         logicEvent(indexedMatrix, e, function (myEvent, controles) {
           switch (myEvent) {

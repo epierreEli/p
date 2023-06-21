@@ -41,6 +41,8 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
         goCurrentLast: goCurrentLast,
     };
     const currentRow = matrix.current();
+
+    
     switch (keyboardEvent.keyCode) {
         case 38:
             goUpFirst();
@@ -57,6 +59,11 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
         case 13:
             // gestion de a touvh entrer
             actionOnElement();
+            break;
+        case 8:
+            // gestion de a touch basckspcace
+           hideCart();
+           hideSettings();
             break;
         default:
 
@@ -131,12 +138,12 @@ function actionOnElement() {
     console.log(activeElement.getAttribute('application'));
     //si ce n est pas une application
     if (activeElement.getAttribute('application') == 'false') {
-        
+
         console.log('activeElement: ' + activeElement.getAttribute('video'));
         if (activeElement.getAttribute('video') == 'false') {
             sendDatatoOtherPage(activeElement);
         }
-       
+
 
 
         //si c est une application

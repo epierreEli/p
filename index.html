@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Navigation entre les éléments de la page</title>
+  <title>Uptvweb</title>
 
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -55,7 +55,22 @@
     <!-- Progress indicator elements will be added here -->
     <div class="loading-indicator"></div>
   </div>
+  <!-- the cart container  -->
+  <div id="cart-container">
+    <div class="cart">
+      <h2>Votre panier</h2>
+      <ul id="cart-items">
+        <!-- Cart items will be added dynamically using JavaScript -->
+      </ul>
+      <p>Total: $<span id="cart-total">0</span></p>
+      <div id="my-btn">
+        <button id="continue-btn">Continue</button>
+        <button id="checkout-btn">Order</button>
+      </div>
+    </div>
+  </div>
 
+  <script src="./cart.js"></script>
   <script src="./manageLogic.js"></script>
   <script src="./logicParser.js"></script>
   <script src="./request.js"></script>
@@ -63,6 +78,7 @@
   <script src="./grid.js"></script>
   <script src="./logic.js"></script>
   <script src="./login.js"></script>
+  
 
   <script>
     hideLoadingIndicator();

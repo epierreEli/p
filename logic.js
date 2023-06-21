@@ -56,7 +56,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             break;
         case 13:
             // gestion de a touvh entrer
-            sendElement();
+            actionOnElement();
             break;
         default:
 
@@ -125,25 +125,41 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
 
 
 //gestion de l envoi de la donnee
-function sendElement() {
+function actionOnElement() {
 
     var activeElement = document.activeElement;
+    console.log(activeElement.getAttribute('application'));
 
+    if (activeElement.getAttribute('application') == 'false') {
+        sendDatatoOtherPage(activeElement);
+
+    }else if (activeElement.getAttribute('application') == 'true') {
+        
+        console.log(activeElement.getAttribute('title'));
+        if (activeElement.getAttribute('title') == 'Panier') {
+            showCart();
+        }
+    }
+
+
+
+}
+
+function sendDatatoOtherPage(activeElement) {
     // acces aux attributs setter avant 
     var data = {
         description: activeElement.getAttribute('title'),
         title: activeElement.getAttribute('description'),
         src: activeElement.getAttribute('icon')
-        
+
     };
 
     var dataString = JSON.stringify(data);
     // sessionStorage.setItem('data', dataString);
     setCookie('data', dataString);
-    console.log("datastring"+dataString);
+    console.log("datastring" + dataString);
 
     window.location.href = 'info.html';
-
 }
 
 function setCookie(name, value) {

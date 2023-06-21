@@ -221,3 +221,37 @@
         /* Add some spacing between elements */
         left: "20px";
       }
+
+
+      /* css pour le panier  */
+      #cart-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        justify-content: flex-start;
+        align-items: flex-start;
+        height: 50vh;
+        width: 50%;
+        background-color: white;
+      }
+  
+      .cart {
+        text-align: left;
+        margin-left: 10px;
+      }
+  
+      #my-btn {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+      #continue-btn {
+        height: 50px;
+        width: 100px;
+      }
+      #checkout-btn {
+        height: 50px;
+        width: 100px;
+      }

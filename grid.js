@@ -3,10 +3,10 @@ var gridDataApp = [
     {
         title: "",
         children: [
-            { title: "titre1", icon: "1.png", text: "Description 1", disabled: false },
-            { title: "titre2", icon: "2.png", text: "Description 2", disabled: false },
-            { title: "titre3", icon: "3.png", text: "Description 3", disabled: false },
-            { title: "titre4", icon: "4.png", text: "Description 3", disabled: false }
+            { title: "Parametres", icon: "1.png", text: "Description 1", disabled: false },
+            { title: "tv", icon: "2.png", text: "Description 2", disabled: false },
+            { title: "Message", icon: "3.png", text: "envoyer des message", disabled: false },
+            { title: "Panier", icon: "4.png", text: "faites vos achats", disabled: false }
         ]
     }
 ];
@@ -76,6 +76,7 @@ function buildVignette(data, selectable = true) {
     vignetteElement.setAttribute('description', data.text);
     vignetteElement.setAttribute('title', data.title);
     vignetteElement.setAttribute('icon', url);
+    vignetteElement.setAttribute('application', 'false');
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
 

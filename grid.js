@@ -30,20 +30,25 @@ function buildPannel(grid = []) {
         const indexedRow = [];
 
         // test pour recupere le roomsevirce
-        // console.log("element");
-        // console.log(element);
+        console.log("element");
+        console.log(element.roomService);
 
 
         element.children.forEach((data) => {
-            // test pour recupere le roomsevirce
-            // console.log("my datatg fggfh");
-            // console.log(data);
 
             const isSelectable = !data.disabled;
             const vignetteElement = buildVignette(data, isSelectable);
+
+            // on essaie de setter le rooservise sur la vignet pour pour=voir le recup apres il faudra tester que ca a bien etete setter 
+            if(element.roomService)vignetteElement.setAttribute('roomService', 'true');
+            console.log("my data");
+            console.log(data);
+            console.log(element.roomService);
+
             if (isSelectable) indexedRow.push(vignetteElement);
             rowDom.appendChild(vignetteElement); // Append vignetteElement to rowDom
         });
+  
 
         indexedMatrix.push(indexedRow);
 

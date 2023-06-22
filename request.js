@@ -162,16 +162,19 @@ function convertData(inputData) {
     var category = inputData[i];
     var categoryItem = {
       title: category.title,
+      roomService: category.roomService,
       type: "extended",
       children: []
     };
+    //test
+    //console.log(category);
 
     for (var j = 0; j < category.contents.length; j++) {
       var content = category.contents[j];
       var childItem = {
         icon: content.image,
         title: content.title
-        // text: content.text
+        
       };
 
       if (content.text) {

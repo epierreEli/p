@@ -84,8 +84,7 @@ function login() {
                     body.style.backgroundPosition = 'center';
                     body.style.backgroundRepeat = 'no-repeat';
 
-                    //concatanate both matrix t allow movement (deplacement)
-                    indexedMatrix = mergeMatrices(indexedMatrix, appMatrix);
+                    indexedMatrix = [...appMatrix,...indexedMatrix];
                     hideLoadingIndicator();
 
 

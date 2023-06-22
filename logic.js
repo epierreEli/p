@@ -62,6 +62,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             break;
         case 8:
             // gestion de a touch basckspcace
+            // TODO creer une variable globale qui stocke l element ouvert *************************************
            hideCart();
            hideSettings();
             break;
@@ -132,6 +133,8 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
 
 
 //gestion de l envoi de la donnee
+//TODO change atribute to class 
+
 function actionOnElement() {
 
     var activeElement = document.activeElement;
@@ -149,13 +152,17 @@ function actionOnElement() {
         //si c est une application
     } else if (activeElement.getAttribute('application') == 'true') {
 
-        console.log(activeElement.getAttribute('title'));
+        
         if (activeElement.getAttribute('title') == 'Panier') {
             showCart();
         }
 
         if (activeElement.getAttribute('title') == 'Parametres') {
+            console.log("hello"+activeElement.getAttribute('title'));
             showSettings();
+            //indexedMatrix=
+            // generateSettingsMatrix();
+            // navigateSettings();
         }
     }
 

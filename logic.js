@@ -65,6 +65,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             // TODO creer une variable globale qui stocke l element ouvert *************************************
             hideCart();
             hideSettings();
+            hideInfoPage();
             break;
         default:
 
@@ -160,7 +161,8 @@ function actionOnElement() {
 
         
         if (!activeElement.classList.contains('video')) {
-            sendDatatoOtherPage(activeElement);
+            // sendDatatoOtherPage(activeElement);
+            getDataFromElement(activeElement);
         }
 
 
@@ -174,13 +176,15 @@ function actionOnElement() {
 function sendDatatoOtherPage(activeElement) {
     // acces aux attributs setter avant 
     var data = {
-        description: activeElement.getAttribute('title'),
-        title: activeElement.getAttribute('description'),
+        description: activeElement.getAttribute('description'),
+        title: activeElement.getAttribute('title'),
         src: activeElement.getAttribute('icon')
+        
 
     };
 
     var dataString = JSON.stringify(data);
+    console.log(dataString);
     // sessionStorage.setItem('data', dataString);
     setCookie('data', dataString);
     console.log("datastring" + dataString);

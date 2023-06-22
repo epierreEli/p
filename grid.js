@@ -30,26 +30,25 @@ function buildPannel(grid = []) {
         const indexedRow = [];
 
         // test pour recupere le roomsevirce
-        console.log("element");
-        console.log(element.roomService);
+        // console.log("element");
+        // console.log(element.roomService);
 
 
         element.children.forEach((data) => {
 
             const isSelectable = !data.disabled;
-            const vignetteElement = buildVignette(data, isSelectable);
+            let vignetteElement = buildVignette(data, isSelectable);
 
             // on essaie de setter le rooservise sur la vignet pour pour=voir le recup apres il faudra tester que ca a bien etete setter 
-            if(element.roomService)vignetteElement.setAttribute('roomService', 'true');
+            if (element.roomService) vignetteElement.classList.add("roomService");
             console.log("my data");
-            console.log(data);
-            console.log("my data");
-            console.log(element.roomService);
-
+            console.log(vignetteElement.classList);
+   
+ 
             if (isSelectable) indexedRow.push(vignetteElement);
             rowDom.appendChild(vignetteElement); // Append vignetteElement to rowDom
         });
-  
+
 
         indexedMatrix.push(indexedRow);
 
@@ -77,14 +76,14 @@ function buildVignette(data, selectable = true) {
         vignetteElement.classList.add('video');
     } else {
         var vignetteInstance = new Vignette(data.title, url);
-        
+
     }
 
     // important pour lacces et l envoie apres
     vignetteElement.setAttribute('description', data.text);
     vignetteElement.setAttribute('title', data.title);
     vignetteElement.setAttribute('icon', url);
-   
+
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
 
@@ -159,7 +158,7 @@ function buildAppVignette(data, selectable = true) {
     vignetteElement.setAttribute('icon', data.icon);
     // we create a new attribute to indicate that this is an application
     vignetteElement.classList.add('application');
-    
+
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
 

@@ -98,6 +98,22 @@
     </div>
   </div>
 
+  <!-- info page container  -->
+  <div id="info-container">
+    <div id="full-image"></div>
+    <div id="blackrectangle">
+      <div id="description">
+        <h3 id="info-title">titre de base </h3>
+        <p id="infodescription">sofuuuuuuuuuuuuuuuuuuuuhossbvobvsbbvovbsfjvojvosjjobvsgogsfgvbuvofvbfvobsvb</p>
+      </div>
+    </div>
+    <div id="minirectangle">
+      <button id="button" type="button" tabindex="0">SEE</button>
+    </div>
+    <div id="imagest"></div>
+  </div>
+
+  <script src="./info.js"></script>
   <script src="./settings.js"></script>
   <script src="./cart.js"></script>
   <script src="./manageLogic.js"></script>
@@ -159,7 +175,7 @@
 
     // listen to keydown event and bind it to tab navigation
     document.addEventListener("keydown", function (e) {
-      if ((e.keyCode >= 37 && e.keyCode <= 40) || (e.keyCode == 13)|| (e.keyCode == 8)) {
+      if ((e.keyCode >= 37 && e.keyCode <= 40) || (e.keyCode == 13) || (e.keyCode == 8)) {
         e.preventDefault();
         logicEvent(indexedMatrix, e, function (myEvent, controles) {
           switch (myEvent) {

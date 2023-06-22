@@ -42,7 +42,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
     };
     const currentRow = matrix.current();
 
-    
+
     switch (keyboardEvent.keyCode) {
         case 38:
             goUpFirst();
@@ -63,8 +63,8 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
         case 8:
             // gestion de a touch basckspcace
             // TODO creer une variable globale qui stocke l element ouvert *************************************
-           hideCart();
-           hideSettings();
+            hideCart();
+            hideSettings();
             break;
         default:
 
@@ -140,25 +140,15 @@ function actionOnElement() {
     var activeElement = document.activeElement;
     console.log(activeElement.getAttribute('application'));
     //si ce n est pas une application
-    if (activeElement.getAttribute('application') == 'false') {
-
-        console.log('activeElement: ' + activeElement.getAttribute('video'));
-        if (activeElement.getAttribute('video') == 'false') {
-            sendDatatoOtherPage(activeElement);
-        }
+    if (activeElement.classList.contains('application')) {
 
 
-
-        //si c est une application
-    } else if (activeElement.getAttribute('application') == 'true') {
-
-        
         if (activeElement.getAttribute('title') == 'Panier') {
             showCart();
         }
 
         if (activeElement.getAttribute('title') == 'Parametres') {
-            console.log("hello"+activeElement.getAttribute('title'));
+            console.log("hello" + activeElement.getAttribute('title'));
             showSettings();
             //indexedMatrix=
             // generateSettingsMatrix();
@@ -166,6 +156,17 @@ function actionOnElement() {
         }
     }
 
+    else {
+
+        
+        if (!activeElement.classList.contains('video')) {
+            sendDatatoOtherPage(activeElement);
+        }
+
+
+
+        //si c est une application
+    }
 
 
 }

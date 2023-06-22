@@ -74,17 +74,17 @@ function buildVignette(data, selectable = true) {
         // url diffrent pour les vidéos
         url = data.icon;
         var vignetteInstance = new Video(data.title, url);
-        vignetteElement.setAttribute('video', 'true');
+        vignetteElement.classList.add('video');
     } else {
         var vignetteInstance = new Vignette(data.title, url);
-        vignetteElement.setAttribute('video', 'false');
+        
     }
 
     // important pour lacces et l envoie apres
     vignetteElement.setAttribute('description', data.text);
     vignetteElement.setAttribute('title', data.title);
     vignetteElement.setAttribute('icon', url);
-    vignetteElement.setAttribute('application', 'false');
+   
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
 
@@ -158,7 +158,8 @@ function buildAppVignette(data, selectable = true) {
     vignetteElement.setAttribute('title', data.title);
     vignetteElement.setAttribute('icon', data.icon);
     // we create a new attribute to indicate that this is an application
-    vignetteElement.setAttribute('application', 'true');
+    vignetteElement.classList.add('application');
+    
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
 

@@ -43,6 +43,7 @@ function buildPannel(grid = []) {
             if(element.roomService)vignetteElement.setAttribute('roomService', 'true');
             console.log("my data");
             console.log(data);
+            console.log("my data");
             console.log(element.roomService);
 
             if (isSelectable) indexedRow.push(vignetteElement);

@@ -8,7 +8,10 @@ function hideSettings() {
     settingscontainer = document.getElementById('settings-container');
     settingscontainer.style.display = "none";
 
-   // optionsContainer.removeEventListener('keydown', handleArrowKeys);
+    // Add the event listener using the stored event handler function
+    document.addEventListener("keydown", keydownHandler);
+    
+    optionsContainer.removeEventListener('keydown', handleArrowKeys);
 
 }
 function showSettings() {
@@ -20,7 +23,7 @@ function showSettings() {
 
     // Add event listener for arrow key navigation
     optionsContainer.addEventListener('keydown', handleArrowKeys);
-    
+
 
     settingsMatrix[0][1].focus();
 
@@ -72,14 +75,17 @@ function updateFocus() {
 
 // Function to handle arrow key navigation
 function handleArrowKeys(event) {
-    if (event.key === 'ArrowUp') {
+    if (event.keyCode === 38) {
         goUp();
-    } else if (event.key === 'ArrowDown') {
+    } else if (event.keyCode === 40) {
         goDown();
-    } else if (event.key === 'ArrowLeft') {
+    } else if (event.keyCode === 37) {
         goLeft();
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.keyCode === 39) {
         goRight();
+    }
+    else if (event.keyCode === 8) {
+        hideSettings();
     }
 }
 

@@ -247,6 +247,10 @@
       margin-left: 10px;
     }
 
+    #cart-items{
+      overflow: hidden !important;
+    }
+
     #my-btn {
       position: absolute;
       bottom: 10px;
@@ -352,10 +356,10 @@
       z-index: 1;
     }
 
-    #button {
+    #button-info {
       background-color: black;
       height: 30px;
-      width: 50px;
+      width: 70px;
       border-color: rgb(28, 27, 27);
       color: white;
       position: absolute;
@@ -378,3 +382,11 @@
     #infodescription {
       width: 500px;
     }
+
+    .highlighted {
+      background-color: yellow;
+    }
+    
+
+
+    

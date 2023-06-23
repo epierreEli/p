@@ -60,13 +60,6 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             // gestion de a touvh entrer
             actionOnElement();
             break;
-        case 8:
-            // gestion de a touch basckspcace
-            // TODO creer une variable globale qui stocke l element ouvert *************************************
-            hideCart();
-            hideSettings();
-            hideInfoPage();
-            break;
         default:
 
             throw new Error("Unknown key");
@@ -139,7 +132,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
 function actionOnElement() {
 
     var activeElement = document.activeElement;
-    console.log(activeElement.getAttribute('application'));
+    
     //si ce n est pas une application
     if (activeElement.classList.contains('application')) {
 

@@ -3,6 +3,9 @@
 var optionsContainer = document.getElementById('options-container');
 // Populate the matrix and initialize focus on the first element
 var settingsMatrix = populateMatrix();
+// Variable to store the current focused index
+let focusedIndex = 0;
+
 
 function hideSettings() {
     settingscontainer = document.getElementById('settings-container');
@@ -10,7 +13,7 @@ function hideSettings() {
 
     // Add the event listener using the stored event handler function
     document.addEventListener("keydown", keydownHandler);
-    
+
     optionsContainer.removeEventListener('keydown', handleArrowKeys);
 
 }
@@ -59,8 +62,6 @@ function populateMatrix() {
     return settingsMatrix;
 }
 
-// Variable to store the current focused index
-let focusedIndex = 0;
 
 // Function to update the focus on the element
 function updateFocus() {

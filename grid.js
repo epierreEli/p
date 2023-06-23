@@ -29,10 +29,6 @@ function buildPannel(grid = []) {
         main.appendChild(title);
         const indexedRow = [];
 
-        // test pour recupere le roomsevirce
-        // console.log("element");
-        // console.log(element.roomService);
-
 
         element.children.forEach((data) => {
 
@@ -41,8 +37,6 @@ function buildPannel(grid = []) {
 
             // on essaie de setter le rooservise sur la vignet pour pour=voir le recup apres il faudra tester que ca a bien etete setter 
             if (element.roomService) vignetteElement.classList.add("roomService");
-            console.log("my data");
-            console.log(vignetteElement.classList);
    
  
             if (isSelectable) indexedRow.push(vignetteElement);

@@ -159,7 +159,7 @@ function actionOnElement() {
 
     else {
 
-        
+
         if (!activeElement.classList.contains('video')) {
             // sendDatatoOtherPage(activeElement);
             getDataFromElement(activeElement);
@@ -179,7 +179,7 @@ function sendDatatoOtherPage(activeElement) {
         description: activeElement.getAttribute('description'),
         title: activeElement.getAttribute('title'),
         src: activeElement.getAttribute('icon')
-        
+
 
     };
 
@@ -195,4 +195,28 @@ function sendDatatoOtherPage(activeElement) {
 function setCookie(name, value) {
     document.cookie = `${name}=${value}; SameSite=None; Secure`;
 }
+
+
+//gestion de la navigation 
+// listen when loading is done and focus on first element with tabindex
+
+// Define the event handler function separately
+function keydownHandler(e) {
+    if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 13 || e.keyCode == 8) {
+        e.preventDefault();
+        logicEvent(indexedMatrix, e, function (myEvent, controles) {
+            switch (myEvent) {
+                case logicEvents.CANT_GO_RIGHT:
+                    // controles.goDownFirst();
+                    break;
+                case logicEvents.CANT_GO_LEFT:
+                    // controles.goUpLast();
+                    break;
+            }
+        });
+        smoothScrollToElement(document.activeElement);
+        // we want to see the attributes of the active element
+    }
+}
+
 

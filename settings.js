@@ -1,131 +1,131 @@
+
+// Get the options container element
+var optionsContainer = document.getElementById('options-container');
+// Populate the matrix and initialize focus on the first element
+var settingsMatrix = populateMatrix();
+
 function hideSettings() {
     settingscontainer = document.getElementById('settings-container');
     settingscontainer.style.display = "none";
+
+   // optionsContainer.removeEventListener('keydown', handleArrowKeys);
 
 }
 function showSettings() {
     settingscontainer = document.getElementById('settings-container');
     settingscontainer.style.display = "block";
 
+    // Remove the event listener using the stored event handler function
+    document.removeEventListener("keydown", keydownHandler);
+
+    // Add event listener for arrow key navigation
+    optionsContainer.addEventListener('keydown', handleArrowKeys);
+    
+
+    settingsMatrix[0][1].focus();
+
 }
 
 hideSettings();
 
-/*
-function generateSettingsMatrix() {
-    console.log("Generating");
 
-    // Access the settings container
-    const settingsContainer = document.getElementById('settings-container');
+// navigation in setting 
 
-    // Get all the option elements
-    const options = settingsContainer.querySelectorAll('.option');
+
+// Function to populate the matrix array
+function populateMatrix() {
+    // Get all the option elements within the container
+    const options = optionsContainer.getElementsByClassName('option');
 
     // Create an empty matrix
     const settingsMatrix = [];
 
-    // Iterate over each option and extract the label and value
-    options.forEach((option) => {
-        const label = option.querySelector('label').innerText;
-        let value;
+    // Loop through each option element
+    for (let option of options) {
+        // Get the label text
+        const label = option.querySelector('label').textContent;
 
-        if (option.querySelector('input[type="checkbox"]')) {
-            value = option.querySelector('input[type="checkbox"]').checked;
-        } else if (option.querySelector('select')) {
-            value = option.querySelector('select').value;
-        }
+        // Get the associated input element
+        const input = option.querySelector('input');
+        if (!input) continue; // Skip the option if there's no input element
 
-        // Create an array with label and value and add it to the matrix
-        settingsMatrix.push([label, value]);
-    });
-
-    // Print the settings matrix
-    console.log(settingsMatrix);
-
-    const languageSelect = document.getElementById('language-option');
-
-    // Focus on the language select element
-    languageSelect.focus();
-
-    settingsContainer.addEventListener("keydown", function (e) {
-        if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode === 13 || e.keyCode === 8) {
-            e.preventDefault();
-            logicEvent(settingsMatrix, e, function (myEvent, controles) {
-                switch (myEvent) {
-                    case logicEvents.CANT_GO_RIGHT:
-                        // controles.goDownFirst();
-                        break;
-                    case logicEvents.CANT_GO_LEFT:
-                        // controles.goUpLast();
-                        break;
-                }
-            });
-            smoothScrollToElement(document.activeElement);
-        }
-    });
+        // Push the label and input element as an array to the matrix
+        settingsMatrix.push([label, input]);
+    }
 
     return settingsMatrix;
 }
-*/
-/*
-function navigateSet() {
 
-    document.addEventListener("keydown", function (e) {
-        if ((e.keyCode >= 37 && e.keyCode <= 40) || (e.keyCode == 13) || (e.keyCode == 8)) {
-            e.preventDefault();
-            navigateSettingsEvent(e, function (myEvent, controles) {
+// Variable to store the current focused index
+let focusedIndex = 0;
 
-            });
-
-
-        }
-    });
-}
-function navigateSettingsEvent(keyboardEvent, manageEvent = () => { }) {
-
-    switch (keyboardEvent.keyCode) {
-        case 38:
-
-            navigateSettings("next");
-            break;
-        case 40:
-            navigateSettings("previous");
-            break;
-        case 37:
-            navigateSettings("previous");
-            break;
-        case 39:
-            navigateSettings("next");
-            break;
-        case 13:
-            // gestion de a touvh entrer
-            actionOnElement();
-            break;
-        default:
-
-            throw new Error("Unknown key");
-    }
-}
-function navigateSettings(direction) {
-    const options = document.querySelectorAll('.option');
-    let currentIndex = -1;
-
-    // Find the currently focused option
-    for (let i = 0; i < options.length; i++) {
-        if (options[i] === document.activeElement) {
-            currentIndex = i;
-            break;
-        }
+// Function to update the focus on the element
+function updateFocus() {
+    // Remove focus from all elements
+    for (let option of settingsMatrix) {
+        option[1].blur();
     }
 
-    // Navigate to the next or previous option based on the direction
-    if (direction === 'next') {
-        currentIndex = (currentIndex + 1) % options.length;
-    } else if (direction === 'previous') {
-        currentIndex = (currentIndex - 1 + options.length) % options.length;
-    }
-
-    // Focus on the new option
-    options[currentIndex].querySelector('input, select').focus();
+    // Add focus to the current focused element
+    settingsMatrix[focusedIndex][1].focus();
 }
-*/
+
+// Function to handle arrow key navigation
+function handleArrowKeys(event) {
+    if (event.key === 'ArrowUp') {
+        goUp();
+    } else if (event.key === 'ArrowDown') {
+        goDown();
+    } else if (event.key === 'ArrowLeft') {
+        goLeft();
+    } else if (event.key === 'ArrowRight') {
+        goRight();
+    }
+}
+
+// Function to handle going up to the previous element
+function goUp() {
+    if (focusedIndex > 0) {
+        focusedIndex--;
+    } else {
+        focusedIndex = settingsMatrix.length - 1;
+    }
+    updateFocus();
+}
+
+// Function to handle going down to the next element
+function goDown() {
+    if (focusedIndex < settingsMatrix.length - 1) {
+        focusedIndex++;
+    } else {
+        focusedIndex = 0;
+    }
+    updateFocus();
+}
+
+// Function to handle going left to the previous element in the current row
+function goLeft() {
+    const row = Math.floor(focusedIndex / 2);
+    const previousIndex = (row * 2) + (focusedIndex % 2) - 1;
+    if (previousIndex >= 0) {
+        focusedIndex = previousIndex;
+    } else {
+        focusedIndex = row * 2 + 1;
+    }
+    updateFocus();
+}
+
+// Function to handle going right to the next element in the current row
+function goRight() {
+    const row = Math.floor(focusedIndex / 2);
+    const nextIndex = (row * 2) + (focusedIndex % 2) + 1;
+    if (nextIndex < settingsMatrix.length) {
+        focusedIndex = nextIndex;
+    } else {
+        focusedIndex = row * 2;
+    }
+    updateFocus();
+}
+
+
+

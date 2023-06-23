@@ -7,7 +7,7 @@
         #settings-container {
             position: fixed;
             right: 0;
-            background-color: black;
+            background-color: rgb(241, 238, 238);
             padding: 10px;
             border-top-left-radius: 10px;
             height: 100vh;
@@ -74,39 +74,113 @@
             </div>
         </div>
     </div>
+    <script src="./logic.js"></script>
 
     <script>
-        const options = document.querySelectorAll('.option');
-        let selectedOptionIndex = 0;
+        // Get the options container element
+        const optionsContainer = document.getElementById('options-container');
 
-        // Add event listener for keydown events
-        document.addEventListener('keydown', handleKeydown);
+        // Function to populate the matrix array
+        function populateMatrix() {
+            // Get all the option elements within the container
+            const options = optionsContainer.getElementsByClassName('option');
 
-        function handleKeydown(event) {
-            const key = event.key;
+            // Create an empty matrix
+            const matrix = [];
 
-            if (key === 'ArrowUp') {
-                event.preventDefault();
-                selectedOptionIndex = (selectedOptionIndex - 1 + options.length) % options.length;
-            } else if (key === 'ArrowDown') {
-                event.preventDefault();
-                selectedOptionIndex = (selectedOptionIndex + 1) % options.length;
-            } else {
-                return;
+            // Loop through each option element
+            for (let option of options) {
+                // Get the label text
+                const label = option.querySelector('label').textContent;
+
+                // Get the associated input element
+                const input = option.querySelector('input');
+                if (!input) continue; // Skip the option if there's no input element
+
+                // Push the label and input element as an array to the matrix
+                matrix.push([label, input]);
             }
 
-            updateSelectedOption();
+            return matrix;
         }
 
-        function updateSelectedOption() {
-            options.forEach((option, index) => {
-                if (index === selectedOptionIndex) {
-                    option.classList.add('selected');
-                } else {
-                    option.classList.remove('selected');
-                }
-            });
+        // Variable to store the current focused index
+        let focusedIndex = 0;
+
+        // Function to update the focus on the element
+        function updateFocus() {
+            // Remove focus from all elements
+            for (let option of matrix) {
+                option[1].blur();
+            }
+
+            // Add focus to the current focused element
+            matrix[focusedIndex][1].focus();
         }
+
+        // Function to handle arrow key navigation
+        function handleArrowKeys(event) {
+            if (event.key === 'ArrowUp') {
+                goUp();
+            } else if (event.key === 'ArrowDown') {
+                goDown();
+            } else if (event.key === 'ArrowLeft') {
+                goLeft();
+            } else if (event.key === 'ArrowRight') {
+                goRight();
+            }
+        }
+
+        // Function to handle going up to the previous element
+        function goUp() {
+            if (focusedIndex > 0) {
+                focusedIndex--;
+            } else {
+                focusedIndex = matrix.length - 1;
+            }
+            updateFocus();
+        }
+
+        // Function to handle going down to the next element
+        function goDown() {
+            if (focusedIndex < matrix.length - 1) {
+                focusedIndex++;
+            } else {
+                focusedIndex = 0;
+            }
+            updateFocus();
+        }
+
+        // Function to handle going left to the previous element in the current row
+        function goLeft() {
+            const row = Math.floor(focusedIndex / 2);
+            const previousIndex = (row * 2) + (focusedIndex % 2) - 1;
+            if (previousIndex >= 0) {
+                focusedIndex = previousIndex;
+            } else {
+                focusedIndex = row * 2 + 1;
+            }
+            updateFocus();
+        }
+
+        // Function to handle going right to the next element in the current row
+        function goRight() {
+            const row = Math.floor(focusedIndex / 2);
+            const nextIndex = (row * 2) + (focusedIndex % 2) + 1;
+            if (nextIndex < matrix.length) {
+                focusedIndex = nextIndex;
+            } else {
+                focusedIndex = row * 2;
+            }
+            updateFocus();
+        }
+
+        // Add event listener for arrow key navigation
+        document.addEventListener('keydown', handleArrowKeys);
+
+        // Populate the matrix and initialize focus on the first element
+        const matrix = populateMatrix();
+        matrix[0][1].focus();
     </script>
 </body>
 

@@ -173,26 +173,27 @@
 
 
 
-    // listen to keydown event and bind it to tab navigation
-    document.addEventListener("keydown", function (e) {
-      if ((e.keyCode >= 37 && e.keyCode <= 40) || (e.keyCode == 13) || (e.keyCode == 8)) {
+    // Define the event handler function separately
+    var keydownHandler=function keydownHandler(e) {
+      if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 13 || e.keyCode == 8) {
         e.preventDefault();
         logicEvent(indexedMatrix, e, function (myEvent, controles) {
           switch (myEvent) {
             case logicEvents.CANT_GO_RIGHT:
-              //controles.goDownFirst();
+              // controles.goDownFirst();
               break;
             case logicEvents.CANT_GO_LEFT:
-              //controles.goUpLast();
+              // controles.goUpLast();
               break;
           }
         });
         smoothScrollToElement(document.activeElement);
-        // we want to to see the attributes of the active element
-
-
+        // we want to see the attributes of the active element
       }
-    });
+    }
+
+    // Add the event listener using the stored event handler function
+    document.addEventListener("keydown", keydownHandler);
 
 
 

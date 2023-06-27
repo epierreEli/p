@@ -64,12 +64,12 @@
       <ul id="cart-items">
         <!-- Cart items will be added dynamically using JavaScript -->
       </ul>
-      
+
       <button class="delete-button">
         <img src="delete-icon.png" alt="Delete">
       </button>
       
-      <p>Total: $<span id="cart-total">0</span></p>
+      <p id="cart-total-text">Total: $<span id="cart-total">0</span></p>
       <div id="my-btn">
         <button id="continue-btn">Continue</button>
         <button id="checkout-btn">Order</button>
@@ -118,6 +118,17 @@
       <button id="button-info" type="button" tabindex="0">SEE</button>
     </div>
     <div id="imagest"></div>
+  </div>
+
+  <!-- are you sure you wabt to empty cart modal -->
+  <div id="modalconfirm" class="modalconfirm">
+    <div class="modalconfirm-content">
+      <p>Are you sure you want to empty the cart?</p>
+      <div class="modalconfirm-buttons">
+        <button id="confirmBtn">Confirm</button>
+        <button id="cancelBtn">Cancel</button>
+      </div>
+    </div>
   </div>
 
   <script src="./info.js"></script>

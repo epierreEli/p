@@ -216,3 +216,6 @@ function keydownHandler(e) {
 }
 
 
+// TODO: to make the code easier to manage  i will put click  event listener on each element and do an action 
+// depeding on the situation 
+

@@ -247,10 +247,34 @@
       margin-left: 10px;
     }
 
-    #cart-items{
+    #cart-items {
       overflow: hidden !important;
     }
 
+    .delete-button {
+      background: none;
+      border: none;
+      padding: 0;
+    
+
+      position: absolute;
+      bottom: 50px;
+      right: 10px;
+    }
+
+    .delete-button img {
+      width: 30px;
+      /* Adjust the width and height as needed */
+      height: 30px;
+      
+    }
+
+    #cart-total-text{
+      font-weight: bold;
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+    }
     #my-btn {
       position: absolute;
       bottom: 10px;
@@ -313,7 +337,7 @@
 
     /* css of the info page  */
     #info-container {
-      display :none;
+      display: none;
     }
 
     #full-image {
@@ -386,7 +410,35 @@
     .highlighted {
       background-color: yellow;
     }
+
+    /* confirm emptying cart modal  */
+    .modalconfirm {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
     
-
-
+    .modalconfirm-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 300px;
+      height: 100px;
+    }
+    
+    .modalconfirm-buttons {
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    button {
+      margin-right: 10px;
+    }
     

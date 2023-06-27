@@ -19,13 +19,13 @@ function showCart() {
   cart_container.style.display = 'flex';
   // Render the initial cart items
   renderCartItems();
-  populateCartMatrix() ;
+  populateCartMatrix();
   const cartItemsElement = document.getElementById('cart-items');
   const firstCartItem = cartItemsElement.querySelector('li'); // Get the first list item
 
   if (firstCartItem) {
     firstCartItem.focus(); // Focus on the first list item
-  }else {
+  } else {
     const continueButton = document.getElementById('continue-btn');
     continueButton.focus(); // Focus on the button instead  if there is no element 
   }
@@ -36,6 +36,9 @@ function showCart() {
   // Add event listener for arrow key navigation
   cart_container.addEventListener('keydown', handleArrowKeys);
 }
+
+
+
 
 
 // Function to calculate the total price of the cart items
@@ -96,11 +99,78 @@ checkoutButton.addEventListener('click', () => {
   console.log('Checkout functionality is not implemented yet.');
 });
 
+const deleteButton = document.querySelector('.delete-button');
+
+const confirmBtn = document.getElementById("confirmBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+
+deleteButton.addEventListener('click', function () {
+  // Perform the delete action here
+  console.log('Delete button clicked!');
+
+
+  const modal = document.getElementById("modalconfirm");
+  modal.style.display = "block";
+
+
+
+
+  cart_container.removeEventListener("keydown", handleArrowKeys);
+  confirmBtn.focus();
+  modal.addEventListener("keydown", handleRightLeftKeys);
+
+
+
+  confirmBtn.addEventListener("click", function () {
+
+    // Clear all the cartItems from the matrixCart
+    while (matrixCart[0].length > 0) {
+      matrixCart[0].splice(0, 1);
+    }
+    //empty the cartItems
+    cartItems = [];
+
+    showCart();
+    modal.style.display = "none";
+  });
+
+
+
+  cancelBtn.addEventListener("click", function () {
+    modal.style.display = "none";
+    showCart();
+  });
+
+
+});
+
+function handleRightLeftKeys(event) {
+  if (event.keyCode === 39) {
+    // Right arrow key logic
+    if (document.activeElement === confirmBtn) {
+      cancelBtn.focus(); // Focus on the cancel button
+    }
+  } else if (event.keyCode === 37) {
+    // Left arrow key logic
+    if (document.activeElement === cancelBtn) {
+      confirmBtn.focus(); // Focus on the confirm button
+    }
+  }
+}
+
+const continueButton = document.getElementById('continue-btn');
+continueButton.addEventListener('click', function () {
+  // Perform the delete action here
+  hideCart();
+  console.log('continue button clicked!');
+});
+
+
 var matrixCart = [];
 
 function populateCartMatrix() {
   const cartItemsElement = document.getElementById('cart-items');
-  const continueButton = document.getElementById('continue-btn');
+
   const checkoutButton = document.getElementById('checkout-btn');
 
   const cartItems = cartItemsElement.querySelectorAll('li'); // Get all the list items
@@ -109,7 +179,8 @@ function populateCartMatrix() {
   matrixCart = [
     [...cartItems], // Add the list items as separate elements
     [continueButton],
-    [checkoutButton]
+    [checkoutButton],
+    [deleteButton]
   ];
 }
 

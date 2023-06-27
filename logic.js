@@ -60,6 +60,9 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             // gestion de a touvh entrer
             actionOnElement();
             break;
+            case 8:
+                // nothing
+                break;
         default:
 
             throw new Error("Unknown key");

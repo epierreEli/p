@@ -11,7 +11,7 @@ function hideInfoPage() {
 
     // Add the event listener using the stored event handler function
     document.addEventListener("keydown", keydownHandler);
-  
+
 
 
 }
@@ -20,7 +20,7 @@ function showInfoPage() {
     const infoPage = document.getElementById("info-container");
     infoPage.style.display = "block";
 
-    
+
     //il faut toujours mettre le focus la ou est 
     buttons.focus();
     // Remove the event listener using the stored event handler function
@@ -43,20 +43,30 @@ function handleKeysInfo(event) {
         const buttoninf = document.getElementById('button-info');
 
         if (buttoninf.innerHTML === "Ajouter au panier") {
-            
+
 
             // Get the necessary information
-            var title = document.getElementById('info-title').innerHTML;
+            var titleElement = document.getElementById('info-title').innerHTML;
             var price = document.getElementById('infodescription').innerHTML;
             var littleimage = document.getElementById("imagest");
+            console.log(titleElement);
             var computedStyle = window.getComputedStyle(littleimage);
             var backgroundImage = computedStyle.getPropertyValue('background-image');
+            // decouage de l url pour obtenir que la partir necesaire 
+            const urlPattern = /url\(["']?([^"']+)["']?\)/;
+            const match = backgroundImage.match(urlPattern);
 
+            if (match) {
+                var urlimg = match[1];
+                 // Output: https://hospitality.ansetech.com/host/files/images/pages/614d9fb78791d6309885eb69.jpg
+            } else {
+                console.log('No URL found.');
+            }
             // Create an object with the information
             var item = {
-                title: title,
+                title: titleElement,
                 price: price,
-                backgroundImage: backgroundImage
+                backgroundImage: urlimg
             };
 
             // Add the item to the cart array

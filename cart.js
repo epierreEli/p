@@ -1,47 +1,78 @@
+var cart_container = document.getElementById('cart-container');
+let focusedIndexcart = 0;
 
 function hideCart() {
   cartcontainer = document.getElementById('cart-container');
   cartcontainer.style.display = 'none';
+
+
+
+
+  document.addEventListener('keydown', keydownHandler);
+
+  cart_container.removeEventListener("keydown", handleArrowKeys);
+
 }
 
 function showCart() {
-  cartcontainer = document.getElementById('cart-container');
-  cartcontainer.style.display = 'flex';
+  cart_container = document.getElementById('cart-container');
+  cart_container.style.display = 'flex';
+  // Render the initial cart items
+  renderCartItems();
+  populateCartMatrix() ;
+  const cartItemsElement = document.getElementById('cart-items');
+  const firstCartItem = cartItemsElement.querySelector('li'); // Get the first list item
+
+  if (firstCartItem) {
+    firstCartItem.focus(); // Focus on the first list item
+  }else {
+    const continueButton = document.getElementById('continue-btn');
+    continueButton.focus(); // Focus on the button instead  if there is no element 
+  }
+
+  // Remove the event listener using the stored event handler function
+  document.removeEventListener("keydown", keydownHandler);
+
+  // Add event listener for arrow key navigation
+  cart_container.addEventListener('keydown', handleArrowKeys);
 }
-// Sample data for cart items
-/*const cartItems = [
-  { id: 1, name: 'Product 1', price: 10 },
-  { id: 2, name: 'Product 2', price: 20 },
-  { id: 3, name: 'Product 3', price: 15 }
-];
-*/
+
+
 // Function to calculate the total price of the cart items
 function calculateTotal() {
   let total = 0;
   cartItems.forEach(item => {
-    total += item.price;
+
+    // Remove the euro symbol from the price string
+    const priceWithoutEuro = item.price.replace('€', '');
+
+    // Convert the price to a number and add it to the total
+    const price = parseFloat(priceWithoutEuro);
+    total += price;
   });
   return total;
 }
 
 // Function to render the cart items in the HTML
 // Function to render the cart items in the HTML
+// Function to render the cart items in the HTML
 function renderCartItems() {
   const cartItemsElement = document.getElementById('cart-items');
   cartItemsElement.innerHTML = ''; // Clear the existing items
 
-  cartItems.forEach(item => {
+  cartItems.forEach((item, index) => {
     // Create a list item
     const li = document.createElement('li');
+    li.tabIndex = index; // Add tabindex to make it focusable
 
     // Create an image element
     const img = document.createElement('img');
-    img.src = backgroundImage; // Replace with the actual path to the image
+    img.src = item.backgroundImage; // Replace with the actual path to the image
     img.alt = item.title; // Set the alt text for accessibility
-    img.style.height ="20px";
-    img.style.width ="20px";
+    img.style.height = "20px";
+    img.style.width = "20px";
 
-    li.style.textAlignment="center";
+    li.style.textAlignment = "center";
     li.style.border = "1px solid";
     // Create a span element for the item details
     const span = document.createElement('span');
@@ -59,12 +90,102 @@ function renderCartItems() {
   cartTotalElement.innerText = calculateTotal();
 }
 
-
 // Event listener for checkout button
 const checkoutButton = document.getElementById('checkout-btn');
 checkoutButton.addEventListener('click', () => {
   console.log('Checkout functionality is not implemented yet.');
 });
 
-// Render the initial cart items
-renderCartItems();
+var matrixCart = [];
+
+function populateCartMatrix() {
+  const cartItemsElement = document.getElementById('cart-items');
+  const continueButton = document.getElementById('continue-btn');
+  const checkoutButton = document.getElementById('checkout-btn');
+
+  const cartItems = cartItemsElement.querySelectorAll('li'); // Get all the list items
+
+  // Create a matrix with the elements
+  matrixCart = [
+    [...cartItems], // Add the list items as separate elements
+    [continueButton],
+    [checkoutButton]
+  ];
+}
+
+
+
+// Function to handle arrow key navigation
+function handleArrowKeys(event) {
+  if (event.keyCode === 38) {
+    goUp();
+  } else if (event.keyCode === 40) {
+    goDown();
+  } else if (event.keyCode === 37) {
+    goLeft();
+  } else if (event.keyCode === 39) {
+    goRight();
+  }
+  else if (event.keyCode === 8) {
+    hideCart();
+  }
+}
+
+
+
+// Function to handle going up to the previous element
+function goUp() {
+  if (focusedIndexcart > 0) {
+    focusedIndexcart--;
+  } else {
+    focusedIndexcart = matrixCart.flat().length - 1;
+  }
+  updateFocus();
+}
+
+// Function to handle going down to the next element
+function goDown() {
+  if (focusedIndexcart < matrixCart.flat().length - 1) {
+    focusedIndexcart++;
+  } else {
+    focusedIndexcart = 0;
+  }
+  updateFocus();
+}
+
+// Function to handle going left to the previous element in the current row
+function goLeft() {
+  const row = Math.floor(focusedIndexcart / matrixCart[0].length);
+  const previousIndex = (row * matrixCart[0].length) + (focusedIndexcart % matrixCart[0].length) - 1;
+  if (previousIndex >= row * matrixCart[0].length) {
+    focusedIndexcart = previousIndex;
+  } else {
+    focusedIndexcart = (row + 1) * matrixCart[0].length - 1;
+  }
+  updateFocus();
+}
+
+// Function to handle going right to the next element in the current row
+function goRight() {
+  const row = Math.floor(focusedIndexcart / matrixCart[0].length);
+  const nextIndex = (row * matrixCart[0].length) + (focusedIndexcart % matrixCart[0].length) + 1;
+  if (nextIndex < (row + 1) * matrixCart[0].length) {
+    focusedIndexcart = nextIndex;
+  } else {
+    focusedIndexcart = row * matrixCart[0].length;
+  }
+  updateFocus();
+}
+
+function updateFocus() {
+  const elements = matrixCart.flat();
+
+  elements.forEach((element, index) => {
+    if (index === focusedIndexcart) {
+      element.tabIndex = -1;
+      element.focus();
+    } else {
+      element.tabIndex = index;
+    }
+  });
+}

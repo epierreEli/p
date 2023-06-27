@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transparent Blue Background</title>
+    <style>
+        .containerMsg {
+            background-color: rgba(0, 94, 255, 0.311);
+            /* Transparent blue background */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+        }
+
+        .rectangleMsg {
+            background-color: rgba(167, 213, 228, 0.527);
+            /* Light blue color for the rectangle */
+            width: 25%;
+            border-right: 2mm ridge rgba(0, 100, 200, .6);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containerMsg">
+        <div class="rectangleMsg">
+            <ul id="messages">
+                <!-- Cart items will be added dynamically using JavaScript -->
+            </ul>
+
+        </div>
+    </div>
+</body>
+
+<script>
+   var messages = [
+    { id: 1, content: 'Product 1', img: 10 },
+    { id: 2, content: 'Product 2', img: 20 },
+    { id: 3, content: 'Product 3', img: 15 }
+  ];
+function renderMessages() {
+  const messagesElement = document.getElementById('messages');
+  messagesElement.innerHTML = ''; // Clear the existing items
+
+  messages.forEach((item, index) => {
+    // Create a list item
+    const li = document.createElement('li');
+    li.tabIndex = index; // Add tabindex to make it focusable
+
+    // Create an image element
+    const img = document.createElement('img');
+    img.src = item.backgroundImage; // Replace with the actual path to the image
+    img.alt = item.title; // Set the alt text for accessibility
+    img.style.height = "20px";
+    img.style.width = "20px";
+
+    li.style.textAlignment = "center";
+    li.style.border = "1px solid";
+    // Create a span element for the item details
+    const span = document.createElement('span');
+    span.innerText = `${item.name} - $${item.price}`;
+
+    // Append the image and span to the list item
+    li.appendChild(img);
+    li.appendChild(span);
+
+    // Append the list item to the cart items container
+    messagesElement.appendChild(li);
+  });
+
+  const cartTotalElement = document.getElementById('cart-total');
+  cartTotalElement.innerText = calculateTotal();
+}
+
+</script>
+
+</html>

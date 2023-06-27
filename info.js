@@ -85,6 +85,8 @@ function getDataFromElement(activeElement) {
 
     if (activeElement.classList.contains('roomService')) {
         button.innerHTML = "Ajouter au panier";
+    }else{
+        button.innerHTML = "Voir";
     }
 
     title.innerHTML = activeElement.getAttribute('title');

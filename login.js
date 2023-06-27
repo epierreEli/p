@@ -20,7 +20,7 @@ function closeModal() {
 }
 
 // info contiendra le token d acces et tous les autre infos necesssaires 
-let infos = {};
+var infos = {};
 const cityString = document.querySelector("#city");
 const logoicon = document.querySelector("#logo");
 const client = document.querySelector("#client");
@@ -34,8 +34,9 @@ function login() {
     var password = document.getElementById("password").value;
 
     logIn(username, password).then((data) => {
+  
 
-        showLoadingIndicator()
+        showLoadingIndicator();
         closeModal();
         infos['token'] = data.token;
         infos["userId"] = data.userId;
@@ -54,10 +55,6 @@ function login() {
 
                 getPages(infos.hotelId, infos).then((pages) => {
                     infos["pages"] = pages;
-                    //
-
-                    console.log(infos.pages);
-
                     //construction des elements ****************
 
                     // Call the buildPannel function with the grid data for the application 
@@ -65,8 +62,6 @@ function login() {
                     const appMatrix = buildAppPannel(gridDataApp);
                     //  construction des elements dynamique 
                     indexedMatrix = buildPannel(convertData(infos.pages).grid);
-
-
 
 
 
@@ -89,6 +84,19 @@ function login() {
 
 
                 });
+
+
+      // test
+    // Example usage:
+    getMessagesNoId(infos)
+    .then(function (data) {
+      console.log('Retrieved messages:', data);
+      // Process the messages further as needed
+    })
+    .catch(function (error) {
+      console.error('Error retrieving messages:', error);
+    });
+/* a appeler tous les fois ou la personne ouvre l appli messagge */
 
                 console.log(infos);
             });

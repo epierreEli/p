@@ -4,7 +4,7 @@
 <head>
     <title>Transparent Blue Background</title>
     <style>
-        .containerMsg {
+        #containerMsg {
             background-color: rgba(0, 94, 255, 0.311);
             /* Transparent blue background */
             margin: 0;
@@ -18,61 +18,206 @@
             /* Light blue color for the rectangle */
             width: 25%;
             border-right: 2mm ridge rgba(0, 100, 200, .6);
+            /* elements alignment */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        /* Remove default list styles */
+        #messages,
+        #unreadmessages {
+            list-style: none;
+            padding: 0;
+        }
+
+        /* Style list items */
+        #messages li,
+        #unreadmessages li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Style image */
+        #messages li img,
+        #unreadmessages li img {
+            height: 20px;
+            width: 20px;
+            margin-right: 5px;
+        }
+
+        /* Style span */
+        #messages li span,
+        #unreadmessages li span {
+            font-size: 20px;
         }
     </style>
 </head>
 
 <body>
-    <div class="containerMsg">
+    <div id="containerMsg">
         <div class="rectangleMsg">
             <ul id="messages">
                 <!-- Cart items will be added dynamically using JavaScript -->
             </ul>
-
+            <ul id="unreadmessages">
+                <!-- Cart items will be added dynamically using JavaScript -->
+            </ul>
         </div>
     </div>
+
+    <script>
+        // JavaScript code
+
+        var messages = [
+            { id: 1, content: 'Product 1', img: 10 },
+            { id: 2, content: 'Product 2', img: 20 },
+            { id: 3, content: 'Product 3', img: 15 }
+        ];
+        let focusedIndexMsg = 0;
+        let matrixMsg = [];
+
+        // Initially render the messages
+        renderMessages();
+
+        // Populate the message matrix
+        populateMessageMatrix();
+
+        // Assign containerMsg variable here
+        var containerMsg = document.getElementById('containerMsg');
+
+        // Add event listener after defining containerMsg
+        containerMsg.addEventListener('keydown', handleArrowKeys);
+
+        const firstMsgItem = document.getElementById('messages').querySelector('li'); // Get the first list item
+
+        if (firstMsgItem) {
+            firstMsgItem.focus(); // Focus on the first list item
+        }
+
+        function showMessage() {
+            containerMsg.style.display = 'flex';
+            renderMessages();
+        }
+
+        function hideMessage() {
+            containerMsg.style.display = 'none';
+        }
+
+        function renderMessages() {
+            var messagesElement = document.getElementById('messages');
+
+            messagesElement.innerHTML = ''; // Clear the existing items
+
+            messages.forEach((item, index) => {
+                // Create a list item
+                const li = document.createElement('li');
+                li.tabIndex = index; // Add tabindex to make it focusable
+
+                // Create an image element
+                const img = document.createElement('img');
+
+                img.src = './msgunread.png'; // Replace with the actual path to the image
+                img.alt = item.content; // Set the alt text for accessibility
+                img.style.height = '20px';
+                img.style.width = '20px';
+
+                // Create a span element for the item details
+                const span = document.createElement('span');
+                span.style.fontSize = '20px';
+                span.innerText = item.content;
+
+                // Append the image and span to the list item
+                li.appendChild(img);
+                li.appendChild(span);
+
+                // Append the list item to the messages list
+                messagesElement.appendChild(li);
+            });
+
+        }
+
+        function populateMessageMatrix() {
+            const msgItemsElement = document.getElementById('unreadmessages');
+            const msgItems = msgItemsElement.querySelectorAll('li'); // Get all the list items
+
+            // Create a matrix with the elements
+            matrixMsg = [...msgItems];
+            console.log(matrixMsg); // Add the list items as separate elements
+        }
+
+        // Function to handle arrow key navigation
+        function handleArrowKeys(event) {
+            if (event.keyCode === 38) {
+                goUp();
+            } else if (event.keyCode === 40) {
+                goDown();
+            } else if (event.keyCode === 37) {
+                goLeft();
+            } else if (event.keyCode === 39) {
+                goRight();
+            }
+            else if (event.keyCode === 8) {
+                hideMessage();
+            }
+        }
+
+        // Function to handle going up to the previous element
+        function goUp() {
+            if (focusedIndexMsg > 0) {
+                focusedIndexMsg--;
+            } else {
+                focusedIndexMsg = matrixMsg.length - 1;
+            }
+            updateFocus();
+        }
+
+        // Function to handle going down to the next element
+        function goDown() {
+            if (focusedIndexMsg < matrixMsg.length - 1) {
+                focusedIndexMsg++;
+            } else {
+                focusedIndexMsg = 0;
+            }
+            updateFocus();
+        }
+
+        // Function to handle going left to the previous element in the current row
+        function goLeft() {
+            const row = Math.floor(focusedIndexMsg / 2);
+            const previousIndex = (row * 2) + (focusedIndexMsg % 2) - 1;
+            if (previousIndex >= 0) {
+                focusedIndexMsg = previousIndex;
+            } else {
+                focusedIndexMsg = row * 2 + 1;
+            }
+            updateFocus();
+        }
+
+        // Function to handle going right to the next element in the current row
+        function goRight() {
+            const row = Math.floor(focusedIndexMsg / 2);
+            const nextIndex = (row * 2) + (focusedIndexMsg % 2) + 1;
+            if (nextIndex < matrixMsg.length) {
+                focusedIndexMsg = nextIndex;
+            } else {
+                focusedIndexMsg = row * 2;
+            }
+            updateFocus();
+        }
+
+        function updateFocus() {
+            const elements = matrixMsg.flat();
+
+            // Add focus to the current focused element
+            matrixMsg[focusedIndex][1].focus();
+            matrixMsg[focusedIndex][1].querySelector('img').src = 'msg.png';
+          
+        }
+
+    </script>
 </body>
-
-<script>
-   var messages = [
-    { id: 1, content: 'Product 1', img: 10 },
-    { id: 2, content: 'Product 2', img: 20 },
-    { id: 3, content: 'Product 3', img: 15 }
-  ];
-function renderMessages() {
-  const messagesElement = document.getElementById('messages');
-  messagesElement.innerHTML = ''; // Clear the existing items
-
-  messages.forEach((item, index) => {
-    // Create a list item
-    const li = document.createElement('li');
-    li.tabIndex = index; // Add tabindex to make it focusable
-
-    // Create an image element
-    const img = document.createElement('img');
-    img.src = item.backgroundImage; // Replace with the actual path to the image
-    img.alt = item.title; // Set the alt text for accessibility
-    img.style.height = "20px";
-    img.style.width = "20px";
-
-    li.style.textAlignment = "center";
-    li.style.border = "1px solid";
-    // Create a span element for the item details
-    const span = document.createElement('span');
-    span.innerText = `${item.name} - $${item.price}`;
-
-    // Append the image and span to the list item
-    li.appendChild(img);
-    li.appendChild(span);
-
-    // Append the list item to the cart items container
-    messagesElement.appendChild(li);
-  });
-
-  const cartTotalElement = document.getElementById('cart-total');
-  cartTotalElement.innerText = calculateTotal();
-}
-
-</script>
 
 </html>

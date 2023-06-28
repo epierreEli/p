@@ -57,8 +57,6 @@ function calculateTotal() {
 }
 
 // Function to render the cart items in the HTML
-// Function to render the cart items in the HTML
-// Function to render the cart items in the HTML
 function renderCartItems() {
   const cartItemsElement = document.getElementById('cart-items');
   cartItemsElement.innerHTML = ''; // Clear the existing items

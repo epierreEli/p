@@ -145,11 +145,15 @@ function actionOnElement() {
         }
 
         if (activeElement.getAttribute('title') == 'Parametres') {
-            console.log("hello" + activeElement.getAttribute('title'));
+            
             showSettings();
-            //indexedMatrix=
-            // generateSettingsMatrix();
-            // navigateSettings();
+    
+        }
+        
+        if (activeElement.getAttribute('title') == 'Message') {
+            
+            showMessage();
+    
         }
     }
 

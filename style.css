@@ -441,4 +441,79 @@
     button {
       margin-right: 10px;
     }
+
+    /* css of the messages  */
+  
+    #containerMsg {
+      background-color: rgba(90, 148, 250, 0.97);
+      /* Transparent blue background */
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: none;
+      position: absolute;
+      top :0;
+
+  }
+
+  .rectangleMsg {
+      background-color: rgb(167, 213, 228);
+      /* Light blue color for the rectangle */
+      width: 25%;
+      border-right: 2mm ridge rgba(126, 166, 247, 0.973);
+      /* elements alignment */
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+
+  }
+
+  /* Remove default list styles */
+  #messages,
+  #unreadmessages {
+      list-style: none;
+      padding: 0;
+  }
+
+  /* Style list items */
+  #messages li,
+  #unreadmessages li {
+      display: flex;
+      align-items: bottom;
+      margin-bottom: 10px;
+      margin-left: 10px;
+  }
+
+  /* Style image */
+  #messages li img,
+  #unreadmessages li img {
+      height: 20px;
+      width: 20px;
+      margin-right: 5px;
+  }
+
+  /* Style span */
+  #messages li span,
+  #unreadmessages li span {
+      font-size: 20px;
+      white-space: nowrap; 
+      
+  }
+
+  /* style text msg */
+
+  #dateMsg {
+      font-size: 30px;
+      position: relative;
+      left: 10px;
+  }
+
+  #MsgContent {
+
+      position: relative;
+      left: 10px;
+      width: 300px;
+      
+  }
+
     

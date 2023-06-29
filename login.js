@@ -86,16 +86,6 @@ function login() {
                 });
 
 
-      // test
-    // Example usage:
-    getMessagesNoId(infos)
-    .then(function (data) {
-      console.log('Retrieved messages:', data);
-      // Process the messages further as needed
-    })
-    .catch(function (error) {
-      console.error('Error retrieving messages:', error);
-    });
 /* a appeler tous les fois ou la personne ouvre l appli messagge */
 
                 console.log(infos);

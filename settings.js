@@ -43,33 +43,37 @@ hideSettings();
 function populateMatrix() {
     // Get all the option elements within the container
     const options = optionsContainer.getElementsByClassName('option');
-
+  
     // Create an empty matrix
     const settingsMatrix = [];
-
+  
     // Loop through each option element
     for (let option of options) {
-        // Get the label text
-        const label = option.querySelector('label').textContent;
-
-        // Get the associated input element
-        const input = option.querySelector('input');
-        if (!input) continue; // Skip the option if there's no input element
-        input.tabIndex = '0 ';
-
-        // Add click event listener to the input element
-        // Add click event listener to the input element
-        input.addEventListener('click', function () {
-            input.checked = true;
-        });
-
-        // Push the label and input element as an array to the matrix
-        settingsMatrix.push([label, input]);
+      // Get the label text
+      const label = option.querySelector('label').textContent;
+  
+      // Get the associated input element
+      const input = option.querySelector('input');
+      const select = option.querySelector('select');
+  
+      if (!input && !select) continue; // Skip the option if there's no input or select element
+  
+      let element;
+      if (input) {
+        input.tabIndex = '0';
+        element = input;
+      } else {
+        element = select;
+      }
+  
+      // Push the label and element (input or select) to the matrix
+      settingsMatrix.push([label, element]);
     }
+  
     console.log(settingsMatrix);
     return settingsMatrix;
-
-}
+  }
+  
 
 
 // Function to update the focus on the element

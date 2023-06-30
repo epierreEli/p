@@ -1,46 +1,49 @@
-
-
+var messageList = []; // Initialize an empty array
 
 function getMesg() {
-
-    // test
     // Example usage:
     getMessages(infos)
         .then(function (data) {
             console.log('Retrieved messages:', data);
             // Process the messages further as needed
-            // test sur le tri des message 
-            const date = "2023-01-07T12:10:00.000Z";
 
-            const message = getMessageByOwnerRecipientAndDate(data, infos.hotelId,infos.userId,date);
-            if (message) {
-                const messageContent = message.content;
-                console.log(messageContent);
+            // This date should be updated with each check
+            const date = infos.userInfos.checkInDate;
+            var filteredMessages = getMessagesByOwnerRecipientAndDate(data, infos.hotelId, infos.userId, date);
+           
+
+            if (filteredMessages.length > 0) {
+                filteredMessages.forEach(message => {
+                    var messageObject = {
+                        id: message._id,
+                        msg: message.content,
+                        linkedImages: message.linked_image
+                    };
+
+                    messageList.push(messageObject); // Add each message to the array
+
+                    console.log(message.content);
+                });
+
+                console.log(messageList); // Log the complete messageList array
             } else {
-                console.log("Message not found.");
+                console.log("No messages found after the specified date.");
             }
-
-
-
-
-
-
-
         })
         .catch(function (error) {
             console.error('Error retrieving messages:', error);
         });
-
 }
 
 
-// JavaScript code
 
+// JavaScript code
+/*
 var messages = [
     { id: 1, content: 'Hello Monsieur je dois vous dire que etc hfhifh', img: 10 },
     { id: 2, content: 'Bienvenue a l hotel j esperes que votre sejour se passrea bien ', img: 20 },
     { id: 3, content: 'Salut tu vas bien j ecris ce mmessage pour tester le ', img: 15 }
-];
+];*/
 let focusedIndexMsg = 0;
 let matrixMsg = [];
 
@@ -91,7 +94,7 @@ function renderMessages() {
     messagesElement.innerHTML = ''; // Clear the existing items
     unreadMessagesElement.innerHTML = ''; // Clear the existing unread messages
 
-    messages.forEach((item, index) => {
+    messageList.forEach((item, index) => {
         // Create a list item for messages
         const li = document.createElement('li');
         li.tabIndex = index; // Add tabindex to make it focusable
@@ -99,7 +102,7 @@ function renderMessages() {
         // Create an image element
         const img = document.createElement('img');
         img.src = './msg.png'; // Replace with the actual path to the image
-        img.alt = item.content; // Set the alt text for accessibility
+        img.alt = item.msg; // Set the alt text for accessibility
         img.style.height = '20px';
         img.style.width = '20px';
 
@@ -218,6 +221,7 @@ function readMsg() {
     var spanElement = currentMsg.querySelector('span');
     if (spanElement) {
         MsgContent.innerHTML = spanElement.innerText;
+       
     }
 }
 

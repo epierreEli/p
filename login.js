@@ -100,7 +100,7 @@ function login(user, pass) {
 
                 /* a appeler tous les fois ou la personne ouvre l appli messagge */
 
-                console.log(infos);
+                //console.log(infos);
             });
     });
 

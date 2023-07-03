@@ -255,7 +255,7 @@
       background: none;
       border: none;
       padding: 0;
-    
+
 
       position: absolute;
       bottom: 50px;
@@ -266,15 +266,16 @@
       width: 30px;
       /* Adjust the width and height as needed */
       height: 30px;
-      
+
     }
 
-    #cart-total-text{
+    #cart-total-text {
       font-weight: bold;
       position: absolute;
       bottom: 10px;
       right: 20px;
     }
+
     #my-btn {
       position: absolute;
       bottom: 10px;
@@ -423,7 +424,7 @@
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.5);
     }
-    
+
     .modalconfirm-content {
       background-color: #fefefe;
       margin: 15% auto;
@@ -432,18 +433,18 @@
       width: 300px;
       height: 100px;
     }
-    
+
     .modalconfirm-buttons {
       display: flex;
       justify-content: flex-end;
     }
-    
+
     button {
       margin-right: 10px;
     }
 
     /* css of the messages  */
-  
+
     #containerMsg {
       background-color: rgba(90, 148, 250, 0.97);
       /* Transparent blue background */
@@ -453,12 +454,12 @@
       width: 100vh;
       display: none;
       position: absolute;
-      /* top :0; */
+      top: 0;
 
-  }
+    }
 
-  .rectangleMsg {
-    --retangleMsg-width: 25%;
+    .rectangleMsg {
+      --retangleMsg-width: 25%;
       background-color: rgb(167, 213, 228);
       /* Light blue color for the rectangle */
       width: var(--retangleMsg-width);
@@ -468,66 +469,66 @@
       flex-direction: column;
       align-items: left;
 
-  }
+    }
 
-  /* Remove default list styles */
-  #messages,
-  #unreadmessages {
+    /* Remove default list styles */
+    #messages,
+    #unreadmessages {
       list-style: none;
       padding: 0;
-  }
+    }
 
-  /* Style list items */
-  #messages li,
-  #unreadmessages li {
+    /* Style list items */
+    #messages li,
+    #unreadmessages li {
       display: flex;
       align-items: bottom;
       margin-bottom: 10px;
       margin-left: 10px;
-  }
+    }
 
-  /* Style image */
-  #messages li img,
-  #unreadmessages li img {
+    /* Style image */
+    #messages li img,
+    #unreadmessages li img {
       height: 20px;
       width: 20px;
       margin-right: 5px;
-  }
+    }
 
-  /* Style span */
-  #messages li span,
-  #unreadmessages li span {
+    /* Style span */
+    #messages li span,
+    #unreadmessages li span {
       font-size: 20px;
-      white-space: nowrap; 
-      
-  }
+      white-space: nowrap;
 
-  /* style text msg */
+    }
 
-  #dateMsg {
+    /* style text msg */
+
+    #dateMsg {
       font-size: 30px;
       position: relative;
       left: 10px;
-  }
+    }
 
-  #MsgContent {
+    #MsgContent {
 
       position: relative;
       left: 10px;
       width: 300px;
-      
-  }
 
-  :root {
-    --retangleMsg-width: 25%; /* Initial width of retangleMsg */
-  }
-  
-#textMsgContainer{
-  position: absolute;
-  left: calc(var(--retangleMsg-width));
-  height: 100vh;
-  width: 100vh;
-  /* background-image: url('e.jpg'); */
+    }
 
-}
-    
+    :root {
+      --retangleMsg-width: 25%;
+      /* Initial width of retangleMsg */
+    }
+
+    #textMsgContainer {
+      position: absolute;
+      left: calc(var(--retangleMsg-width));
+      height: 100vh;
+      width: 100vh;
+      /* background-image: url('e.jpg'); */
+
+    }

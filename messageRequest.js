@@ -1,11 +1,10 @@
  var messageList = []; // Initialize an empty array
 
 function getMesg() {
-    // Example usage:
+    // retreive the messages from the api
     getMessages(infos)
         .then(function (data) {
-            console.log('Retrieved messages:', data);
-            // Process the messages further as needed
+
 
             // This date should be updated with each check
             const date = infos.userInfos.checkInDate;
@@ -24,9 +23,11 @@ function getMesg() {
                     messageList.push(messageObject); // Add each message to the array
 
                     console.log(message.content);
+                    
                 });
 
-                console.log(messageList); // Log the complete messageList array
+                console.log(messageList);
+                renderMessages(); //render the message list
             } else {
                 console.log("No messages found after the specified date.");
             }
@@ -56,7 +57,7 @@ var containerMsg = document.getElementById('containerMsg');
 function showMessage() {
     containerMsg.style.display = 'flex';
     getMesg();
-    renderMessages();
+    
     // Populate the message matrix
     matrixMsg = populateMessageMatrix();
 
@@ -91,7 +92,7 @@ function renderMessages() {
     messagesElement.innerHTML = ''; // Clear the existing items
     unreadMessagesElement.innerHTML = ''; // Clear the existing unread messages
 
-    messagesList[0].forEach((item, index) => {
+    messageList.forEach((item, index) => {
         // Create a list item for messages
         const li = document.createElement('li');
         li.tabIndex = index; // Add tabindex to make it focusable
@@ -120,6 +121,8 @@ function renderMessages() {
         li.style.width = '90%';
         li.style.height = 'wrap-content';
         li.style.overflow = 'hidden';
+
+        // li.style.border = '1px solid';
 
 
 
@@ -166,7 +169,7 @@ function populateMessageMatrix() {
     const msgItemsUnread = msgItemsEl.querySelectorAll('li'); // Get all the list items
 
     // Create a matrix with the elements
-    matrixMsg = [...msgItems, ...msgItemsUnread];
+    matrixMsg = [Array.from(msgItems),Array.from(msgItemsUnread)];
     console.log(matrixMsg); // Add the list items as separate elements
 
     return matrixMsg;

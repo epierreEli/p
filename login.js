@@ -27,14 +27,25 @@ const client = document.querySelector("#client");
 const nameHotelstring = document.querySelector("#nameHotel");
 let indexedMatrix;
 
-function login() {
+function login(user, pass) {
     // "chambre1@snow-chill2.com", "abcd1234"
     // "chambre102@ibisavignoncentregare2.com", "abcd1234"
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
 
-    logIn('chambre102@ibisavignoncentregare2.com','abcd1234').then((data) => {
-  
+
+    console.log(user, pass);
+    
+    logIn(user, pass).then((data) => {
+
+        // Save multiple elements in local storage
+        if (user && pass) {
+            localStorage.setItem("username", user);
+            localStorage.setItem("password", pass);
+            console.log("user saved successfully");
+        }
+
+
+
+
 
         showLoadingIndicator();
         closeModal();
@@ -80,14 +91,14 @@ function login() {
                     body.style.backgroundPosition = 'center';
                     body.style.backgroundRepeat = 'no-repeat';
 
-                    indexedMatrix = [...appMatrix,...indexedMatrix];
+                    indexedMatrix = [...appMatrix, ...indexedMatrix];
                     hideLoadingIndicator();
 
 
                 });
 
 
-/* a appeler tous les fois ou la personne ouvre l appli messagge */
+                /* a appeler tous les fois ou la personne ouvre l appli messagge */
 
                 console.log(infos);
             });

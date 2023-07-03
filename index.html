@@ -41,13 +41,13 @@
   <div id="loginModal" class="modal">
     <div class="modal-content">
       <h2>Login Form</h2>
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" id="username">
+      <label for="username"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" id="username">
 
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" id="password">
 
-      <button onclick="login()" tabindex="0">Login</button>
+      <button id="loginButton" tabindex="0">Login</button>
     </div>
   </div>
   <!-- The loading -->
@@ -154,7 +154,7 @@
 
   <script src="./messageRequest.js"></script>
   <script src="./manageMessage.js"></script>
-  
+
   <script src="./info.js"></script>
   <script src="./logic.js"></script>
   <script src="./settings.js"></script>
@@ -164,7 +164,7 @@
   <script src="./request.js"></script>
   <script src="./smoothScroll.js"></script>
   <script src="./grid.js"></script>
- 
+
   <script src="./login.js"></script>
 
 
@@ -174,7 +174,6 @@
     hideLoadingIndicator();
 
 
-    login();
 
 
     //on get la date et l heure
@@ -194,8 +193,42 @@
 
 
 
-    //ouverture du popup de login
-    openModal();
+
+
+
+    // Retrieve elements from local storage
+    var user = localStorage.getItem("username");
+    var pass = localStorage.getItem("password");
+    console.log(user, pass);
+    //si le mot de pass n est pas sauvgarder on demande de le rentrer 
+    if (user && pass) {
+      console.log("event listenr added 2 ");
+      login(user, pass);
+
+
+      // Add the event listener using the stored event handler function
+      document.addEventListener("keydown", keydownHandler);
+
+
+    } else {
+
+      //ouverture du popup de login
+      openModal();
+      console.log("event listenr added 1 ");
+
+
+      document.getElementById("loginButton").addEventListener('click', function (e) {
+
+        user = document.getElementById("username").value;
+        pass = document.getElementById("password").value;
+        login(user, pass);
+        // Add the event listener using the stored event handler function
+        document.addEventListener("keydown", keydownHandler);
+
+      });
+
+
+    }
 
     // on get la temperature 
     getWeather(city.innerHTML)
@@ -216,11 +249,6 @@
     //gestion de la navigation 
     // listen when loading is done and focus on first element with tabindex
 
-
-
-
-    // Add the event listener using the stored event handler function
-    document.addEventListener("keydown", keydownHandler);
 
 
 

@@ -142,18 +142,21 @@
         <!-- Cart items will be added dynamically using JavaScript -->
       </ul>
     </div>
-    <div>
+
+    <div id="textMsgContainer">
       <p id="dateMsg">date and time</p>
 
       <p id="MsgContent">msg content </p>
+      <img src="4.png">
     </div>
 
   </div>
 
   <script src="./messageRequest.js"></script>
-  
+
   <script src="./manageMessage.js"></script>
   <script src="./info.js"></script>
+  <script src="./logic.js"></script>
   <script src="./settings.js"></script>
   <script src="./cart.js"></script>
   <script src="./manageLogic.js"></script>
@@ -161,7 +164,7 @@
   <script src="./request.js"></script>
   <script src="./smoothScroll.js"></script>
   <script src="./grid.js"></script>
-  <script src="./logic.js"></script>
+ 
   <script src="./login.js"></script>
 
 
@@ -171,7 +174,7 @@
     hideLoadingIndicator();
 
 
-
+    login();
 
 
     //on get la date et l heure
@@ -215,24 +218,6 @@
 
 
 
-    // Define the event handler function separately
-    var keydownHandler = function keydownHandler(e) {
-      if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 13 || e.keyCode == 8) {
-        e.preventDefault();
-        logicEvent(indexedMatrix, e, function (myEvent, controles) {
-          switch (myEvent) {
-            case logicEvents.CANT_GO_RIGHT:
-              // controles.goDownFirst();
-              break;
-            case logicEvents.CANT_GO_LEFT:
-              // controles.goUpLast();
-              break;
-          }
-        });
-        smoothScrollToElement(document.activeElement);
-        // we want to see the attributes of the active element
-      }
-    }
 
     // Add the event listener using the stored event handler function
     document.addEventListener("keydown", keydownHandler);

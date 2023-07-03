@@ -33,7 +33,7 @@ function login() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
 
-    logIn(username, password).then((data) => {
+    logIn('chambre102@ibisavignoncentregare2.com','abcd1234').then((data) => {
   
 
         showLoadingIndicator();
@@ -55,6 +55,7 @@ function login() {
 
                 getPages(infos.hotelId, infos).then((pages) => {
                     infos["pages"] = pages;
+
                     //construction des elements ****************
 
                     // Call the buildPannel function with the grid data for the application 

@@ -1,4 +1,4 @@
-var messageList = []; // Initialize an empty array
+ var messageList = []; // Initialize an empty array
 
 function getMesg() {
     // Example usage:
@@ -14,10 +14,11 @@ function getMesg() {
 
             if (filteredMessages.length > 0) {
                 filteredMessages.forEach(message => {
+
                     var messageObject = {
                         id: message._id,
-                        msg: message.content,
-                        linkedImages: message.linked_image
+                        content: message.content,
+                        img: message.linked_image
                     };
 
                     messageList.push(messageObject); // Add each message to the array
@@ -38,18 +39,14 @@ function getMesg() {
 
 
 // JavaScript code
-/*
+
 var messages = [
     { id: 1, content: 'Hello Monsieur je dois vous dire que etc hfhifh', img: 10 },
     { id: 2, content: 'Bienvenue a l hotel j esperes que votre sejour se passrea bien ', img: 20 },
     { id: 3, content: 'Salut tu vas bien j ecris ce mmessage pour tester le ', img: 15 }
-];*/
+];
 let focusedIndexMsg = 0;
 let matrixMsg = [];
-
-// // Initially render the messages
-// renderMessages();
-
 
 
 // Assign containerMsg variable here
@@ -94,7 +91,7 @@ function renderMessages() {
     messagesElement.innerHTML = ''; // Clear the existing items
     unreadMessagesElement.innerHTML = ''; // Clear the existing unread messages
 
-    messageList.forEach((item, index) => {
+    messagesList[0].forEach((item, index) => {
         // Create a list item for messages
         const li = document.createElement('li');
         li.tabIndex = index; // Add tabindex to make it focusable
@@ -102,9 +99,13 @@ function renderMessages() {
         // Create an image element
         const img = document.createElement('img');
         img.src = './msg.png'; // Replace with the actual path to the image
-        img.alt = item.msg; // Set the alt text for accessibility
+        img.alt = item.content; // Set the alt text for accessibility
         img.style.height = '20px';
         img.style.width = '20px';
+
+        console.log(item);
+        console.log(messageList);
+
 
         // Create a span element for the item details
         const span = document.createElement('span');
@@ -221,7 +222,6 @@ function readMsg() {
     var spanElement = currentMsg.querySelector('span');
     if (spanElement) {
         MsgContent.innerHTML = spanElement.innerText;
-       
     }
 }
 

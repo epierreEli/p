@@ -152,7 +152,7 @@ class Video extends Vignette {
       video.controls = true;
       video.width = this.width;
       video.height = this.height;
-      video.autoplay=true;
+      video.autoplay=false;
       video.loop=true;
   
       var title = document.createElement("p");

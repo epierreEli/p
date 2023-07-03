@@ -50,8 +50,8 @@ function getlastMessages(infos) {
 }
 
 
-
-function getMessageByOwnerRecipientAndDate(messages, owner, recipient, date) {
+function getMessagesByOwnerRecipientAndDate(messages, owner, recipient, date) {
+    const filteredMessages = [];
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
       if (
@@ -59,9 +59,9 @@ function getMessageByOwnerRecipientAndDate(messages, owner, recipient, date) {
         message.recipient.includes(recipient) &&
         new Date(message.creationDate) >= new Date(date)
       ) {
-        return message;
+        filteredMessages.push(message);
       }
     }
-    return null; // Message not found
+    return filteredMessages;
   }
   

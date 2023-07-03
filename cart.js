@@ -30,6 +30,8 @@ function showCart() {
     continueButton.focus(); // Focus on the button instead  if there is no element 
   }
 
+
+  console.log('remove listner ');
   // Remove the event listener using the stored event handler function
   document.removeEventListener("keydown", keydownHandler);
 
@@ -111,8 +113,6 @@ deleteButton.addEventListener('click', function () {
   modal.style.display = "block";
 
 
-
-
   cart_container.removeEventListener("keydown", handleArrowKeys);
   confirmBtn.focus();
   modal.addEventListener("keydown", handleRightLeftKeys);
@@ -168,20 +168,21 @@ var matrixCart = [];
 
 function populateCartMatrix() {
   const cartItemsElement = document.getElementById('cart-items');
-
   const checkoutButton = document.getElementById('checkout-btn');
 
   const cartItems = cartItemsElement.querySelectorAll('li'); // Get all the list items
 
   // Create a matrix with the elements
   matrixCart = [
-    [...cartItems], // Add the list items as separate elements
+    Array.from(cartItems), // Add the list items as separate elements
     [continueButton],
     [checkoutButton],
     [deleteButton]
   ];
-}
 
+  // Flatten the matrixCart array
+  matrixCart = matrixCart.reduce((flatArray, row) => flatArray.concat(row), []);
+}
 
 
 // Function to handle arrow key navigation
@@ -203,18 +204,20 @@ function handleArrowKeys(event) {
 
 
 // Function to handle going up to the previous element
+
 function goUp() {
   if (focusedIndexcart > 0) {
     focusedIndexcart--;
   } else {
-    focusedIndexcart = matrixCart.flat().length - 1;
+    focusedIndexcart = matrixCart.length - 1;
   }
   updateFocus();
 }
 
+
 // Function to handle going down to the next element
 function goDown() {
-  if (focusedIndexcart < matrixCart.flat().length - 1) {
+  if (focusedIndexcart < matrixCart.length - 1) {
     focusedIndexcart++;
   } else {
     focusedIndexcart = 0;
@@ -247,7 +250,7 @@ function goRight() {
 }
 
 function updateFocus() {
-  const elements = matrixCart.flat();
+  const elements = matrixCart;
 
   elements.forEach((element, index) => {
     if (index === focusedIndexcart) {

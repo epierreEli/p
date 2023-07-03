@@ -60,9 +60,9 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             // gestion de a touvh entrer
             actionOnElement();
             break;
-            case 8:
-                // nothing
-                break;
+        case 8:
+            // nothing
+            break;
         default:
 
             throw new Error("Unknown key");
@@ -135,7 +135,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
 function actionOnElement() {
 
     var activeElement = document.activeElement;
-    
+
     //si ce n est pas une application
     if (activeElement.classList.contains('application')) {
 
@@ -145,15 +145,15 @@ function actionOnElement() {
         }
 
         if (activeElement.getAttribute('title') == 'Parametres') {
-            
+
             showSettings();
-    
+
         }
-        
+
         if (activeElement.getAttribute('title') == 'Message') {
-            
+
             showMessage();
-    
+
         }
     }
 
@@ -199,6 +199,26 @@ function setCookie(name, value) {
 
 //gestion de la navigation 
 // listen when loading is done and focus on first element with tabindex
+/*
+// Define the event handler function separately
+function keydownHandler(e) {
+    if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 13 || e.keyCode == 8) {
+        e.preventDefault();
+        logicEvent(indexedMatrix, e, function (myEvent, controles) {
+            switch (myEvent) {
+                case logicEvents.CANT_GO_RIGHT:
+                    // controles.goDownFirst();
+                    break;
+                case logicEvents.CANT_GO_LEFT:
+                    // controles.goUpLast();
+                    break;
+            }
+        });
+        smoothScrollToElement(document.activeElement);
+        // we want to see the attributes of the active element
+    }
+}*/
+
 
 // Define the event handler function separately
 function keydownHandler(e) {
@@ -220,6 +240,6 @@ function keydownHandler(e) {
 }
 
 
-// TODO: to make the code easier to manage  i will put click  event listener on each element and do an action 
+// TODO: to make the code easier to manage  i will put click  event listener on each element and do an action
 // depeding on the situation 
 

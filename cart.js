@@ -196,7 +196,7 @@ function handleArrowKeys(event) {
   } else if (event.keyCode === 39) {
     goRight();
   }
-  else if (event.keyCode === 8) {
+  else if (event.keyCode === 461) {
     hideCart();
   }
 }

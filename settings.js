@@ -89,7 +89,7 @@ function handleArrowKeysSettings(event) {
         goUpSet();
     } else if (event.keyCode === 40) {
         goDownSet();
-    } else if (event.keyCode === 8) {
+    } else if (event.keyCode === 461) {
         hideSettings();
     }
 }

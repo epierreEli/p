@@ -60,7 +60,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
             // gestion de a touvh entrer
             actionOnElement();
             break;
-        case 8:
+        case 461:
             // nothing
             break;
         default:

@@ -115,4 +115,3 @@ function hideLoadingIndicator() {
     document.getElementById("loading-container").style.display = "none";
 }
 
-

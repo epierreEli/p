@@ -9,6 +9,9 @@
 
 <body id="body">
   <!-- en tete -->
+  <!-- testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttde code event  -->
+  <p id="eventCode">my event</p>
+
   <header id="header">
     <div id="location">
       <span id="city"></span>
@@ -100,7 +103,7 @@
           <option value="en">petit</option>
           <option value="fr">Medium</option>
           <option value="sp">Large</option>
-       
+
         </select>
       </div>
       <div class="option">
@@ -169,6 +172,7 @@
   <script src="./request.js"></script>
   <script src="./smoothScroll.js"></script>
   <script src="./grid.js"></script>
+  <script src="./loginNav.js"></script>
 
   <script src="./login.js"></script>
 
@@ -219,7 +223,8 @@
 
       //ouverture du popup de login
       openModal();
-      console.log("event listenr added 1 ");
+      const loginButton = document.getElementById('loginButton');
+      loginButton.focus();
 
 
       document.getElementById("loginButton").addEventListener('click', function (e) {
@@ -229,10 +234,11 @@
         login(user, pass);
         // Add the event listener using the stored event handler function
         document.addEventListener("keydown", keydownHandler);
+        //location.reload();
 
       });
 
-
+      
     }
 
     // on get la temperature 
@@ -254,10 +260,7 @@
     //gestion de la navigation 
     // listen when loading is done and focus on first element with tabindex
 
-
-
-
-
+   
 
 
 

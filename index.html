@@ -3,7 +3,7 @@
 
 <head>
   <title>Uptvweb</title>
-  
+
 
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -34,10 +34,10 @@
   </header>
   <!-- 
   <section id="test"></section> -->
-    
-    <section id="main">
-      <h1 id="nameHotel">nameHotel</h1>
-    </section>
+  <h1 id="nameHotel">nameHotel</h1>
+  <section id="main">
+
+  </section>
 
 
   <!-- The login modal -->
@@ -45,10 +45,10 @@
     <div class="modal-content">
       <h2>Login Form</h2>
       <label for="username"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" id="username">
+      <input type="text" value="chambre102@ibisavignoncentregare2.com" placeholder="Enter Email" id="username">
 
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" id="password">
+      <input type="password" value="abcd1234" placeholder="Enter Password" id="password">
 
       <button id="loginButton" tabindex="0">Login</button>
     </div>
@@ -241,7 +241,7 @@
 
     }
 
-    // on get la temperature 
+    // on get la temperature **********************************************************a corriger 
     getWeather(city.innerHTML)
       .then(([icon, temperature]) => {
         // Use the retrieved icon and temperature here

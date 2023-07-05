@@ -64,7 +64,7 @@ function buildVignette(data, selectable = true) {
     if (isVideoLink(url)) {
         // url diffrent pour les vidéos
         url = data.icon;
-        var vignetteInstance = new Video(data.title, url, 250, 200);
+        var vignetteInstance = new Video(data.title, url, 275, 200);
         var vignetteElement = vignetteInstance.render();
 
         vignetteElement.classList.add('video');

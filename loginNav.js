@@ -10,8 +10,8 @@ loginButton.focus();
 
 function arrowLoginKeyHandler(event) {
 // suite testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
-var eventCOde=document.getElementById('eventCode');
-eventCOde.innerHTML=event.keyCode ;
+// var eventCOde=document.getElementById('eventCode');
+// eventCOde.innerHTML=event.keyCode ;
 
     if (event.keyCode === 38) {
         // Up arrow key logic

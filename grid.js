@@ -3,10 +3,11 @@ var gridDataApp = [
     {
         title: "",
         children: [
-            { title: "Parametres", icon: "1.png", text: "Description 1", disabled: false },
-            { title: "tv", icon: "2.png", text: "Description 2", disabled: false },
+            { title: "tv", icon: "ic_television_icon.png", text: "Description 2", disabled: false },
             { title: "Message", icon: "3.png", text: "envoyer des message", disabled: false },
-            { title: "Panier", icon: "4.png", text: "faites vos achats", disabled: false }
+            { title: "Panier", icon: "4.png", text: "faites vos achats", disabled: false },
+            { title: "Parametres", icon: "ic_settings_icon.png", text: "Description 1", disabled: false }
+
         ]
     }
 ];
@@ -37,8 +38,8 @@ function buildPannel(grid = []) {
 
             // on essaie de setter le rooservise sur la vignet pour pour=voir le recup apres il faudra tester que ca a bien etete setter 
             if (element.roomService) vignetteElement.classList.add("roomService");
-   
- 
+
+
             if (isSelectable) indexedRow.push(vignetteElement);
             rowDom.appendChild(vignetteElement); // Append vignetteElement to rowDom
         });
@@ -58,21 +59,20 @@ function buildPannel(grid = []) {
 }
 
 function buildVignette(data, selectable = true) {
-    var vignetteElement = document.createElement('div');
-    vignetteElement.classList.add('child');
     var url = `https://hospitality.ansetech.com/host/files/images/pages/${data.icon}`;
-    var vignetteInstance = new Vignette(data.title, url);
 
     if (isVideoLink(url)) {
         // url diffrent pour les vidéos
         url = data.icon;
-        var vignetteInstance = new Video(data.title, url);
+        var vignetteInstance = new Video(data.title, url, 250, 200);
+        var vignetteElement = vignetteInstance.render();
+
         vignetteElement.classList.add('video');
     } else {
-        var vignetteInstance = new Vignette(data.title, url);
+        var vignetteInstance = new Vignette(data.title, url, 275, 200);
+        var vignetteElement = vignetteInstance.render();
 
     }
-
     // important pour lacces et l envoie apres
     vignetteElement.setAttribute('description', data.text);
     vignetteElement.setAttribute('title', data.title);
@@ -80,10 +80,6 @@ function buildVignette(data, selectable = true) {
 
 
     if (selectable) vignetteElement.setAttribute("tabindex", "0");
-
-
-
-    vignetteElement.appendChild(vignetteInstance.render());
 
     return vignetteElement;
 }

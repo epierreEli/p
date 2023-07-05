@@ -63,6 +63,8 @@ function populateMatrix() {
         } else {
             element = select;
         }
+       
+
 
         // Push the label and element (input or select) to the matrix
         settingsMatrix.push([label, element]);

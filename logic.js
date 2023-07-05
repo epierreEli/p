@@ -234,7 +234,8 @@ function keydownHandler(e) {
                     break;
             }
         });
-        smoothScrollToElement(document.activeElement);
+        //smoothScrollToElement(document.activeElement);
+        document.activeElement.parentElement.scrollTo(document.activeElement)
         // we want to see the attributes of the active element
     }
 }

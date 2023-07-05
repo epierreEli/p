@@ -109,8 +109,8 @@ class Image extends Child {
 }
 
 class Vignette extends Image {
-    constructor(title, url) {
-        super(title, url);
+    constructor(title, url,width=150,height=100) {
+        super(title, url,width,height);
     }
     render() {     
         var container = document.createElement("div");
@@ -193,8 +193,8 @@ class VignetteApp extends ImageApp {
     render() {     
         var container = document.createElement("div");
         container.classList.add("vignetteApp");
-        container.style.height = 50 + "px";
-        container.style.width = 50 + "px";
+        container.style.height = 70 + "px";
+        container.style.width = 70 + "px";
         container.style.margin = "10px";
 
         

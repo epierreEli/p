@@ -3,12 +3,16 @@
      outline: none;
      /* border: 1px solid red; */
      background-color: rgba(0, 0, 0, 0.3);
-     box-shadow: 0px 0px 6px 3.5px rgb(0, 0, 0);
+     box-shadow: 0px 0px 6px 3.5px rgba(0, 0, 0, 0.623);
+
    }
 
-   .vignette:focus-within input {
-     transform: scale(1.5);
-   }
+   .vignette:focus {
+
+    width: 300px!important;
+    height:216px!important;
+  }
+  
 
    /* Style de base */
    * {
@@ -60,6 +64,7 @@
    .row {
      display: flex;
      justify-content: flex-start;
+     align-items: center;
      position: relative;
      overflow: hidden;
      padding: 10px;

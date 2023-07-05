@@ -80,10 +80,11 @@ function login(user, pass) {
                     console.log(indexedMatrix);
 
 
-                    // wes et the background to be the first element of indexedmatrxi befire we concatanate the two matrix 
-                    const first = indexedMatrix.first().first();
-                    first.focus();
+                    indexedMatrix = [...appMatrix, ...indexedMatrix];
 
+                    const first = indexedMatrix[1][0];
+
+                    
                     const backgroundImage = first.getAttribute('icon');
                     const body = document.querySelector("body");
                     body.style.backgroundImage = "url(" + backgroundImage + ")";
@@ -91,7 +92,10 @@ function login(user, pass) {
                     body.style.backgroundPosition = 'center';
                     body.style.backgroundRepeat = 'no-repeat';
 
-                    indexedMatrix = [...appMatrix, ...indexedMatrix];
+                    
+                    // wes et the background to be the first element of indexedmatrxi befire we concatanate the two matrix 
+                    indexedMatrix[0][0].focus();
+
                     hideLoadingIndicator();
 
 

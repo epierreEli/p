@@ -1,16 +1,17 @@
+
 function smoothScrollToElement(element) {
     var parent = element.parentNode;
     var parentRect = parent.getBoundingClientRect();
     var elementRect = element.getBoundingClientRect();
 
-    var scrollX = elementRect.left - parentRect.left + parent.scrollLeft;
+    var scrollX = elementRect.left - parentRect.left + parent.scrollLeft - parentRect.width / 2 + elementRect.width / 2;
     var scrollY = elementRect.top - parentRect.top + parent.scrollTop;
 
     var startScrollX = parent.scrollLeft;
     var startScrollY = parent.scrollTop;
 
-    var scrollStep = 2; // adjust this value to change scrolling speed
-    var scrollInterval = 100; // adjust this value to change scrolling smoothness
+    var scrollStep = 5; // adjust this value to change scrolling speed
+    var scrollInterval = 50; // adjust this value to change scrolling smoothness
 
     var currentStep = 0;
     var totalSteps = Math.ceil(scrollInterval / scrollStep);

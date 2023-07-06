@@ -49,6 +49,9 @@ function login(user, pass) {
 
         showLoadingIndicator();
         closeModal();
+        // showWelcomeMessage();
+        setTimeout(hideWelcomeMessage, 2000);
+
         infos['token'] = data.token;
         infos["userId"] = data.userId;
         infos["hotelId"] = data.owner;

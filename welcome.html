@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #imageContainer {
+            position: relative;
+            height: 80vh;
+            width: 80vw;
+        }
+
+        #welcomeModal {
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            background-color: rgba(226, 4, 4, 0.543);
+            height: 60%;
+            width: 50%;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #wlcImg {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        #welcomeModal h1 {
+            color: white;
+            font-size: 80px;
+            margin: 0;
+        }
+
+        #welcomeModal h2 {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="imageContainer">
+        <img id="wlcImg" src="bg_welcome.jpg">
+        <div id="welcomeModal">
+            <h1>Welcome</h1>
+            <h2 id="userName">Nom de la personne</h2>
+        </div>
+    </div>
+</body>
+
+<script>
+    function showWelcomeMessage() {
+        var imageContainer = document.getElementById("imageContainer");
+        imageContainer.style.display = "block";
+    }
+
+    function hideWelcomeMessage() {
+        var imageContainer = document.getElementById("imageContainer");
+        imageContainer.style.display = "none";
+    }
+</script>
+
+</html>

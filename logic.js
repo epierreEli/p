@@ -129,19 +129,6 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
     }
 }
 
-// //ajout d un attrubut focus 
-// var activeEl = document.activeElement;
-// activeElement.addEventListener('focus',function(e) {
-//     activeEl.classList.add('focused');
-// });
-
-// var activeEl = document.activeElement;
-// activeElement.addEventListener('blur',function(e) {
-//     activeEl.classList.add('focused')
-// });
-//gestion de l envoi de la donnee
-//TODO change atribute to class 
-
 function actionOnElement() {
 
     var activeElement = document.activeElement;
@@ -186,6 +173,7 @@ function actionOnElement() {
 
 //gestion de la navigation 
 // listen when loading is done and focus on first element with tabindex
+
 
 
 // Define the event handler function separately

@@ -80,7 +80,7 @@ function login(user, pass) {
 
 
 
-                    console.log(indexedMatrix);
+                    console.log(infos);
 
 
                     indexedMatrix = [...appMatrix, ...indexedMatrix];

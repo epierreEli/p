@@ -79,7 +79,7 @@ function renderCartItems() {
     li.style.border = "1px solid";
     // Create a span element for the item details
     const span = document.createElement('span');
-    span.innerText = `${item.name} - $${item.price}`;
+    span.innerText = `${item.title} - $${item.price}`;
 
     // Append the image and span to the list item
     li.appendChild(img);
@@ -96,7 +96,7 @@ function renderCartItems() {
 // Event listener for checkout button
 const checkoutButton = document.getElementById('checkout-btn');
 checkoutButton.addEventListener('click', () => {
-  console.log('Checkout functionality is not implemented yet.');
+  orderItems(infos);
 });
 
 const deleteButton = document.querySelector('.delete-button');

@@ -33,8 +33,7 @@ function showInfoPage() {
 
 function handleKeysInfo(event) {
 
-    if (event.keyCode === 461) {
-        console.log("backspace");
+    if (event.keyCode === 461 ||event.keyCode === 8) {
         hideInfoPage();
 
     } else if (event.keyCode === 13) {

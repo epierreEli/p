@@ -12,7 +12,7 @@
   <!-- en tete -->
   <!-- testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttde code event  -->
   <!-- <p id="eventCode">my event</p> -->
-
+  <p id="keycode">my keycode</p>
   <header id="header">
     <div id="location">
       <span id="city"></span>
@@ -184,6 +184,7 @@
   <script src="./loginNav.js"></script>
 
   <script src="./login.js"></script>
+  <script src="./cartRequest.js"></script>
 
 
 
@@ -208,6 +209,10 @@
     });
 
 
+    document.addEventListener("keydown", function(event) {
+      document.getElementById("keycode").innerHTML = event.keyCode;
+
+    });
 
 
 

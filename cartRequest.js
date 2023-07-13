@@ -38,3 +38,34 @@ function orderItems(infos) {
     });
 }
 
+
+
+function getBilling(infos) {
+    return new Promise(function (resolve, reject) {
+        var myURl = "https://hospitality.ansetech.com:7443/api/hotels_www/"+infos.hotelId+"/rooms/"+infos.userId +"/getRoomBillings";
+        
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET',myURl,true);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + infos.token);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                resolve(response);
+            } else {
+                reject(new Error('Failed to retrieve messages. Status: ' + xhr.status));
+            }
+        };
+
+        xhr.onerror = function () {
+            reject(new Error('Error niling.'));
+        };
+
+        xhr.send();
+    });
+}
+
+

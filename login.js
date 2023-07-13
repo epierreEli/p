@@ -44,7 +44,7 @@ function login(user, pass) {
 
 
 
-        showLoadingIndicator();
+        
         closeModal();
         // showWelcomeMessage();
         // setTimeout(hideWelcomeMessage, 2000);
@@ -86,14 +86,8 @@ function login(user, pass) {
                     const first = indexedMatrix[1][0];
 
                     playAds(indexedMatrix);
-                    // const backgroundImage = first.getAttribute('icon');
-                    // const body = document.querySelector("body");
-                    // body.style.backgroundImage = "url(" + backgroundImage + ")";
-                    // body.style.backgroundSize = 'cover';
-                    // body.style.backgroundPosition = 'center';
-                    // body.style.backgroundRepeat = 'no-repeat';
-
-                    
+   
+                  
                     // wes et the background to be the first element of indexedmatrxi befire we concatanate the two matrix 
                     indexedMatrix[0][0].focus();
 

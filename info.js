@@ -37,7 +37,7 @@ function handleKeysInfo(event) {
         hideInfoPage();
 
     } else if (event.keyCode === 13) {
-        console.log("touche entreee");
+       
 
         const buttoninf = document.getElementById('button-info');
 
@@ -48,7 +48,7 @@ function handleKeysInfo(event) {
             var titleElement = document.getElementById('info-title').innerHTML;
             var price = document.getElementById('infodescription').innerHTML;
             var littleimage = document.getElementById("imagest");
-            console.log(titleElement);
+           
             var computedStyle = window.getComputedStyle(littleimage);
             var backgroundImage = computedStyle.getPropertyValue('background-image');
             // decouage de l url pour obtenir que la partir necesaire 
@@ -70,7 +70,7 @@ function handleKeysInfo(event) {
 
             // Add the item to the cart array
             cartItems.push(item);
-            console.log(cartItems);
+           
         }
     }
 }

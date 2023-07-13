@@ -57,6 +57,7 @@
   </div>
   <!-- The loading -->
   <div id="loading-container">
+    <img src="./hosp.svg" alt="Hospital Image">
     <!-- Progress indicator elements will be added here -->
     <div class="loading-indicator"></div>
   </div>
@@ -159,14 +160,7 @@
 
   </div>
 
-  <!-- welcome message -->
-  <div id="imageContainer">
-    <img id="wlcImg" src="bg_welcome.jpg">
-    <div id="welcomeModal">
-      <h1>Welcome</h1>
-      <h2 id="userName">Nom de la personne</h2>
-    </div>
-  </div>
+
   <script src="./welcome.js"></script>
   <script src="./messageRequest.js"></script>
 
@@ -200,7 +194,7 @@
     // Example usage:
     getCurrentDateTime((date, time) => {
       let timeString = document.querySelector("#time");
-      console.log(timeString);
+    
       timeString.innerHTML = time;
 
       let dateString = document.querySelector("#date");
@@ -223,10 +217,10 @@
     // Retrieve elements from local storage
     var user = localStorage.getItem("username");
     var pass = localStorage.getItem("password");
-    console.log(user, pass);
+
     //si le mot de pass n est pas sauvgarder on demande de le rentrer 
     if (user && pass) {
-      console.log("event listenr added 2 ");
+      
       login(user, pass);
 
 

@@ -31,9 +31,6 @@ function login(user, pass) {
     // "chambre1@snow-chill2.com", "abcd1234"
     // "chambre102@ibisavignoncentregare2.com", "abcd1234"
 
-
-    console.log(user, pass);
-    
     logIn(user, pass).then((data) => {
 
         // Save multiple elements in local storage
@@ -50,7 +47,7 @@ function login(user, pass) {
         showLoadingIndicator();
         closeModal();
         // showWelcomeMessage();
-        setTimeout(hideWelcomeMessage, 2000);
+        // setTimeout(hideWelcomeMessage, 2000);
 
         infos['token'] = data.token;
         infos["userId"] = data.userId;
@@ -76,24 +73,25 @@ function login(user, pass) {
                     //  construction des apllication fixes 
                     const appMatrix = buildAppPannel(gridDataApp);
                     //  construction des elements dynamique 
+                    console.log(infos);
                     indexedMatrix = buildPannel(convertData(infos.pages).grid);
 
 
 
-                    console.log(infos);
+                    // console.log(infos);
 
 
                     indexedMatrix = [...appMatrix, ...indexedMatrix];
 
                     const first = indexedMatrix[1][0];
 
-                    
-                    const backgroundImage = first.getAttribute('icon');
-                    const body = document.querySelector("body");
-                    body.style.backgroundImage = "url(" + backgroundImage + ")";
-                    body.style.backgroundSize = 'cover';
-                    body.style.backgroundPosition = 'center';
-                    body.style.backgroundRepeat = 'no-repeat';
+                    playAds(indexedMatrix);
+                    // const backgroundImage = first.getAttribute('icon');
+                    // const body = document.querySelector("body");
+                    // body.style.backgroundImage = "url(" + backgroundImage + ")";
+                    // body.style.backgroundSize = 'cover';
+                    // body.style.backgroundPosition = 'center';
+                    // body.style.backgroundRepeat = 'no-repeat';
 
                     
                     // wes et the background to be the first element of indexedmatrxi befire we concatanate the two matrix 
@@ -105,9 +103,7 @@ function login(user, pass) {
                 });
 
 
-                /* a appeler tous les fois ou la personne ouvre l appli messagge */
-
-                //console.log(infos);
+            
             });
     });
 

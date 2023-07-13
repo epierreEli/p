@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #loading-container {
+            position: fixed;
+            bottom: 0; /* Align at the bottom */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column; /* Arrange elements vertically */
+            justify-content: center; /* Align items at the bottom */
+            align-items: center;
+            background: rgb(63, 83, 143);
+            background: linear-gradient(163deg, rgba(63, 83, 143, 1) 26%, rgba(50, 182, 134, 1) 89%);
+            /* semi-transparent background */
+            z-index: 9999;
+            /* ensure the loading indicator is on top of other elements */
+        }
+
+        .loading-indicator {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px; /* Add some space between the image and the loading indicator */
+            border-radius: 50%;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            animation: spin 2s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- The loading -->
+    <div id="loading-container">
+        <img src="./hosp.svg" alt="Hospital Image"> <!-- Provide alt attribute for accessibility -->
+        <!-- Progress indicator elements will be added here -->
+        <div class="loading-indicator"></div>
+    </div>
+
+</body>
+
+<script>
+    function showWelcomeMessage() {
+        var imageContainer = document.getElementById("imageContainer");
+        imageContainer.style.display = "block";
+    }
+
+    function hideWelcomeMessage() {
+        var imageContainer = document.getElementById("imageContainer");
+        imageContainer.style.display = "none";
+    }
+</script>
+
+</html>

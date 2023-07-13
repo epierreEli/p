@@ -68,6 +68,7 @@ function buildVignette(data, selectable = true) {
         var vignetteElement = vignetteInstance.render();
 
         vignetteElement.classList.add('video');
+        vignetteElement.setAttribute('video', url);
     } else {
         var vignetteInstance = new Vignette(data.title, url, 275, 200);
         var vignetteElement = vignetteInstance.render();

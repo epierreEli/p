@@ -28,7 +28,7 @@ function showSettings() {
     optionsContainer.addEventListener('keydown', handleArrowKeysSettings);
 
     settingsMatrix[0][1].focus();
-    console.log(settingsMatrix);
+    
 }
 
 hideSettings();
@@ -70,7 +70,6 @@ function populateMatrix() {
         settingsMatrix.push([label, element]);
     }
 
-    console.log(settingsMatrix);
     return settingsMatrix;
 }
 

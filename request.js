@@ -2,7 +2,7 @@
 
 // recupere la temperature et l image associe 
 function getWeather(cityTag) {
-  console.log("citytag = " + cityTag + "; getWeather");
+  
 
   return new Promise(function(resolve, reject) {
     var url =
@@ -33,7 +33,7 @@ function getWeather(cityTag) {
       }
     };
     xhr.send();
-    console.log("getWeather finished");
+    
   });
 }
 
@@ -163,18 +163,17 @@ function convertData(inputData) {
     var categoryItem = {
       title: category.title,
       roomService: category.roomService,
+      position: category.position,
       type: "extended",
       children: []
     };
-    //test
-    //console.log(category);
 
     for (var j = 0; j < category.contents.length; j++) {
       var content = category.contents[j];
       var childItem = {
         icon: content.image,
-        title: content.title
-        
+        title: content.title,
+        position: content.position
       };
 
       if (content.text) {
@@ -184,8 +183,18 @@ function convertData(inputData) {
       categoryItem.children.push(childItem);
     }
 
+    // Sort children by position
+    categoryItem.children.sort(function(a, b) {
+      return a.position - b.position;
+    });
+
     data.grid.push(categoryItem);
   }
+
+  // Sort categories by position
+  data.grid.sort(function(a, b) {
+    return a.position - b.position;
+  });
 
   return data;
 }

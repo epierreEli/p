@@ -30,8 +30,6 @@ function showCart() {
     continueButton.focus(); // Focus on the button instead  if there is no element 
   }
 
-
-  console.log('remove listner ');
   // Remove the event listener using the stored event handler function
   document.removeEventListener("keydown", keydownHandler);
 
@@ -105,8 +103,6 @@ const confirmBtn = document.getElementById("confirmBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 
 deleteButton.addEventListener('click', function () {
-  // Perform the delete action here
-  console.log('Delete button clicked!');
 
 
   const modal = document.getElementById("modalconfirm");
@@ -158,9 +154,8 @@ function handleRightLeftKeys(event) {
 
 const continueButton = document.getElementById('continue-btn');
 continueButton.addEventListener('click', function () {
-  // Perform the delete action here
   hideCart();
-  console.log('continue button clicked!');
+  
 });
 
 

@@ -157,18 +157,32 @@ function actionOnElement() {
         if (activeElement.getAttribute('title') == 'tv') {
             // test youtube par lien 
             window.open('https://www.youtube.com/', '_blank');
-            console.log("YouTube");
+            console.log("YouTube");}
 
-            if (activeElement.getAttribute('title') == 'Billing') {
+        if (activeElement.getAttribute('title') == 'Billing') {
 
-                getBilling(infos);
+                // To do to be replace by show Biling infos 
+
+                getBilling(infos)
+                    .then(function (data) {
+                        // Process the response data here
+                        // 'data' contains the parsed JSON response from the API
+                        // For example, you might want to display the billing details or perform some actions based on the data
+
+                        console.log('Billing details:', data);
+                    })
+                    .catch(function (error) {
+                        // Handle errors that occurred during the API call or data processing
+                        console.error('Error retrieving billing details:', error);
+                    });
+
 
             }
 
 
 
 
-        }
+        
 
 
     }

@@ -39,7 +39,7 @@ function orderItems(infos) {
 }
 
 
-
+// To be tested 
 function getBilling(infos) {
     return new Promise(function (resolve, reject) {
         var myURl = "https://hospitality.ansetech.com:7443/api/hotels_www/"+infos.hotelId+"/rooms/"+infos.userId +"/getRoomBillings";
@@ -67,5 +67,4 @@ function getBilling(infos) {
         xhr.send();
     });
 }
-
 

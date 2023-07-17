@@ -21,12 +21,13 @@ function getMesg() {
                     var messageObject = {
                         id: message._id,
                         content: message.content,
-                        img: message.linked_image
+                        img: message.linked_image,
+                        date: message.creationDate
                     };
 
-                    ar.push(messageObject); // Add each message to the array
-
-                    console.log(message.content);
+                    ar.push(message); // Add each message to the array
+                    console.log("each message");
+                    console.log(message.creationDate);
 
                 });
 
@@ -103,7 +104,7 @@ function renderMessages() {
     messagesElement.innerHTML = ''; // Clear the existing items
   
 
-    messageList.forEach((item, index) => {
+    messageList.forEach((item) => {
         // Create a list item for messages
         const li = document.createElement('li');
         li.tabIndex = 0; // Add tabindex to make it focusable
@@ -115,11 +116,13 @@ function renderMessages() {
         img.style.height = '20px';
         img.style.width = '20px';
 
+
         // Create a span element for the item details
         const span = document.createElement('span');
         span.style.fontSize = '20px';
         span.innerText = item.content;
-
+        
+        li.setAttribute('date', item.date);
 
         // Append the image and span to the list item
         li.appendChild(img);
@@ -201,13 +204,16 @@ function handleArrowKeysMsg(event) {
 
 function readMsg() {
     const MsgContent = document.getElementById('MsgContent');
-    const MsgImg= document.getElementById('dateMsg');
+    const MsgImg= document.getElementById('msgImg');
+    const MsgDate= document.getElementById('dateMsg');
     var currentMsg = document.activeElement;
+    console.log("my current");
     console.log(currentMsg);
     var spanElement = currentMsg.querySelector('span');
     if (spanElement) {
         MsgContent.innerHTML = spanElement.innerText;
         MsgImg.src =currentMsg.querySelector('img'); 
+        MsgDate.innerHTML =currentMsg.querySelector('date'); 
 
     }
 }

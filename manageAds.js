@@ -1,29 +1,14 @@
+// cette focntion joue la video si elle est place en premier dans la matrice et configure l image en arriere plan 
 function playAds(matrix) {
     // image or background video
-    let clickEvent = new Event('premierElementVideo');
+
     let playVideoEvent = new Event('playVideo');
 
-    let first=0;
+    let first = 0;
 
 
     let i = 0;
     // this listener lookup for elements that are not video elements
-    document.addEventListener('premierElementVideo', e => {
-
-        while (matrix[1][i].classList.contains('video')) {
-            i++;
-        }
-
-        const firstNotVideo = matrix[1][i];
-    
-
-        const backgroundImage = firstNotVideo.getAttribute('icon');
-        const body = document.querySelector("body");
-        body.style.backgroundImage = "url(" + backgroundImage + ")";
-        body.style.backgroundSize = 'cover';
-        body.style.backgroundPosition = 'center';
-        body.style.backgroundRepeat = 'no-repeat';
-    });
 
     document.addEventListener('playVideo', e => {
 
@@ -61,18 +46,32 @@ function playAds(matrix) {
         });
     });
 
+    while (matrix[1][i].classList.contains('video')) {
+        i++;
+    }
+
+    const firstNotVideo = matrix[1][i];
+
+
+    const backgroundImage = firstNotVideo.getAttribute('icon');
+    const body = document.querySelector("body");
+    body.style.backgroundImage = "url(" + backgroundImage + ")";
+    body.style.backgroundSize = 'cover';
+    body.style.backgroundPosition = 'center';
+    body.style.backgroundRepeat = 'no-repeat';
 
 
 
-
-
-    //to dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooil faut changer le 4 eme en premier element 
 
     // Check if the fourth element is a video
     if (matrix[1][first].classList.contains('video')) {
-        
+
+
         console.log(matrix[1][0].getAttribute('video'));
-        document.dispatchEvent(clickEvent);
         document.dispatchEvent(playVideoEvent);
     }
+
+
+
+
 }

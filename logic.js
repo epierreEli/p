@@ -44,7 +44,7 @@ function logicEvent(matrix, keyboardEvent, manageEvent = () => { }) {
     };
     const currentRow = matrix.current();
 
-  
+
     switch (keyboardEvent.keyCode) {
         case 38:
             goUpFirst();
@@ -152,6 +152,25 @@ function actionOnElement() {
             showMessage();
 
         }
+
+
+        if (activeElement.getAttribute('title') == 'tv') {
+            // test youtube par lien 
+            window.open('https://www.youtube.com/', '_blank');
+            console.log("YouTube");
+
+            if (activeElement.getAttribute('title') == 'Billing') {
+
+                getBilling(infos);
+
+            }
+
+
+
+
+        }
+
+
     }
 
     else {

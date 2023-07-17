@@ -577,9 +577,8 @@
    }
 
    /* Style span */
-   #messages li span,
-   #unreadmessages li span {
-     font-size: 20px;
+   #messages li span{
+     font-size: 30px;
      white-space: nowrap;
 
    }

@@ -26,9 +26,11 @@
     }
 
     #historyHead p {
-    
+
         margin-right: 10px;
         margin-left: 10px;
+        font-size: 25px;
+        font-weight: bold;
         /* Added this line for spacing between elements */
     }
 
@@ -40,7 +42,7 @@
         /* Added this line */
         background-color: black;
         justify-content: space-between;
-        
+
     }
 
     #historyTitle p {
@@ -48,10 +50,29 @@
         margin-left: 10px;
         color: white;
     }
-    #billingTotal{
-        
-    
+
+
+    #billingTotal {
+        font-weight: bold;
+        position: absolute;
+        bottom: -10px;
+        right: 60px;
     }
+
+    #orderHistoryList {
+        border: 1px solid;
+        height: 55%;
+    }
+
+    #close{
+        position: absolute;
+        bottom: -60px;
+        left: 0px;
+        height: 50px;
+        width: 100px;
+    }
+
+
 </style>
 
 <head>
@@ -79,10 +100,10 @@
         </ul>
         <p id="billingTotal">Total :</p>
 
+       <button id="close">Close</button>
 
     </div>
-    <button id="close">Close</button>
-
+    
 </body>
 
 </html>

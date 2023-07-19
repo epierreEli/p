@@ -2,34 +2,45 @@ var orderHistoryContainer = document.getElementById('orderHistory');
 var focusedIndexHistory = 0;
 
 function getOrderHistory() {
-    getBilling(infos).then(function (data) {
+    getBilling(infos)
+        .then(function (data) {
+            console.log(data);
+            // Assuming the received data is in the format provided above
+            const orderHistoryItems = [];
 
-      
+            data.commands.forEach(item => {
+                item.products.forEach(product => {
+                    const orderItem = {
+                        wording: product.product,
+                        // You can add any other properties related to the product here
+                        unitPrice: product.price ,
+                        quantity: product.qty,
+                        date: item.lastOrder,
+                        cancelled: item.cancelled
+                    };
+                    orderHistoryItems.push(orderItem);
+                });
+            });
 
-
-        // This date should be updated with each check
-        const date = infos.userInfos.checkInDate;
-
-
-
-        console.log(data);
-        renderOrderHistoryItems();
-
-    })
+            // Call the renderOrderHistoryItems function with the updated order history items
+            renderOrderHistoryItems(orderHistoryItems);
+        })
         .catch(function (error) {
             console.error('Error retrieving messages:', error);
         });
 }
 
 
+
+
 function hideOrderHistory() {
     orderHistoryContainer.style.display = 'none';
     document.addEventListener('keydown', keydownHandler);
-    orderHistoryContainer.removeEventListener('keydown', handleArrowKeys);
+    orderHistoryContainer.removeEventListener('keydown', handleArrowKeysOrderHistory);
 }
 
 function showOrderHistory() {
-    
+
     getOrderHistory()
     orderHistoryContainer.style.display = 'block';
     // Render the initial order history items
@@ -37,19 +48,24 @@ function showOrderHistory() {
 
     const orderHistoryItemsElement = document.getElementById('orderHistoryList');
     const firstOrderHistoryItem = orderHistoryItemsElement.querySelector('li');
+    console.log("firstOrderHistoryItem");
+    console.log(firstOrderHistoryItem);
 
     if (firstOrderHistoryItem) {
         firstOrderHistoryItem.focus();
+        console.log("hellosss");
+        console.log(firstOrderHistoryItem);
     } else {
         const closeButton = document.getElementById('close');
         closeButton.focus();
+        console.log(firstOrderHistoryItem);
     }
 
     // Remove the event listener using the stored event handler function
     document.removeEventListener('keydown', keydownHandler);
 
     // Add event listener for arrow key navigation
-    orderHistoryContainer.addEventListener('keydown', handleArrowKeys);
+    orderHistoryContainer.addEventListener('keydown', handleArrowKeysOrderHistory);
 }
 
 // Function to calculate the total price of the order history items
@@ -63,8 +79,7 @@ function calculateTotal() {
     return total;
 }
 
-// Function to render the order history items in the HTML
-function renderOrderHistoryItems() {
+function renderOrderHistoryItems(orderHistoryItems) {
     const orderHistoryItemsElement = document.getElementById('orderHistoryList');
     orderHistoryItemsElement.innerHTML = ''; // Clear the existing items
 
@@ -78,17 +93,27 @@ function renderOrderHistoryItems() {
         const span2 = document.createElement('span');
         const span3 = document.createElement('span');
 
-        span.innerText = `${item.wording}` 
-        span1.innerText =`${item.unitPrice}`
-        span2.innerHTML=`${item.quantity}`
-        span3.innerHTML=`${item.date}`;
+        console.log(item.wording);
+        console.log(item.price);
+        span.innerText = `${item.wording}`
+        span1.innerText = `${item.unitPrice}`
+        span2.innerHTML = `${item.quantity}`
+
+        // Check if the order is canceled and display "ORDER CANCELLED" in red if it is
+        if (item.cancelled) {
+            const cancelledSpan = document.createElement('span');
+            cancelledSpan.innerText = "ORDER CANCELLED";
+            cancelledSpan.style.color = 'red';
+            span3.appendChild(cancelledSpan);
+        } else {
+            span3.innerHTML = `${item.date}`;
+        }
 
         // Append the span to the list item
         li.appendChild(span);
         li.appendChild(span1);
         li.appendChild(span2);
         li.appendChild(span3);
-
 
         // Append the list item to the order history items container
         orderHistoryItemsElement.appendChild(li);
@@ -97,14 +122,13 @@ function renderOrderHistoryItems() {
     const orderHistoryTotalElement = document.getElementById('billingTotal');
     orderHistoryTotalElement.innerText = `Total: $${calculateTotal()}`;
 }
-
 // Event listener for close button
 const closeButton = document.getElementById('close');
 closeButton.addEventListener('click', hideOrderHistory);
 
 
 // Function to handle arrow key navigation
-function handleArrowKeys(event) {
+function handleArrowKeysOrderHistory(event) {
     if (event.keyCode === 38) {
         // Up arrow key
         goUpHistory();
@@ -117,7 +141,7 @@ function handleArrowKeys(event) {
     } else if (event.keyCode === 39) {
         // Right arrow key
         goRightHistory();
-    } else if (event.keyCode === 461) {
+    } else if (event.keyCode === 461 || event.keyCode === 8) {
         // Back key (Assuming this is the key code for the back button)
         hideOrderHistory();
     }
@@ -143,29 +167,6 @@ function goDownHistory() {
     updateFocusHistory();
 }
 
-// Function to handle going left to the previous element in the current row (if needed)
-function goLeftHistory() {
-    const row = Math.floor(focusedIndexHistory / orderHistoryItemsPerRow); // Assuming you have a row-based layout for order history items
-    const previousIndex = (row * orderHistoryItemsPerRow) + (focusedIndexHistory % orderHistoryItemsPerRow) - 1;
-    if (previousIndex >= row * orderHistoryItemsPerRow) {
-        focusedIndexHistory = previousIndex;
-    } else {
-        focusedIndexHistory = (row + 1) * orderHistoryItemsPerRow - 1;
-    }
-    updateFocusHistory();
-}
-
-// Function to handle going right to the next element in the current row (if needed)
-function goRightHistory() {
-    const row = Math.floor(focusedIndexHistory / orderHistoryItemsPerRow); // Assuming you have a row-based layout for order history items
-    const nextIndex = (row * orderHistoryItemsPerRow) + (focusedIndexHistory % orderHistoryItemsPerRow) + 1;
-    if (nextIndex < (row + 1) * orderHistoryItemsPerRow) {
-        focusedIndexHistory = nextIndex;
-    } else {
-        focusedIndexHistory = row * orderHistoryItemsPerRow;
-    }
-    updateFocusHistory();
-}
 
 // Function to update focus on the currently focused element
 function updateFocusHistory() {
@@ -181,8 +182,6 @@ function updateFocusHistory() {
     });
 }
 
-// Call the function to show the order history when needed (e.g., on a button click)
-// showOrderHistory();
 
 
 // Assuming you have a similar data structure for order history items like cartItems in the previous code

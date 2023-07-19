@@ -215,7 +215,7 @@
 
    /* loading component css */
    #loading-container {
-    
+
      position: fixed;
      bottom: 0;
      /* Align at the bottom */
@@ -577,7 +577,7 @@
    }
 
    /* Style span */
-   #messages li span{
+   #messages li span {
      font-size: 30px;
      white-space: nowrap;
 
@@ -617,72 +617,111 @@
 
    /* billing info management  css*/
    #orderHistory {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: 50vh;
-    width: 70%;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid;
-}
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     display: none;
+     justify-content: flex-start;
+     align-items: flex-start;
+     height: 50vh;
+     width: 70%;
+     background-color: rgb(255, 255, 255);
+     border: 1px solid;
+   }
 
-#historyHead {
-    display: flex;
-    /* Added this line */
-    align-items: flex-start;
-    justify-content: flex-start;
-    /* Added this line */
-    margin-top: 5px;
-    justify-content: space-between;
-}
+   #historyHead {
+     display: flex;
+     /* Added this line */
+     align-items: flex-start;
+     justify-content: flex-start;
+     /* Added this line */
+     margin-top: 5px;
+     justify-content: space-between;
+   }
 
-#historyHead p {
+   #historyHead p {
 
-    margin-right: 10px;
-    margin-left: 10px;
-    font-size: 25px;
-    font-weight: bold;
-    /* Added this line for spacing between elements */
-}
-
-#historyTitle {
-    display: flex;
-    /* Added this line */
-    align-items: flex-start;
-    justify-content: flex-start;
-    /* Added this line */
-    background-color: black;
-    justify-content: space-between;
-
-}
-
-#historyTitle p {
-    margin-right: 10px;
-    margin-left: 10px;
-    color: white;
-}
+     margin-right: 10px;
+     margin-left: 10px;
+     font-size: 25px;
+     font-weight: bold;
+     /* Added this line for spacing between elements */
+   }
 
 
-#billingTotal {
-    font-weight: bold;
-    position: absolute;
-    bottom: -10px;
-    right: 60px;
-}
+   #orderHistoryList {
+     border: 1px solid;
+     height: 60%;
+     overflow: hidden;
+   }
 
-#orderHistoryList {
-    border: 1px solid;
-    height: 55%;
-}
+   #orderHistoryList li {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-bottom: 1px solid #ccc;
+     /* Optional: add a bottom border between items */
+     padding: 5px 10px;
+     /* Optional: add some padding around each item */
+   }
 
-#close{
-    position: absolute;
-    bottom: -60px;
-    left: 0px;
-    height: 50px;
-    width: 100px;
-}
+   #orderHistoryList span {
+     display: grid;
+     /* Use grid layout for better alignment */
+     grid-template-columns: 3fr 1fr 1fr 1fr;
+     /* Adjust the column widths as needed */
+     justify-items: flex-start;
+     /* Align grid items to the left */
+     align-items: center;
+     /* Vertically center the grid items */
+
+     padding: 5px 10px;
+   }
+
+   #orderHistoryList span:last-child {
+     flex-grow: 0;
+     margin-left: 10px;
+     /* Optional: add some space between the last span and the edge */
+   }
+
+   /* Optional: Adjust the styling of the historyTitle */
+   .historyTitle {
+     background-color: black;
+     color: white;
+     display: flex;
+     justify-content: space-between;
+     padding: 5px 10px;
+   }
+
+   .historyTitle span {
+     display: grid;
+     /* Use grid layout for better alignment */
+     grid-template-columns: 3fr 1fr -2fr 1fr;
+     /* Adjust the column widths as needed */
+     justify-items: flex-start;
+     /* Align grid items to the left */
+     align-items: center;
+     /* Vertically center the grid items */
+
+     padding: 5px 10px;
+   }
+
+   #historyTitle p {
+     margin: 0;
+   }
+
+   #billingTotal {
+     font-weight: bold;
+     position: absolute;
+     bottom: -1px;
+     right: 60px;
+   }
+
+   #close {
+     position: absolute;
+     bottom: -60px;
+     left: 0;
+     height: 50px;
+     width: 100px;
+   }

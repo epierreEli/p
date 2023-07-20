@@ -123,8 +123,8 @@ function renderMessages() {
 
         img2.src = logoicon.getAttribute('src');
         img2.alt = item.content; // Set the alt text for accessibility
-        img2.style.height = '40px';
-        img2.style.width = '40px';
+        img2.style.height = '50px';
+        img2.style.width = '50px';
 
 
         // Create a span element for the item details
@@ -156,7 +156,7 @@ function renderMessages() {
 
         li.appendChild(mydiv);
 
-        li.style.width = '90%';
+        li.style.width = '100%';
         li.style.height = '90px';
         li.style.overflow = 'hidden';
 
@@ -164,7 +164,7 @@ function renderMessages() {
 
         // Append the list item to the messages list
         messagesElement.appendChild(li);
-        // matrice.appendChild([li]);
+        
 
 
     });
@@ -197,7 +197,6 @@ function goUpMsg() {
     console.log(focusedIndexMsg);
     if (matrixMsg[focusedIndexMsg]) {
         matrixMsg[focusedIndexMsg].focus();
-        // matrixMsg[focusedIndexMsg].querySelector('img').src = '';
         readMsg();
     }
 }
@@ -213,7 +212,7 @@ function goDownMsg() {
 
     if (matrixMsg[focusedIndexMsg]) {
         matrixMsg[focusedIndexMsg].focus();
-        // matrixMsg[focusedIndexMsg].querySelector('img').src = '';
+       
         readMsg();
     }
 }
@@ -229,61 +228,60 @@ function handleArrowKeysMsg(event) {
         hideMessage();
     }
 }
-
 function readMsg() {
     const MsgTextContainer = document.getElementById("textMsgContainer");
-    MsgTextContainer.style.border = "1px solid";
     const MsgDate = document.getElementById('dateMsg');
-  
+
     var currentMsg = document.activeElement;
     var spanElement = currentMsg.querySelector('span');
-    spanElement.style.display.maxWidth = "50%";
-  
+    const messageText = spanElement.innerText; // Store the message text
+
     if (spanElement) {
-      const messageWidth = spanElement.offsetWidth;
-      const messageHeight = spanElement.offsetHeight;
-  
-      // Check if the bubble container already exists
-      const bubbleContainer = MsgTextContainer.querySelector('.bubbleContainer');
-      if (bubbleContainer) {
-        // If it exists, update the message content inside the existing bubble container
-        const messagePara = bubbleContainer.querySelector('p');
-        messagePara.innerText = spanElement.innerText;
-  
-        // Adjust the bubble container's width and height based on the content size
-        bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
-        bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
-      } else {
-        // If it doesn't exist, create a new bubble container
-        const bubbleContainer = document.createElement('div');
-        bubbleContainer.className = 'bubbleContainer';
-        bubbleContainer.style.position = 'relative';
-        bubbleContainer.style.left = '20px';
-        bubbleContainer.style.top = '50px';
-        bubbleContainer.style.display = 'inline-block';
-        bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
-        bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
-        bubbleContainer.style.borderRadius = '15px'; // Add rounded border
-  
-        // Style the bubble with other CSS properties as needed
-        bubbleContainer.style.backgroundColor = '#f5f5f5';
-        bubbleContainer.style.padding = '10px';
-  
-        // Create a paragraph to display the message content
-        const messagePara = document.createElement('p');
-        messagePara.innerText = spanElement.innerText;
-        bubbleContainer.appendChild(messagePara);
-  
-        // Replace the previous content with the bubble container
-        MsgTextContainer.innerHTML = ''; // Clear the container
-        // MsgTextContainer.appendChild(MsgDate);
-        MsgTextContainer.appendChild(bubbleContainer);
-      }
-  
-      // Update other message details if needed
-      MsgDate.innerHTML = currentMsg.getAttribute('date').replace("T", " ").slice(0, 16);
-      MsgDate.style.position = 'relative';
-      MsgDate.style.left = '50px';
+        const messageWidth = spanElement.offsetWidth;
+        const messageHeight = spanElement.offsetHeight;
+
+        // Check if the bubble container already exists
+        const bubbleContainer = MsgTextContainer.querySelector('.bubbleContainer');
+        if (bubbleContainer) {
+            // If it exists, update the message content inside the existing bubble container
+            const messagePara = bubbleContainer.querySelector('p');
+            messagePara.innerText = messageText; 
+            messagePara.style.maxWidth='50%';
+           
+
+            // Adjust the bubble container's width and height based on the content size
+            bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
+            bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
+        } else {
+            // If it doesn't exist, create a new bubble container
+            const bubbleContainer = document.createElement('div');
+            bubbleContainer.className = 'bubbleContainer';
+            bubbleContainer.style.position = 'relative';
+            bubbleContainer.style.left = '20px';
+            bubbleContainer.style.top = '50px';
+            bubbleContainer.style.display = 'inline-block';
+            bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
+            bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
+            bubbleContainer.style.borderRadius = '15px'; // Add rounded border
+
+            // Style the bubble with other CSS properties as needed
+            bubbleContainer.style.backgroundColor = '#f5f5f5';
+            bubbleContainer.style.padding = '10px';
+
+            // Create a paragraph to display the message content
+            const messagePara = document.createElement('p');
+            messagePara.innerText = messageText; // Use the stored message text
+            bubbleContainer.appendChild(messagePara);
+
+            // Replace the previous content with the bubble container
+            MsgTextContainer.innerHTML = ''; // Clear the container
+            // MsgTextContainer.appendChild(MsgDate);
+            MsgTextContainer.appendChild(bubbleContainer);
+        }
+
+        // Update other message details if needed
+        MsgDate.innerHTML = currentMsg.getAttribute('date').replace("T", " ").slice(0, 16);
+        MsgDate.style.position = 'relative';
+        MsgDate.style.left = '50px';
     }
-  }
-  
+}

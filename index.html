@@ -144,16 +144,26 @@
   <!-- message functionnality  -->
   <div id="containerMsg">
     <div class="rectangleMsg">
+
+      <div class="messageTitle">
+        <img src="./msgicon.png">
+        <span>Message</span>
+
+      </div>
+
       <ul id="messages">
         <!-- Cart items will be added dynamically using JavaScript -->
       </ul>
     </div>
-
-    <div id="textMsgContainer">
+    <div id="MsgContainer">
       <p id="dateMsg">date and time</p>
+      <div id="textMsgContainer">
+       
 
-      <p id="MsgContent">msg content </p>
-      <img id="msgImg" src="4.png">
+        <!-- <p id="MsgContent">No message</p> -->
+
+      </div>
+
     </div>
 
   </div>
@@ -206,11 +216,11 @@
   <script src="./cartRequest.js"></script>
 
   <script src="./manageAds.js"></script>
-  
+
 
   <script>
 
-    showLoadingIndicator();
+    // showLoadingIndicator();
 
 
 
@@ -247,6 +257,7 @@
 
       // Add the event listener using the stored event handler function
       document.addEventListener("keydown", keydownHandler);
+      showLoadingIndicator();
 
 
     } else {
@@ -266,26 +277,11 @@
         document.addEventListener("keydown", keydownHandler);
         //location.reload();
 
+
       });
 
 
     }
-
-    // on get la temperature **********************************************************a corriger 
-    getWeather(city.innerHTML)
-      .then(([icon, temperature]) => {
-        // Use the retrieved icon and temperature here
-        const iconweather = document.querySelector("#iconWeather");
-        const temp = document.querySelector("#weather");
-        iconweather.setAttribute("src", icon);
-        temp.innerHTML = temperature;
-
-      })
-      .catch((error) => {
-        // Handle any errors that occurred during the request
-        console.error("Error:", error);
-      });
-
 
 
     var audio = new Audio("./sound1.wav");

@@ -22,7 +22,8 @@ function closeModal() {
 // info contiendra le token d acces et tous les autre infos necesssaires 
 var infos = {};
 const cityString = document.querySelector("#city");
-const logoicon = document.querySelector("#logo");
+// on mets le logo global car on veut y acceder dans message et billing 
+var logoicon = document.querySelector("#logo");
 const client = document.querySelector("#client");
 const nameHotelstring = document.querySelector("#nameHotel");
 let indexedMatrix;
@@ -32,6 +33,8 @@ function login(user, pass) {
     // "chambre102@ibisavignoncentregare2.com", "abcd1234"
 
     logIn(user, pass).then((data) => {
+
+        
 
         // Save multiple elements in local storage
         if (user && pass) {
@@ -44,7 +47,8 @@ function login(user, pass) {
 
 
 
-        
+
+
         closeModal();
         // showWelcomeMessage();
         // setTimeout(hideWelcomeMessage, 2000);
@@ -63,6 +67,34 @@ function login(user, pass) {
 
 
                 logo.setAttribute('src', `https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
+                console.log(logo);
+                console.log(logoicon);
+
+
+
+
+
+                // on get la temperature **********************************************************a corriger 
+                getWeather(infos.hotelInfos.city)
+                    .then(([icon, temperature]) => {
+                        // Use the retrieved icon and temperature here
+                        const iconweather = document.querySelector("#iconWeather");
+                        const temp = document.querySelector("#weather");
+                        iconweather.setAttribute("src", icon);
+                        temp.innerHTML = temperature + "°C";
+
+                    })
+                    .catch((error) => {
+                        // Handle any errors that occurred during the request
+                        console.error("Error:", error);
+                    });
+
+
+
+
+
+
+
 
                 getPages(infos.hotelId, infos).then((pages) => {
                     infos["pages"] = pages;
@@ -86,8 +118,8 @@ function login(user, pass) {
                     const first = indexedMatrix[1][0];
 
                     playAds(indexedMatrix);
-   
-                  
+
+
                     // wes et the background to be the first element of indexedmatrxi befire we concatanate the two matrix 
                     indexedMatrix[0][0].focus();
 
@@ -97,7 +129,7 @@ function login(user, pass) {
                 });
 
 
-            
+
             });
     });
 

@@ -2,7 +2,7 @@ var messageList = []; // Initialize an empty array
 let focusedIndexMsg = 0;
 let matrixMsg = [];
 
-function getMesg() {
+function getMsg() {
     // retreive the messages from the api
     getMessages(infos)
         .then(function (data) {
@@ -27,7 +27,7 @@ function getMesg() {
 
                     ar.push(message); // Add each message to the array
                     console.log("each message");
-                    console.log(message.creationDate);
+
 
                 });
 
@@ -39,9 +39,8 @@ function getMesg() {
                 // Populate the message matrix
                 matrixMsg = populateMessageMatrix();
 
-                console.log("================================");
-                console.log(matrixMsg);
-
+                localStorage.setItem("messageList", JSON.stringify(messageList));
+                console.log("message sauvegarder");
             } else {
                 console.log("No messages found after the specified date.");
             }
@@ -67,13 +66,57 @@ function focusOnFirstElement() {
 }
 
 
+
 // Assign containerMsg variable here
 var containerMsg = document.getElementById('containerMsg');
 
 
 function showMessage() {
     containerMsg.style.display = 'flex';
-    getMesg();
+    if (messageList === JSON.parse(localStorage.getItem("messageList"))) {
+        //si je trouve des message dans la memoire je get uniquement la deriere message 
+      
+        getlastMessages(infos).then(function (lastMessages) {
+            messageList.forEach(message => {
+
+
+                lastMsg = lastMessages;
+                console.log(lastMsg);
+                console.log(message);
+                console.log("and last message");
+                console.log(lastMsg);
+
+                if (message._id === lastMsg._id) {
+
+                    console.log(message);
+                    console.log("and last message");
+                    console.log(lastMsg);
+
+                } else {
+                    messageList.push(message);
+                    console.log("Message pushed to the list ");
+                }
+
+
+
+            });
+
+        });
+        // si je trourve le tableau de message dans la memoire je ne le get pas je le construit tout simplement je le construit
+
+        renderMessages();
+        focusOnFirstElement();
+        // Populate the message matrix
+        matrixMsg = populateMessageMatrix();
+        console.log("===============message found in memory =================");
+
+    } else {
+
+        getMsg();
+        console.log("===============no   message found in memory =================");
+
+    }
+
 
 
     // Remove the event listener using the stored event handler function
@@ -164,7 +207,7 @@ function renderMessages() {
 
         // Append the list item to the messages list
         messagesElement.appendChild(li);
-        
+
 
 
     });
@@ -181,7 +224,7 @@ function populateMessageMatrix() {
 
     // Create a matrix with the elements
     matrixMsg = Array.from(msgItems);
-    console.log(matrixMsg); // Add the list items as separate elements
+    // Add the list items as separate elements
 
     return matrixMsg;
 }
@@ -193,8 +236,8 @@ function goUpMsg() {
     } else {
         focusedIndexMsg = matrixMsg.length - 1;
     }
-    console.log(matrixMsg);
-    console.log(focusedIndexMsg);
+
+
     if (matrixMsg[focusedIndexMsg]) {
         matrixMsg[focusedIndexMsg].focus();
         readMsg();
@@ -212,7 +255,7 @@ function goDownMsg() {
 
     if (matrixMsg[focusedIndexMsg]) {
         matrixMsg[focusedIndexMsg].focus();
-       
+
         readMsg();
     }
 }
@@ -245,9 +288,12 @@ function readMsg() {
         if (bubbleContainer) {
             // If it exists, update the message content inside the existing bubble container
             const messagePara = bubbleContainer.querySelector('p');
-            messagePara.innerText = messageText; 
-            messagePara.style.maxWidth='50%';
-           
+            messagePara.innerText = messageText;
+
+            const messageWidth = messagePara.offsetWidth;
+            const messageHeight = messagePara.offsetHeight;
+
+
 
             // Adjust the bubble container's width and height based on the content size
             bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
@@ -260,6 +306,10 @@ function readMsg() {
             bubbleContainer.style.left = '20px';
             bubbleContainer.style.top = '50px';
             bubbleContainer.style.display = 'inline-block';
+            // Create a paragraph to display the message content
+            const messagePara = document.createElement('p');
+            messagePara.innerText = messageText; // Use the stored message text
+
             bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
             bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
             bubbleContainer.style.borderRadius = '15px'; // Add rounded border
@@ -268,9 +318,7 @@ function readMsg() {
             bubbleContainer.style.backgroundColor = '#f5f5f5';
             bubbleContainer.style.padding = '10px';
 
-            // Create a paragraph to display the message content
-            const messagePara = document.createElement('p');
-            messagePara.innerText = messageText; // Use the stored message text
+
             bubbleContainer.appendChild(messagePara);
 
             // Replace the previous content with the bubble container

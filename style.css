@@ -606,7 +606,12 @@
    /* Style span */
    #messages li span {
      font-size: 90px;
-     white-space: nowrap;
+     /* align-self: start; */
+     /* align-items: center; */
+     white-space: nowrap; 
+     width: 50%;
+     overflow: hidden;
+
 
    }
 

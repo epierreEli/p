@@ -149,7 +149,7 @@ function actionOnElement() {
 
         if (activeElement.getAttribute('title') == 'Message') {
 
-            showMessage();
+           showMessage();
 
         }
 

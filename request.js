@@ -67,7 +67,7 @@ function getCurrentDateTime(callback) {
 function logIn(email, password) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://hospitality.ansetech.com/api/auth/local", true);
+    xhr.open("POST", "https://hospitality.ansetech.com:7443/api/auth/local", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {

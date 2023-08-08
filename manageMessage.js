@@ -19,28 +19,35 @@ function getMsg() {
                 filteredMessages.forEach(message => {
 
                     var messageObject = {
-                        id: message._id,
+                        _id: message._id,
                         content: message.content,
-                        img: message.linked_image,
-                        date: message.creationDate
+                        linked_image: message.linked_image,
+                        creationDate: message.creationDate,
+                        // state indiquera  si le message est lu ou non :  0 non lu et 1 lu 
+                        status: "0"
                     };
 
-                    ar.push(message); // Add each message to the array
-                    console.log("each message");
+
+
+                    ar.push(messageObject); // Add each message to the array
+
 
 
                 });
 
                 messageList = [...ar]
-
                 console.log(messageList);
+
+                //this array will ben used for comparison after 
+                Message_ListforNotifications = messageList;
+
                 renderMessages(); //render the message list
                 focusOnFirstElement();
                 // Populate the message matrix
                 matrixMsg = populateMessageMatrix();
 
-                localStorage.setItem("messageList", JSON.stringify(messageList));
-                console.log("message sauvegarder");
+
+
             } else {
                 console.log("No messages found after the specified date.");
             }
@@ -57,8 +64,10 @@ function focusOnFirstElement() {
     if (firstMsgItem) {
         firstMsgItem.focus(); // Focus on the first list item
     } else {
-        containerMsg.tabIndex = 0;
-        containerMsg.focus();
+
+        // TO DO S IL LE MESAGGE EST VIDE IL NE FOCUS PAS SUR LE COINTANER DONC ON PEUX PLUS SORTIR
+        const msgtitle = document.getElementById("titlespan");
+        msgtitle.focus();
     }
 
     readMsg();
@@ -70,53 +79,11 @@ function focusOnFirstElement() {
 // Assign containerMsg variable here
 var containerMsg = document.getElementById('containerMsg');
 
+var Message_ListforNotifications = [];
 
 function showMessage() {
     containerMsg.style.display = 'flex';
-    if (messageList === JSON.parse(localStorage.getItem("messageList"))) {
-        //si je trouve des message dans la memoire je get uniquement la deriere message 
-      
-        getlastMessages(infos).then(function (lastMessages) {
-            messageList.forEach(message => {
-
-
-                lastMsg = lastMessages;
-                console.log(lastMsg);
-                console.log(message);
-                console.log("and last message");
-                console.log(lastMsg);
-
-                if (message._id === lastMsg._id) {
-
-                    console.log(message);
-                    console.log("and last message");
-                    console.log(lastMsg);
-
-                } else {
-                    messageList.push(message);
-                    console.log("Message pushed to the list ");
-                }
-
-
-
-            });
-
-        });
-        // si je trourve le tableau de message dans la memoire je ne le get pas je le construit tout simplement je le construit
-
-        renderMessages();
-        focusOnFirstElement();
-        // Populate the message matrix
-        matrixMsg = populateMessageMatrix();
-        console.log("===============message found in memory =================");
-
-    } else {
-
-        getMsg();
-        console.log("===============no   message found in memory =================");
-
-    }
-
+    getMsg();
 
 
     // Remove the event listener using the stored event handler function
@@ -124,14 +91,33 @@ function showMessage() {
 
 
     // Add event listener after defining containerMsg
-    containerMsg.addEventListener('keydown', handleArrowKeysMsg);
+    document.addEventListener('keydown', handleArrowKeysMsg);
 
     readMsg();
+
+    // reinitialize the icon of the msg notif icon 
+    document.getElementById("msgImageNotif").src = "./msgnotif.png"
+
+
+    // si la date de check in n est pas la meme on efface les messaget dans la memoire et la date de check de check in 
+    if (infos.userInfos.checkInDate !== localStorage.getItem("checkInDate")) {
+
+        // console.log("checkInDate in memory: " +localStorage.getItem("checkInDate"));
+        // console.log("checkInDate: " + infos.userInfos.checkInDate);
+        localStorage.setItem("checkInDate", "");
+        localStorage.setItem("messageList", "");
+
+    }
 
 
 }
 
 function hideMessage() {
+
+    localStorage.setItem("messageList", JSON.stringify(MixedMessagessavedNew));
+    localStorage.setItem("checkInDate", infos.userInfos.checkInDate);
+    console.log("message sauvegarder");
+
 
     const msgItemsElement = document.getElementById('messages');
     msgItemsElement.innerHTML = "";
@@ -140,23 +126,106 @@ function hideMessage() {
 
     document.addEventListener('keydown', keydownHandler);
 
-    containerMsg.removeEventListener("keydown", handleArrowKeysMsg);
+    document.removeEventListener("keydown", handleArrowKeysMsg);
 }
 
+
+setInterval(MsgNotification, 30000); // 60000 milliseconds = 1 minute
+
+
+function MsgNotification() {
+    // Assuming `getlastMessages()` is an asynchronous function that returns a Promise
+    getlastMessages(infos).then(function (data) {
+        // Parse the data received from getlastMessages() into a JavaScript object
+        const lastmessages = data;
+
+        // Get the saved message list from the localStorage and parse it
+        const mysavedmessageList = JSON.parse(localStorage.getItem("messageList"));
+
+        if (mysavedmessageList && mysavedmessageList.length > 0) {
+
+
+            if (mysavedmessageList[mysavedmessageList.length - 1]._id !== lastmessages[0]._id) {
+                console.log("Message notif");
+
+                document.getElementById("msgImageNotif").src = "./NEWMSG.png"
+            } else {
+                console.log("No new message");
+            }
+
+
+        } else if((!mysavedmessageList)&&lastmessages){
+            document.getElementById("msgImageNotif").src = "./NEWMSG.png"
+        
+        }
+        else {
+            console.log("No saved messages  no new msg .");
+        }
+    }).catch(function (error) {
+        console.error("Error retrieving messages:", error);
+    });
+}
+
+
+
+var MixedMessagessavedNew = [];
+
+
+//  dans la construction du message(Dom) on essaie de concatener le messages dans la memoir et le messages recuperer
 function renderMessages() {
+
+
+    console.log(messageList);
+
+    const mysavedmessageList = JSON.parse(localStorage.getItem("messageList"));
+    if (mysavedmessageList && mysavedmessageList.length > 0 && messageList.length > mysavedmessageList.length) {
+
+
+
+        MixedMessagessavedNew = mysavedmessageList;
+        for (let i = mysavedmessageList.length; i < messageList.length; i++) {
+
+            console.log(messageList[i]);
+            MixedMessagessavedNew.push(messageList[i]);
+        }
+
+
+    }
+    else if (mysavedmessageList.length==0) {
+        MixedMessagessavedNew = messageList;
+       
+    }
+    else {
+        MixedMessagessavedNew = mysavedmessageList;
+        console.log("JININININININIDJIIIHIIIDJJJ");
+    }
+
+
+    console.log("in memory");
+    console.log(mysavedmessageList);
+    console.log("aftermod");
+    console.log("MixedMessagessavedNew");
+
+    console.log(MixedMessagessavedNew);
+
     var messagesElement = document.getElementById('messages');
 
     messagesElement.innerHTML = ''; // Clear the existing items
 
 
-    messageList.forEach((item) => {
+    MixedMessagessavedNew.forEach((item) => {
         // Create a list item for messages
         const li = document.createElement('li');
         li.tabIndex = 0; // Add tabindex to make it focusable
 
         // Create an image element
         const img = document.createElement('img');
-        img.src = './unreadmsg.png'; // Replace with the actual path to the image
+      
+
+        // condition apres lecture 
+        if (item.status && item.status === "1") img.src = './read.png';
+        else if (item.status && item.status === "0") img.src = './unreadmsg.png';
+
         img.alt = item.content; // Set the alt text for accessibility
         img.style.height = '20px';
         img.style.width = '20px';
@@ -172,10 +241,24 @@ function renderMessages() {
 
         // Create a span element for the item details
         const span = document.createElement('span');
-        span.style.fontSize = '20px';
         span.innerText = item.content;
+        span.style.fontSize = '20px';
+
+        // condition aprs lecture a ajoute ici 
+        if (item.status === "0") span.style.fontWeight = 'bold';
+
         //sauvegarde de la date pour y acceder apres 
         li.setAttribute('date', item.creationDate);
+
+
+        if (item.linked_image) li.setAttribute('msgimage', JSON.stringify(item.linked_image));
+
+
+
+
+        li.setAttribute('id', item._id);
+    
+
 
         span.style.color = 'white';
 
@@ -212,8 +295,6 @@ function renderMessages() {
 
     });
 
-    // Update the message matrix
-    // matrixMsg = populateMessageMatrix();
 }
 
 
@@ -271,17 +352,116 @@ function handleArrowKeysMsg(event) {
         hideMessage();
     }
 }
+var imageUrls = [];
+/*
+function createBubbleForImage(imageUrls) {
+    const MsgTextContainer = document.getElementById("textMsgContainer");
+    // If it doesn't exist, create a new bubble container
+   let bubbleContainerImg=MsgTextContainer.querySelector(".bubImgContainer");
+    
+    if (bubbleContainerImg) {
+        
+        for (let i = 0; i < imageUrls.length; i++) {
+
+            const image = document.createElement('img');
+            image.src = imageUrls[i];
+            image.style.height = '100px';
+            image.style.width = '100px';
+
+
+            bubbleContainerImg.appendChild(image);
+
+        }
+
+    } else {
+
+        const bubbleContainerImg = document.createElement('div');
+        bubbleContainerImg.className = 'bubbleContainerImg';
+        bubbleContainerImg.style.position = 'relative';
+        bubbleContainerImg.style.left = '20px';
+        bubbleContainerImg.style.top = '50px';
+        bubbleContainerImg.style.display = 'inline-block';
+        bubbleContainerImg.style.margin = '5px';
+        // Create a paragraph to display the message content
+
+        for (let i = 0; i < imageUrls.length; i++) {
+
+            const image = document.createElement('img');
+            image.src = imageUrls[i];
+            image.style.height = '100px';
+            image.style.width = '100px';
+
+
+            bubbleContainerImg.appendChild(image);
+
+        }
+
+    }
+
+
+
+    //  bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
+    //     bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
+    //     bubbleContainer.style.borderRadius = '15px'; // Add rounded border
+
+    // // Style the bubble with other CSS properties as needed
+    bubbleContainerImg.style.backgroundColor = '#f5f5f5';
+    // bubbleContainer.style.padding = '10px';
+
+
+    MsgTextContainer.appendChild(bubbleContainerImg);
+
+
+}*/
+
+
 function readMsg() {
     const MsgTextContainer = document.getElementById("textMsgContainer");
     const MsgDate = document.getElementById('dateMsg');
 
     var currentMsg = document.activeElement;
     var spanElement = currentMsg.querySelector('span');
-    const messageText = spanElement.innerText; // Store the message text
+
+
+    //    mise a jour du tabbleau en mettant que le message st lu ou non 
+    for (var j = 0; j < MixedMessagessavedNew.length ; j++) {
+
+        if (currentMsg.getAttribute('id') === MixedMessagessavedNew[j]._id) {
+            MixedMessagessavedNew[j].status = "1";
+
+        }
+
+    }
+
+
+    if (currentMsg.getAttribute('msgimage')) {
+
+        //onn vide le tableau d image avant de le reremplir 
+        imageUrls = [];
+        const msgImageString = currentMsg.getAttribute('msgimage');
+        const imageObj = JSON.parse(msgImageString);
+
+        for (let i = 0; i < imageObj.length; i++) {
+            var url = `http://hospitality.ansetech.com/host/files/images/${imageObj[i]}`
+            imageUrls.push(url);
+        }
+    }
+
+
+
+
 
     if (spanElement) {
+        // efffet visuel de text lu 
+        spanElement.style.fontWeight = "normal";
+        currentMsg.querySelectorAll('img')[1].src = "./read.png";
+
+        const messageText = spanElement.innerText;
         const messageWidth = spanElement.offsetWidth;
         const messageHeight = spanElement.offsetHeight;
+        console.log("taille message");
+        console.log(messageWidth);
+        console.log(messageHeight);
 
         // Check if the bubble container already exists
         const bubbleContainer = MsgTextContainer.querySelector('.bubbleContainer');
@@ -290,14 +470,15 @@ function readMsg() {
             const messagePara = bubbleContainer.querySelector('p');
             messagePara.innerText = messageText;
 
-            const messageWidth = messagePara.offsetWidth;
-            const messageHeight = messagePara.offsetHeight;
+            const messageWidth = "50%";
+            // const messageHeight = messagePara.offsetHeight;
+            const messageHeight="auto";
 
 
+      
+            // bubbleContainer.style.w = ; // Add some padding to the width
+            // bubbleContainer.style.height=;
 
-            // Adjust the bubble container's width and height based on the content size
-            bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
-            bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
         } else {
             // If it doesn't exist, create a new bubble container
             const bubbleContainer = document.createElement('div');
@@ -306,12 +487,12 @@ function readMsg() {
             bubbleContainer.style.left = '20px';
             bubbleContainer.style.top = '50px';
             bubbleContainer.style.display = 'inline-block';
+
+            // bubbleContainer.style.wordWrap= "break-word";
             // Create a paragraph to display the message content
             const messagePara = document.createElement('p');
             messagePara.innerText = messageText; // Use the stored message text
 
-            bubbleContainer.style.width = `${messageWidth + 20}px`; // Add some padding to the width
-            bubbleContainer.style.height = `${messageHeight + 20}px`; // Add some padding to the height
             bubbleContainer.style.borderRadius = '15px'; // Add rounded border
 
             // Style the bubble with other CSS properties as needed
@@ -326,6 +507,9 @@ function readMsg() {
             // MsgTextContainer.appendChild(MsgDate);
             MsgTextContainer.appendChild(bubbleContainer);
         }
+
+
+        // createBubbleForImage(imageUrls);
 
         // Update other message details if needed
         MsgDate.innerHTML = currentMsg.getAttribute('date').replace("T", " ").slice(0, 16);

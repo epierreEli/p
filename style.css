@@ -179,6 +179,10 @@
      font-size: 30px;
    }
 
+   #infoHD img {
+    height: 10px;
+    width: auto;
+   }
 
    header #info {
      display: flex;
@@ -526,6 +530,8 @@
    /* css of the messages  */
 
    #containerMsg {
+    /* overflow: hidden; */
+
      background-color: #495459;
      /* Transparent blue background */
      margin: 0;
@@ -584,6 +590,8 @@
    #unreadmessages {
      list-style: none;
      padding: 10px;
+
+     overflow: hidden;
    }
 
    /* Style list items */
@@ -643,8 +651,8 @@
      height: 100vh;
      width: 100vh;
 
-    align-items: left;
-     /* background-image: url('e.jpg'); */
+   
+    
 
    }
    

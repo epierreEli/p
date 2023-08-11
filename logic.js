@@ -137,29 +137,29 @@ function actionOnElement() {
     if (activeElement.classList.contains('application')) {
 
 
-        if (activeElement.getAttribute('title') == 'Panier') {
+        if (activeElement.getAttribute('title') == 'PANIER') {
             showCart();
         }
 
-        if (activeElement.getAttribute('title') == 'Parametres') {
+        if (activeElement.getAttribute('title') == 'PARAMETRES') {
 
             showSettings();
 
         }
 
-        if (activeElement.getAttribute('title') == 'Message') {
+        if (activeElement.getAttribute('title') == 'MESSAGE') {
 
            showMessage();
 
         }
 
 
-        if (activeElement.getAttribute('title') == 'tv') {
+        if (activeElement.getAttribute('title') == 'TV') {
             // test youtube par lien 
             window.open('https://www.youtube.com/', '_blank');
             console.log("YouTube");}
 
-        if (activeElement.getAttribute('title') == 'Billing') {
+        if (activeElement.getAttribute('title') == 'BILLING') {
 
                 // To do to be replace by show Biling infos 
 

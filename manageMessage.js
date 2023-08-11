@@ -2,6 +2,8 @@ var messageList = []; // Initialize an empty array
 let focusedIndexMsg = 0;
 let matrixMsg = [];
 
+
+
 function getMsg() {
     // retreive the messages from the api
     getMessages(infos)
@@ -96,8 +98,7 @@ function showMessage() {
     readMsg();
 
     // reinitialize the icon of the msg notif icon 
-    document.getElementById("msgImageNotif").src = "./msgnotif.png"
-
+    hideNotifCircle();
 
     // si la date de check in n est pas la meme on efface les messaget dans la memoire et la date de check de check in 
     if (infos.userInfos.checkInDate !== localStorage.getItem("checkInDate")) {
@@ -113,7 +114,7 @@ function showMessage() {
 }
 
 function hideMessage() {
-
+    console.log(MixedMessagessavedNew);
     localStorage.setItem("messageList", JSON.stringify(MixedMessagessavedNew));
     localStorage.setItem("checkInDate", infos.userInfos.checkInDate);
     console.log("message sauvegarder");
@@ -132,6 +133,15 @@ function hideMessage() {
 
 setInterval(MsgNotification, 30000); // 60000 milliseconds = 1 minute
 
+function showNotifCircle(numberOfNewMessages) {
+    document.getElementById("circleIN").style.display = "flex";
+    document.getElementById("textIn").innerHTML = numberOfNewMessages;
+
+}
+function hideNotifCircle() {
+    document.getElementById("circleIN").style.display = "none";
+}
+
 
 function MsgNotification() {
     // Assuming `getlastMessages()` is an asynchronous function that returns a Promise
@@ -142,24 +152,51 @@ function MsgNotification() {
         // Get the saved message list from the localStorage and parse it
         const mysavedmessageList = JSON.parse(localStorage.getItem("messageList"));
 
-        if (mysavedmessageList && mysavedmessageList.length > 0) {
+        if (mysavedmessageList && mysavedmessageList.length > 0  /*&& messageList.length > mysavedmessageList.length*/) {
 
-
+            // on regarde si les deux dernier messages (memoire et reception ) sont differents 
             if (mysavedmessageList[mysavedmessageList.length - 1]._id !== lastmessages[0]._id) {
-                console.log("Message notif");
+                //detection d un changement dans les messages 
+                // mise a jour de la base de messages (meesageList) et comparaison avec les messages dans la memoire
+                getMsg();
+                let numberOfSimilarMsg = 0;
+                let numberOfNewMessages = 0;
 
-                document.getElementById("msgImageNotif").src = "./NEWMSG.png"
-            } else {
+                for (let i = 0; i < messageList.length; i++) {
+                    let foundMatch = false;
+
+                    for (let j = 0; j < mysavedmessageList.length; j++) {
+                        if (mysavedmessageList[j]._id === messageList[i]._id) {
+                            numberOfSimilarMsg++; // Increment if _id matches in both arrays
+                            foundMatch = true;
+                            break; // No need to continue searching for the same message
+                        }
+                    }
+
+                    if (!foundMatch) {
+                        numberOfNewMessages++; // Increment if no match was found in mysavedmessageList
+                    }
+                }
+
+                if (numberOfNewMessages > 0) showNotifCircle(numberOfNewMessages);
+
+            }
+            else {
                 console.log("No new message");
             }
 
 
-        } else if((!mysavedmessageList)&&lastmessages){
-            document.getElementById("msgImageNotif").src = "./NEWMSG.png"
-        
+        } else if ((mysavedmessageList.length = 0) && lastmessages.length > 0) {
+            getMsg();
+
+            numberOfNewMessages = messageList.length;
+            showNotifCircle(numberOfNewMessages);
+            // document.getElementById("msgImageNotif").src = "./NEWMSG.png"
+
         }
         else {
             console.log("No saved messages  no new msg .");
+            console.log(messageList);
         }
     }).catch(function (error) {
         console.error("Error retrieving messages:", error);
@@ -175,38 +212,53 @@ var MixedMessagessavedNew = [];
 function renderMessages() {
 
 
-    console.log(messageList);
 
     const mysavedmessageList = JSON.parse(localStorage.getItem("messageList"));
-    if (mysavedmessageList && mysavedmessageList.length > 0 && messageList.length > mysavedmessageList.length) {
+    console.log("saved message");
+    console.log(mysavedmessageList);
+
+    if (mysavedmessageList && mysavedmessageList.length > 0/* && messageList.length > mysavedmessageList.length*/) {
+        MixedMessagessavedNew = [];
 
 
 
-        MixedMessagessavedNew = mysavedmessageList;
-        for (let i = mysavedmessageList.length; i < messageList.length; i++) {
+        // pour pouvoir gere les messages effacer on va d avbord verifier qu il sont dans la liste de larecption avant de le garder
+        for (let k = 0; k < mysavedmessageList.length; k++) {
+            
+            for (let v = 0; v < messageList.length; v++) {
 
-            console.log(messageList[i]);
+                if (mysavedmessageList[k]._id === messageList[v]._id) {
+                
+                    MixedMessagessavedNew.push(mysavedmessageList[k]);
+                }
+                
+            }
+        
+         
+        }
+        console.log("gnfnnfidnfinfn");
+        console.log(MixedMessagessavedNew);
+        
+        const length = MixedMessagessavedNew.length 
+        for (let i = length; i < messageList.length; i++) {
+
+
             MixedMessagessavedNew.push(messageList[i]);
         }
+        
+        console.log("gnfnnfidnfinfn");
+        console.log(MixedMessagessavedNew);
 
 
     }
-    else if (mysavedmessageList.length==0) {
+    else if (mysavedmessageList.length == 0) {
         MixedMessagessavedNew = messageList;
-       
+
     }
     else {
         MixedMessagessavedNew = mysavedmessageList;
-        console.log("JININININININIDJIIIHIIIDJJJ");
+
     }
-
-
-    console.log("in memory");
-    console.log(mysavedmessageList);
-    console.log("aftermod");
-    console.log("MixedMessagessavedNew");
-
-    console.log(MixedMessagessavedNew);
 
     var messagesElement = document.getElementById('messages');
 
@@ -220,7 +272,7 @@ function renderMessages() {
 
         // Create an image element
         const img = document.createElement('img');
-      
+
 
         // condition apres lecture 
         if (item.status && item.status === "1") img.src = './read.png';
@@ -257,7 +309,7 @@ function renderMessages() {
 
 
         li.setAttribute('id', item._id);
-    
+
 
 
         span.style.color = 'white';
@@ -424,7 +476,7 @@ function readMsg() {
 
 
     //    mise a jour du tabbleau en mettant que le message st lu ou non 
-    for (var j = 0; j < MixedMessagessavedNew.length ; j++) {
+    for (var j = 0; j < MixedMessagessavedNew.length; j++) {
 
         if (currentMsg.getAttribute('id') === MixedMessagessavedNew[j]._id) {
             MixedMessagessavedNew[j].status = "1";
@@ -459,9 +511,7 @@ function readMsg() {
         const messageText = spanElement.innerText;
         const messageWidth = spanElement.offsetWidth;
         const messageHeight = spanElement.offsetHeight;
-        console.log("taille message");
-        console.log(messageWidth);
-        console.log(messageHeight);
+        
 
         // Check if the bubble container already exists
         const bubbleContainer = MsgTextContainer.querySelector('.bubbleContainer');
@@ -470,14 +520,6 @@ function readMsg() {
             const messagePara = bubbleContainer.querySelector('p');
             messagePara.innerText = messageText;
 
-            const messageWidth = "50%";
-            // const messageHeight = messagePara.offsetHeight;
-            const messageHeight="auto";
-
-
-      
-            // bubbleContainer.style.w = ; // Add some padding to the width
-            // bubbleContainer.style.height=;
 
         } else {
             // If it doesn't exist, create a new bubble container

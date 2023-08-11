@@ -768,7 +768,7 @@
 
 
    /*message notifaction circle css */
-   .circleIN {
+   #circleIN {
     height: 12px;
     width: 12px;
     background-color: #e02a2a;

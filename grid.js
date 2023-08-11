@@ -3,11 +3,11 @@ var gridDataApp = [
     {
         title: "",
         children: [
-            { title: "tv", icon: "ic_television_icon.png", text: "Description 2", disabled: false },
-            { title: "Message", icon: "3.png", text: "envoyer des message", disabled: false },
-            { title: "Panier", icon: "4.png", text: "faites vos achats", disabled: false },
-            { title: "Billing", icon: "billing.png", text: "Description 1", disabled: false },
-            { title: "Parametres", icon: "ic_settings_icon.png", text: "Description 1", disabled: false }
+            { title: "TV", icon: "ic_television_icon.png", text: "Description 2", disabled: false },
+            { title: "MESSAGE", icon: "3.png", text: "envoyer des message", disabled: false },
+            { title: "PANIER", icon: "4.png", text: "faites vos achats", disabled: false },
+            { title: "BILLING", icon: "billing.png", text: "Description 1", disabled: false },
+            { title: "PARAMETRES", icon: "ic_settings_icon.png", text: "Description 1", disabled: false }
 
 
         ]

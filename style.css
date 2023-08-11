@@ -179,10 +179,7 @@
      font-size: 30px;
    }
 
-   #infoHD img {
-    height: 10px;
-    width: auto;
-   }
+
 
    header #info {
      display: flex;
@@ -201,7 +198,7 @@
    }
 
    header #info img {
-     height: 30px;
+     height: 20px;
      margin-right: 20px;
    }
 
@@ -768,3 +765,37 @@
      height: 50px;
      width: 100px;
    }
+
+
+   /*message notifaction circle css */
+   .circleIN {
+    height: 12px;
+    width: 12px;
+    background-color: #e02a2a;
+    border-radius: 50%;
+    display: inline-block;
+
+    /* position relative to the image  */
+    position: absolute;
+    top:  -5px;
+    right: 15px;
+
+    /* Center the content (number) in the circle */
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    /* Text styles */
+    color: white;
+    font-size: 7px !important;
+}
+
+#messageNotif {
+    position: relative;
+    display: inline-block;
+}
+
+#imgC {
+    
+    width: auto;
+}

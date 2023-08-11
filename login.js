@@ -67,11 +67,7 @@ function login(user, pass) {
 
 
                 logo.setAttribute('src', `https://hospitality.ansetech.com/host/${infos.hotelInfos.picturePath}`);
-                console.log(logo);
-                console.log(logoicon);
-
-
-
+              
 
 
                 // on get la temperature **********************************************************a corriger 

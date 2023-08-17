@@ -12,6 +12,9 @@ function hideCart() {
 
   cart_container.removeEventListener("keydown", handleArrowKeys);
 
+
+  showCartNotif(numberOfElementsInCart);
+
 }
 
 function showCart() {
@@ -39,13 +42,13 @@ function showCart() {
 
 
 
-
+var numberOfElementsInCart =0;
 
 // Function to calculate the total price of the cart items
 function calculateTotal() {
   let total = 0;
   cartItems.forEach(item => {
-
+    numberOfElementsInCart++;
     // Remove the euro symbol from the price string
     const priceWithoutEuro = item.price.replace('€', '');
 
@@ -155,7 +158,7 @@ function handleRightLeftKeys(event) {
 const continueButton = document.getElementById('continue-btn');
 continueButton.addEventListener('click', function () {
   hideCart();
-  
+
 });
 
 
@@ -256,3 +259,15 @@ function updateFocus() {
     }
   });
 }
+
+function showCartNotif(numberOfElements) {
+  document.getElementById("yellowCircleIN").style.display = "flex";
+  document.getElementById("textInCart").innerHTML = numberOfElements;
+
+}
+
+
+function hideCartNotif() {
+  document.getElementById("yellowCircleIN").style.display = "none";
+}
+

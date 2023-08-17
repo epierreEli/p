@@ -114,7 +114,7 @@ function showMessage() {
 }
 
 function hideMessage() {
-    console.log(MixedMessagessavedNew);
+
     localStorage.setItem("messageList", JSON.stringify(MixedMessagessavedNew));
     localStorage.setItem("checkInDate", infos.userInfos.checkInDate);
     console.log("message sauvegarder");

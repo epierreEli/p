@@ -799,3 +799,38 @@
     
     width: auto;
 }
+
+
+/* CartNotif css      */
+
+#yellowCircleIN {
+  height: 12px;
+  width: 12px;
+  background-color: #efff0b;
+  border-radius: 50%;
+  display: inline-block;
+
+  /* position relative to the image  */
+  position: absolute;
+  top:  3px;
+  right: 29px;
+
+  /* Center the content (number) in the circle */
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  /* Text styles */
+  color: rgb(0, 0, 0);
+  font-size: 7px !important;
+}
+
+#CartNotif {
+  position: relative;
+  display: inline-block;
+}
+
+#imgcart {
+  height: 30px !important;
+  width: auto;
+}

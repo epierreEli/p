@@ -67,7 +67,7 @@ function getCurrentDateTime(callback) {
 function logIn(email, password) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://hospitality.ansetech.com:7443/api/auth/local", true);
+    xhr.open("POST", "https://hospitality.ansetech.com/api/auth/local", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
@@ -90,7 +90,7 @@ function logIn(email, password) {
 function getUser(userId, infos) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", `https://hospitality.ansetech.com:7443/api/users/${userId}`);
+    xhr.open("GET", `https://hospitality.ansetech.com/api/users/${userId}`);
     xhr.setRequestHeader("Authorization", "Bearer " + infos.token);
     xhr.onload = function () {
       if (xhr.status === 200) {
@@ -111,7 +111,7 @@ function getUser(userId, infos) {
 function getHotel(hotelId, infos) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", `https://hospitality.ansetech.com:7443/api/hotels/${hotelId}`);
+    xhr.open("GET", `https://hospitality.ansetech.com/api/hotels/${hotelId}`);
     xhr.setRequestHeader("Authorization", "Bearer " + infos.token);
     xhr.onload = function () {
       if (xhr.status === 200) {
@@ -131,7 +131,7 @@ function getHotel(hotelId, infos) {
 function getPages(hotelId, infos) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
-    var url = "https://hospitality.ansetech.com:7443/api/pages/fr/" + hotelId;
+    var url = "https://hospitality.ansetech.com/api/pages/fr/" + hotelId;
 
     xhr.open("GET", url);
     xhr.setRequestHeader("Authorization", "Bearer " + infos.token);

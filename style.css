@@ -423,10 +423,15 @@
    }
 
    #full-image {
+     top: 0;
      background-image: url('e.jpg');
      background-size: cover;
      background-position: center;
      height: 100%;
+     width: 100%;
+    
+     position: fixed;
+     z-index: 91;
    }
 
    #blackrectangle {
@@ -436,7 +441,7 @@
      top: 50%;
      left: 0;
      width: 100%;
-     z-index: 1;
+     z-index: 92;
    }
 
    #minirectangle {
@@ -446,7 +451,7 @@
      top: 50%;
      left: 0;
      width: 100%;
-     z-index: 1;
+     z-index: 92;
    }
 
    #imagest {
@@ -459,7 +464,7 @@
      position: absolute;
      top: 37%;
      left: 10%;
-     z-index: 1;
+     z-index: 92;
    }
 
    #button-info {
@@ -527,7 +532,7 @@
    /* css of the messages  */
 
    #containerMsg {
-    /* overflow: hidden; */
+     /* overflow: hidden; */
 
      background-color: #495459;
      /* Transparent blue background */
@@ -560,26 +565,26 @@
 
      height: 60px;
      width: var(--retangleMsg-width);
-     
-     display:flex;
+
+     display: flex;
      flex-direction: row;
      align-items: center;
    }
 
-   
-   .messageTitle img{
 
-    height: 60px;
-    
-  }
+   .messageTitle img {
 
-     
-  .messageTitle span{
+     height: 60px;
 
-    font-size: 30px;
-    color: white;
-    
-  }
+   }
+
+
+   .messageTitle span {
+
+     font-size: 30px;
+     color: white;
+
+   }
 
 
    /* Remove default list styles */
@@ -613,7 +618,7 @@
      font-size: 90px;
      /* align-self: start; */
      /* align-items: center; */
-     white-space: nowrap; 
+     white-space: nowrap;
      width: 50%;
      overflow: hidden;
 
@@ -648,11 +653,11 @@
      height: 100vh;
      width: 100vh;
 
-   
-    
+
+
 
    }
-   
+
 
 
    /* billing info management  css*/
@@ -769,68 +774,68 @@
 
    /*message notifaction circle css */
    #circleIN {
-    height: 12px;
-    width: 12px;
-    background-color: #e02a2a;
-    border-radius: 50%;
-    display: inline-block;
+     height: 12px;
+     width: 12px;
+     background-color: #e02a2a;
+     border-radius: 50%;
+     display: inline-block;
 
-    /* position relative to the image  */
-    position: absolute;
-    top:  -5px;
-    right: 15px;
+     /* position relative to the image  */
+     position: absolute;
+     top: -5px;
+     right: 15px;
 
-    /* Center the content (number) in the circle */
-    display: none;
-    align-items: center;
-    justify-content: center;
+     /* Center the content (number) in the circle */
+     display: none;
+     align-items: center;
+     justify-content: center;
 
-    /* Text styles */
-    color: white;
-    font-size: 7px !important;
-}
+     /* Text styles */
+     color: white;
+     font-size: 7px !important;
+   }
 
-#messageNotif {
-    position: relative;
-    display: inline-block;
-}
+   #messageNotif {
+     position: relative;
+     display: inline-block;
+   }
 
-#imgC {
-    
-    width: auto;
-}
+   #imgC {
+
+     width: auto;
+   }
 
 
-/* CartNotif css      */
+   /* CartNotif css      */
 
-#yellowCircleIN {
-  height: 12px;
-  width: 12px;
-  background-color: #efff0b;
-  border-radius: 50%;
-  display: inline-block;
+   #yellowCircleIN {
+     height: 12px;
+     width: 12px;
+     background-color: #efff0b;
+     border-radius: 50%;
+     display: inline-block;
 
-  /* position relative to the image  */
-  position: absolute;
-  top:  3px;
-  right: 29px;
+     /* position relative to the image  */
+     position: absolute;
+     top: 3px;
+     right: 29px;
 
-  /* Center the content (number) in the circle */
-  display: none;
-  align-items: center;
-  justify-content: center;
+     /* Center the content (number) in the circle */
+     display: none;
+     align-items: center;
+     justify-content: center;
 
-  /* Text styles */
-  color: rgb(0, 0, 0);
-  font-size: 7px !important;
-}
+     /* Text styles */
+     color: rgb(0, 0, 0);
+     font-size: 7px !important;
+   }
 
-#CartNotif {
-  position: relative;
-  display: inline-block;
-}
+   #CartNotif {
+     position: relative;
+     display: inline-block;
+   }
 
-#imgcart {
-  height: 30px !important;
-  width: auto;
-}
+   #imgcart {
+     height: 30px !important;
+     width: auto;
+   }

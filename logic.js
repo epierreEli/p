@@ -199,6 +199,8 @@ function actionOnElement() {
 
 // Define the event handler function separately
 function keydownHandler(e) {
+
+document.getElementById("eventcode").innerHTML=e.keyCode;
     if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 13 || e.keyCode == 8) {
         e.preventDefault();
         logicEvent(indexedMatrix, e, function (myEvent, controles) {

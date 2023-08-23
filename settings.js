@@ -28,7 +28,7 @@ function showSettings() {
     optionsContainer.addEventListener('keydown', handleArrowKeysSettings);
 
     settingsMatrix[0][1].focus();
-    
+
 }
 
 hideSettings();
@@ -51,7 +51,7 @@ function populateMatrix() {
         var label = option.querySelector('label').textContent;
 
         // Get the associated input element
-        var input = option.querySelector('input');
+        var input = option.querySelector('.switch');
         var select = option.querySelector('select');
 
         if (!input && !select) continue; // Skip the option if there's no input or select element
@@ -63,7 +63,7 @@ function populateMatrix() {
         } else {
             element = select;
         }
-       
+
 
 
         // Push the label and element (input or select) to the matrix
@@ -93,6 +93,13 @@ function handleArrowKeysSettings(event) {
     } else if (event.keyCode === 461 || event.keyCode === 8) {
         hideSettings();
     }
+   /* else if (event.keyCode === 13) {
+        console.log(document.activeElement);
+        if(document.activeElement.querySelector(".switch"))
+        console.log("");
+        document.activeElement.click();
+        
+    }*/
 }
 
 // Function to handle going up to the previous element

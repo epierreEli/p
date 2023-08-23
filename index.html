@@ -9,7 +9,9 @@
 </head>
 
 <body id="body">
-
+  <p id="useragent">user AGent</p>
+  <p id="eventcode">eventcode</p>
+  <div id="error-container">erroore kdbcbbscbbu</div>
   <!-- en tete -->
   <!-- testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttde code event  -->
   <header id="header">
@@ -94,23 +96,19 @@
 
   <!-- settings menu -->
   <div id="settings-container">
-    <h1 id="settings-title">Settings</h1>
+    <h1 id="settings-title">Parametres</h1>
     <div id="options-container">
       <div class="option">
-        <label for="language-option">Language:</label>
+        <label for="language-option">Langues:</label>
         <select id="language-option">
           <option value="en">English</option>
-          <option value="fr">French</option>
+          <option value="fr">Francais</option>
           <option value="sp">Spanish</option>
           <!-- Add more language options here -->
         </select>
       </div>
       <div class="option">
-        <label for="news-option">News:</label>
-        <input type="checkbox" id="news-option">
-      </div>
-      <div class="option">
-        <label for="accessibility-option">Accessibility:</label>
+        <label for="accessibility-option">Accessibilité</label>
         <select id="textSize">
           <option value="en">petit</option>
           <option value="fr">Medium</option>
@@ -118,10 +116,29 @@
 
         </select>
       </div>
+
+      <div class="option">
+        <p>Test</p>
+        <label class="switch" for="checkbox">
+          <input type="checkbox" id="checkbox" />
+          <div class="slider round"></div>
+        </label>
+      </div>
+
+      <div class="option">
+        <label for="news-option">News:</label>
+        <input type="checkbox" id="news-option">
+      </div>
+
       <div class="option">
         <label for="slideshow-option">Slideshow Activation:</label>
         <input type="checkbox" id="slideshow-option">
       </div>
+      <div class="option">
+        <label for="slideshow-option">Mode sombre:</label>
+        <input type="checkbox" id="slideshow-option">
+      </div>
+
     </div>
   </div>
 
@@ -131,7 +148,7 @@
     <div id="blackrectangle">
       <div id="description">
         <h3 id="info-title">titre de base </h3>
-        <p id="infodescription">sofuuuuuuuuuuubuvofvbfvobsvb</p>
+        <p id="infodescription">page info</p>
       </div>
     </div>
     <div id="minirectangle">
@@ -230,8 +247,12 @@
 
 
   <script>
-
+//document.getElementById("useragent").innerHTML = window.navigator.userAgent;
     // showLoadingIndicator();
+    window.onerror = function(message, source, lineno, colno, error) {
+            var errorContainer = document.getElementById("error-container");
+            errorContainer.innerHTML += "<p>Error: " + message + " at line " + lineno + "</p>";
+        };
 
 
 

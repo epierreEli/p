@@ -203,16 +203,16 @@ function keydownHandler(e) {
 document.getElementById("eventcode").innerHTML=e.keyCode;
     if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 13 || e.keyCode == 8) {
         e.preventDefault();
-        logicEvent(indexedMatrix, e, function (myEvent, controles) {
-            switch (myEvent) {
-                case logicEvents.CANT_GO_RIGHT:
-                    // controles.goDownFirst();
-                    break;
-                case logicEvents.CANT_GO_LEFT:
-                    // controles.goUpLast();
-                    break;
-            }
-        });
+        // logicEvent(indexedMatrix, e, function (myEvent, controles) {
+        //     switch (myEvent) {
+        //         case logicEvents.CANT_GO_RIGHT:
+        //             // controles.goDownFirst();
+        //             break;
+        //         case logicEvents.CANT_GO_LEFT:
+        //             // controles.goUpLast();
+        //             break;
+        //     }
+        // });
         smoothScrollToElement(document.activeElement);
         // document.activeElement.parentElement.scrollTo(document.activeElement)
         // we want to see the attributes of the active element

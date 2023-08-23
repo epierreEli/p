@@ -12,7 +12,7 @@ function arrowLoginKeyHandler(event) {
 // suite testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
 // var eventCOde=document.getElementById('eventCode');
 // eventCOde.innerHTML=event.keyCode ;
-
+    console.error("eventCO")
     if (event.keyCode === 38) {
         // Up arrow key logic
         if (document.activeElement === loginButton) {
@@ -33,6 +33,13 @@ function arrowLoginKeyHandler(event) {
         }
     } else if (event.keyCode === 13) {
         // Down arrow key logic
+        console.log("13 selected")
         loginButton.click(); // Click
     }
 }
+
+
+loginButton.addEventListener("click", function(event) {
+    console.log("click emulated");
+
+}); //

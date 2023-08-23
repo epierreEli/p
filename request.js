@@ -65,15 +65,20 @@ function getCurrentDateTime(callback) {
 
 
 function logIn(email, password) {
+  console.log("=============2==================");
+
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://hospitality.ansetech.com/api/auth/local", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
+    console.log("state ", xhr.readyState," : ", xhr.status);
+
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           resolve(JSON.parse(xhr.responseText));
         } else {
+          console.log("errrrrrror",xhr.statusText);
           reject(xhr.statusText);
         }
       }
@@ -82,6 +87,7 @@ function logIn(email, password) {
       reject("Network error");
     };
     var data = JSON.stringify({ email: email, password: password });
+    console.log("presend");
     xhr.send(data);
   });
 }

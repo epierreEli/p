@@ -11,7 +11,10 @@
 <body id="body">
   <p id="useragent">user AGent</p>
   <p id="eventcode">eventcode</p>
-  <div id="error-container">erroore kdbcbbscbbu</div>
+  <pre id="log">pijhfd</pre>
+
+  <img src="http://picsum.photos/200/300">
+  <iframe src="https://www.google.com" frameborder="0" width="100" height="100"></iframe>
   <!-- en tete -->
   <!-- testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttde code event  -->
   <header id="header">
@@ -94,7 +97,7 @@
     </div>
   </div>
 
-  
+
   <!-- settings menu -->
   <div id="settings-container">
     <h1 id="settings-title">Parametres</h1>
@@ -250,12 +253,32 @@
   <script>
 //document.getElementById("useragent").innerHTML = window.navigator.userAgent;
     // showLoadingIndicator();
-    window.onerror = function(message, source, lineno, colno, error) {
-            var errorContainer = document.getElementById("error-container");
-            errorContainer.innerHTML += "<p>Error: " + message + " at line " + lineno + "</p>";
-        };
+    (function () {
+    var old = console.log;
+    var olde = console.error;
+    var logger = document.getElementById('log');
+    console.log = function () {
+      old(...arguments);
+      for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'object') {
+            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+        } else {
+            logger.innerHTML += arguments[i] + '<br />';
+        }
+      }
+    }
 
-
+    console.error = function () {
+      olde(...arguments);
+      for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'object') {
+            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+        } else {
+            logger.innerHTML += arguments[i] + '<br />';
+        }
+      }
+    }
+})();
 
 
     //on get la date et l heure
@@ -289,7 +312,7 @@
 
 
       // Add the event listener using the stored event handler function
-      document.addEventListener("keydown", keydownHandler);
+       document.addEventListener("keydown", keydownHandler);
       showLoadingIndicator();
 
 
@@ -307,7 +330,7 @@
         pass = document.getElementById("password").value;
         login(user, pass);
         // Add the event listener using the stored event handler function
-        document.addEventListener("keydown", keydownHandler);
+        // document.addEventListener("keydown", keydownHandler);
         //location.reload();
 
 

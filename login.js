@@ -32,6 +32,8 @@ function login(user, pass) {
     // "chambre1@snow-chill2.com", "abcd1234"
     // "chambre102@ibisavignoncentregare2.com", "abcd1234"
 
+    console.log("=============1==================");
+   
     logIn(user, pass).then((data) => {
 
         

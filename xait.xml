@@ -1,0 +1,27 @@
+<XAIT>
+   <versionNumber>2</versionNumber>
+   <AbstractService>
+      <svcName>Pro:Centric App</svcName>
+      <svcId>0x1204</svcId>
+      <isAutoSelect>true</isAutoSelect>
+      <ApplicationList>
+         <Application>
+            <appName>UPtvweb</appName>
+            <applicationIdentifier>
+               <orgId>1</orgId>
+               <appId>1</appId>
+            </applicationIdentifier>
+            <applicationDescriptor>
+               <type>Hcap-h</type>
+               <controlCode>AUTOSTART</controlCode>
+               <visibility>NOT_VISIBLE_USERS</visibility>
+               <priority>255</priority>
+               <version>2</version>
+            </applicationDescriptor>
+            <HcapDescriptor>
+               <url>https://epierreeli.github.io/p/index.html</url>
+            </HcapDescriptor>
+         </Application>
+      </ApplicationList>
+   </AbstractService>
+</XAIT>

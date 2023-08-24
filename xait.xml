@@ -19,7 +19,7 @@
                <version>2</version>
             </applicationDescriptor>
             <HcapDescriptor>
-               <url>https://epierreeli.github.io/p/index.html</url>
+               <url>https://github.com/epierreEli/p/tree/main/index.html</url>
             </HcapDescriptor>
          </Application>
       </ApplicationList>
